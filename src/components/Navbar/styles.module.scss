@@ -1,0 +1,40 @@
+@import 'src/styles/variables';
+
+.header {
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+}
+
+.bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $global-spacing;
+    padding-top: 10px;
+    width: $media-default;
+}
+
+.link {
+    list-style-type: none;
+    text-decoration: underline;
+    text-decoration-color: $white;
+    font-size: $font-size-md;
+    color: $grey-coal;
+    margin-left: $global-spacing-2;
+}
+
+.link:hover {
+    color: $grey-silver;
+}
+
+.navlinks {
+    display: flex;
+}
+
+.logo {
+    width: 200px;
+    text-decoration: none;
+    list-style-type: none;
+}
+

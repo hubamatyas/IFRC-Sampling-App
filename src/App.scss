@@ -1,5 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,500;0,600;0,700;0,800;0,900;1,200;1,300&display=swap');
+@import "/src/styles/variables.scss";
+
 .App {
-  text-align: center;
+  text-align: left;
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  font-weight: $base-font-weight;
+  color: $grey-coal;
 }
 
 .App-logo {
