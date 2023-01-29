@@ -1,22 +1,36 @@
 @import "~/src/styles/variables";
 
-
-.intro {
+.element {
     display: flex;
     justify-content: center;
+    text-align: left;
+}
+
+.intro {
     padding: $global-spacing-4 0;
-    height: 400px;
 }
 
 .teaser {
-    display: flex;
-    justify-content: center;
     padding: $global-spacing-4 0;
     background-color: $grey-mist;
-    height: 400px;
 }
 
-.info {
-    justify-content: center;
+.button {
+    padding: $global-spacing 0;
+    width: 10em;
+    border-radius: $full-border-radius;
+    background-color: $primary-color;
+    border: none;
+    
+}
+
+.buttontext {
+    text-decoration: none;
+    font-weight: $base-font-bold;
+    font-size: $font-size-md;
+    color: $white;
+}
+
+#button {
     padding: $global-spacing-4 0;
 }
