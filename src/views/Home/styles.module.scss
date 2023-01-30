@@ -7,36 +7,54 @@
 }
 
 .intro {
-    padding: $global-spacing-4 0;
-    /*background: url('~/src/assets/homepage-bg.png') no-repeat center;
-    color: $white; */
+    padding: $global-spacing-5 0;
+    background: url('~/src/assets/homepage-bg.png') no-repeat center center;
+    color: $white;
 }
 
 .teaser {
     padding: $global-spacing-4 0;
-    background-color: $grey-mist;
 }
 
 .howto {
     padding: $global-spacing-4 0;
+    background-color: $grey-mist;
 }
 
-.button {
+.homeButton {
+    padding: $global-spacing 0;
+    width: 10em;
+    border-radius: $full-border-radius;
+    background-color: $white;
+    border: none;
+}
+
+.homeButtonText {
+    text-decoration: none;
+    font-weight: $base-font-bold;
+    font-size: $font-size-md;
+    color: $primary-color;
+}
+
+.howButton {
     padding: $global-spacing 0;
     width: 10em;
     border-radius: $full-border-radius;
     background-color: $primary-color;
     border: none;
-    
 }
 
-.buttontext {
+.howButtonText {
     text-decoration: none;
     font-weight: $base-font-bold;
     font-size: $font-size-md;
     color: $white;
 }
 
-#button {
-    padding: $global-spacing-4 0;
+#home {
+    padding: $global-spacing-2 0;
+}
+
+#how {
+    padding: $global-spacing-2 0;
 }

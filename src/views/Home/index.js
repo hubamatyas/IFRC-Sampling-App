@@ -9,17 +9,27 @@ const Home = () => (
             <div className={styles.element}>
                 <Section
                     title="IFRC Community Sampling Tool"
-                    text="The IFRC Community Sampling Tool is a web-based application that allows users to create and manage sampling plans for community-based surveys. The tool is designed to be used by IFRC staff and partners to support the implementation of the IFRC Monitoring and Evaluation Framework."
+                    text="The IFRC Community Sampling Tool is a web-based application that allows users to create and manage sampling plans for community-based surveys."
                 />
             </div>
             <div className={styles.element}>
                 <Section
-                    text="The Red Cross Red Crescent runs community surveys in nearly all their programming. It is critical for understanding the views of affected populations, and how effective programmes are. Often times, country-level teams do not have technical expertise in sampling."
+                    text="The tool is designed to be used by IFRC staff and partners to support the implementation of the IFRC Monitoring and Evaluation Framework."
                 />
             </div>
-            <div className={[styles.element]} id={styles.button}>
-                <button className={styles.button}>
-                    <Link to="/sampling" className={styles.buttontext}>Get Started</Link>
+            <div className={styles.element}>
+                <Section
+                    text="The Red Cross Red Crescent runs community surveys in nearly all their programming. It is critical for understanding the views of affected populations, and how effective programmes are."
+                />
+            </div>
+            <div className={styles.element}>
+                <Section
+                    text="It is critical for understanding the views of affected populations, and how effective programmes are. Often times, country-level teams do not have technical expertise in sampling."
+                />
+            </div>
+            <div className={[styles.element]} id={styles.home}>
+                <button className={styles.homeButton}>
+                    <Link to="/sampling" className={styles.homeButtonText}>Get Started</Link>
                 </button>
             </div>
         </div>
@@ -51,9 +61,9 @@ const Home = () => (
                     text="..."
                 />
             </div>
-            <div className={[styles.element]} id={styles.button}>
-                <button className={styles.button}>
-                    <Link to="/sampling" className={styles.buttontext}>Get Started</Link>
+            <div className={[styles.element]} id={styles.how}>
+                <button className={styles.howButton}>
+                    <Link to="/sampling" className={styles.howButtonText}>Get Started</Link>
                 </button>
             </div>
         </div>
