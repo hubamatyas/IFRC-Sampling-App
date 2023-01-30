@@ -8,11 +8,17 @@
 
 .intro {
     padding: $global-spacing-4 0;
+    /*background: url('~/src/assets/homepage-bg.png') no-repeat center;
+    color: $white; */
 }
 
 .teaser {
     padding: $global-spacing-4 0;
     background-color: $grey-mist;
+}
+
+.howto {
+    padding: $global-spacing-4 0;
 }
 
 .button {

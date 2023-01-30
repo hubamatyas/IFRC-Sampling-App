@@ -27,23 +27,34 @@ const Home = () => (
             <div className={styles.element}>
                 <Section
                     title="Features"
-                    text="The features of the tool include:"
+                    text="An intuitive tool that can guide as well as educate the IFRC volunteers via informational sections throughout the sampling process."
                 />
             </div>
             <div className={styles.element}>
                 <Section
-                    text="1) the ability to create sampling plans for community-based surveys; "
+                    subtitle="The features of the tool include:"
+                    text1="1) the ability to create sampling plans for community-based surveys; "
+                    text2="2) the ability to manage sampling plans;"
+                    text3="3) the ability to generate sampling frames;"
+                />
+            </div>
+        </div>
+        <div className={styles.howto}>
+            <div className={styles.element}>
+                <Section
+                    title="How to use the tool"
+                    text="The IFRC Community Sampling Tool is a web-based application that allows users to create and manage sampling plans for community-based surveys."
                 />
             </div>
             <div className={styles.element}>
                 <Section
-                    text="2) the ability to manage sampling plans;"
+                    text="..."
                 />
             </div>
-            <div className={styles.element}>
-                <Section
-                    text="3) the ability to generate sampling frames;"
-                />
+            <div className={[styles.element]} id={styles.button}>
+                <button className={styles.button}>
+                    <Link to="/sampling" className={styles.buttontext}>Get Started</Link>
+                </button>
             </div>
         </div>
     </div>

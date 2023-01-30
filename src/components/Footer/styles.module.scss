@@ -4,17 +4,26 @@
   display: flex;
   justify-content: center;
   background-color: $grey-coal;
-  height: 200px;
 }
 
 .bar {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   width: $media-default;
   font-family: $base-font-family;
   color: $white;
   padding: 1rem;
   text-align: center;
   justify-content: space-around;
+}
+
+@media screen and (max-width: 768px) {
+  .bar {
+    grid-template-columns: 1fr 1fr;
+  }
+  .column {
+    padding: $global-spacing 0;
+  }
 }
 
 a {
