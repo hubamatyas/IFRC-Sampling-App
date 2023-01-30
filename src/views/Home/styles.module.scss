@@ -8,8 +8,9 @@
 
 .intro {
     padding: $global-spacing-5 0;
-    background: url('~/src/assets/homepage-bg.png') no-repeat center center;
+    background: url('~/src/assets/homepage-bg.png') no-repeat;
     color: $white;
+    background-size: cover;
 }
 
 .teaser {
