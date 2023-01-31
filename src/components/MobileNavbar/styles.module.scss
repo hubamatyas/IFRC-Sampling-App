@@ -1,0 +1,23 @@
+@import 'src/styles/variables';
+
+.menu {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    overflow: hidden;
+}
+
+.link {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    font-size: $font-size-heading;
+    color: $grey-coal;
+    padding: $global-spacing-2 0;
+    border-bottom: 3px solid $grey-fog;
+}
+
+.link:hover {
+    color: $grey-silver;
+}

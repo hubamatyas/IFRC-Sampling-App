@@ -3,7 +3,10 @@
 .header {
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
     display: flex;
+    position: sticky;
+    top: 0;
     justify-content: center;
+    background-color: $white;
 }
 
 .bar {
@@ -38,3 +41,32 @@
     list-style-type: none;
 }
 
+.navBtn {
+    display: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.burger {
+    display: none;
+    color: $grey-coal;
+}
+
+@media screen and (max-width: 768px) {
+    .bar {
+        width: 100%;
+    }
+
+    .navBtn {
+        display: flex;
+    }
+
+    .burger {
+        display: flex;
+    }
+
+    .navlinks {
+        display: none;
+    }
+}
