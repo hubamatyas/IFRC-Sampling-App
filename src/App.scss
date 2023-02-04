@@ -9,6 +9,24 @@
   color: $grey-coal;
 }
 
+h1, h2, p, ul {
+  width: $media-default;
+  margin: auto;
+  margin-bottom: $global-spacing-2;
+}
+
+h1 {
+  font-size: $font-size-key-figure;
+  font-weight: $base-font-bold;
+  text-align: center;
+}
+
+h2 {
+  font-size: $font-size-xxl;
+  font-weight: $base-font-bold;
+  text-align: center;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
