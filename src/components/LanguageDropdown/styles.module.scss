@@ -21,3 +21,11 @@
 .lang:hover {
     background-color: $grey-fog;
 }
+
+.active {
+    font-weight: $base-font-bold;
+}
+
+.active:hover {
+    font-weight: $base-font-bold;
+}

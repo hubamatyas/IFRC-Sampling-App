@@ -1,16 +1,31 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import logo from "../../assets/logo.svg";
-import lang from "../../lang.js";
 import { Link } from "react-router-dom";
+import i18nex from "i18next";
 
-const LanguageDropdown = () => (
-    <div className={styles.selection}>
-        <li className={styles.lang}>English</li>
-        <li className={styles.lang}>French</li>
-        <li className={styles.lang}>Spanish</li>
-        <li className={styles.lang}>Arabic</li>
-    </div>
-);
+function LanguageDropdown() {
+    const languages = [
+        { name: "English", code: "en" },
+        { name: "French", code: "fr" },
+        { name: "Spanish", code: "es" },
+        { name: "Arabic", code: "ar" }
+    ];
+
+    console.log(i18nex.language);
+
+    return (
+        <div className={styles.selection}>
+            {languages.map((language, index) => (
+                <Link to="/" key={index}>
+                    <li
+                        className={[styles.lang, i18nex.language === language.code ? styles.active : ""].join(" ")}
+                        onClick={() => i18nex.changeLanguage(language.code)}>
+                        {language.name}
+                    </li>
+                </Link>
+            ))}
+        </div>
+    )
+}
 
 export default LanguageDropdown;

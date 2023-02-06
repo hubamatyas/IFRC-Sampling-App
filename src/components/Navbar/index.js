@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import logo from "../../assets/logo.svg";
 import globe from "../../assets/globe.svg";
+import { useTranslation } from "react-i18next";
 import MobileNavbar from "../MobileNavbar";
 import LanguageDropdown from "../LanguageDropdown";
 import lang from "../../lang.js";
@@ -10,6 +11,8 @@ import { FiMenu } from "react-icons/fi";
 
 
 function Navbar(){
+    const { t } = useTranslation();
+
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [isLangOpen, setIsLangOpen] = useState(false);
     let mobileNav
@@ -36,7 +39,7 @@ function Navbar(){
                     </div>
                     <div className={styles.navlinks}>
                         <Link to="/">
-                            <li className={styles.link}>{lang.menuHome}</li>
+                            <li className={styles.link}>{t('menuHome')}</li>
                         </Link>
                         <Link to="/sampling">
                             <li className={styles.link}>{lang.menuSampling}</li>
@@ -49,7 +52,7 @@ function Navbar(){
                         </Link>
                         <li className={styles.link} onMouseOver={() => setIsLangOpen(true)}>
                             <img src={globe} alt={lang.altLogo} onMouseOut={() => setIsLangOpen(false)}/>
-                            <div onMouseLeave={() => setIsLangOpen(false)}>
+                            <div onClick={() => setIsLangOpen(false)} onMouseLeave={() => setIsLangOpen(false)}>
                                 { langDropdown }
                             </div>
                         </li>
