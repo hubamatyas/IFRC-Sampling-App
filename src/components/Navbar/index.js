@@ -51,7 +51,7 @@ function Navbar(){
                             <li className={styles.link}>{lang.menuAbout}</li>
                         </Link>
                         <li className={styles.link} onMouseOver={() => setIsLangOpen(true)}>
-                            <img src={globe} alt={lang.altGlobe} />
+                            <img src={globe} alt={lang.altGlobe} onMouseOut={() => setIsLangOpen(false)}/>
                             <div onClick={() => setIsLangOpen(false)} onMouseLeave={() => setIsLangOpen(false)}>
                                 { langDropdown }
                             </div>
