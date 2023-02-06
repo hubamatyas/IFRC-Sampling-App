@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import Section from "../../components/Section/index";
 import Button from "../../components/Button/index";
-import { Link } from "react-router-dom";
 import lang from "../../lang.js"
 import { useTranslation } from "react-i18next";
 

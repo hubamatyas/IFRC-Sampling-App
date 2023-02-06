@@ -1,19 +1,5 @@
 @import "~/src/styles/variables";
 
 .section {
-    width: $media-default;
-}
-
-.title {
-    font-size: $font-size-key-figure;
-    font-weight: $base-font-bold;
-    margin-bottom: $global-spacing-2;
-    text-align: center;
-}
-
-.subtitle {
-    font-size: $font-size-lg;
-    font-weight: $base-font-bold;
-    margin-bottom: $global-spacing-2;
-    text-align: center;
+    padding: $global-spacing 0;
 }

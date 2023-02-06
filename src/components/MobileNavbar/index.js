@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import logo from "../../assets/logo.svg";
 import lang from "../../lang.js";
 import { Link } from "react-router-dom";
 import LanguageDropdown from "../LanguageDropdown";
