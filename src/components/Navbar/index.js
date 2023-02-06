@@ -1,18 +1,26 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import logo from "../../assets/logo.svg";
+import globe from "../../assets/globe.svg";
 import MobileNavbar from "../MobileNavbar";
+import LanguageDropdown from "../LanguageDropdown";
 import lang from "../../lang.js";
 import { Link } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
 
 
 function Navbar(){
-    const [isOpen, setIsOpen] = useState(false);
+    const [isNavOpen, setIsNavOpen] = useState(false);
+    const [isLangOpen, setIsLangOpen] = useState(false);
     let mobileNav
+    let langDropdown
 
-    if (isOpen) {
+    if (isNavOpen) {
         mobileNav = ( <MobileNavbar/> )
+    }
+
+    if (isLangOpen) {
+        langDropdown = ( <LanguageDropdown/> )
     }
 
     return (
@@ -39,13 +47,19 @@ function Navbar(){
                         <Link to="/about">
                             <li className={styles.link}>{lang.menuAbout}</li>
                         </Link>
+                        <li className={styles.link} onMouseOver={() => setIsLangOpen(true)}>
+                            <img src={globe} alt={lang.altLogo} onMouseOut={() => setIsLangOpen(false)}/>
+                            <div onMouseLeave={() => setIsLangOpen(false)}>
+                                { langDropdown }
+                            </div>
+                        </li>
                     </div>
-                    <button className={styles.navBtn} onClick={() => setIsOpen(!isOpen)}>
+                    <button className={styles.navBtn} onClick={() => setIsNavOpen(!isNavOpen)}>
                         <FiMenu size={40} className={styles.burger}/>
                     </button>
                 </div>
             </header>
-            <div onClick={() => setIsOpen(false)}>
+            <div onClick={() => setIsNavOpen(false)}>
                 { mobileNav }
             </div>
         </>
