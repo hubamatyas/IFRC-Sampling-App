@@ -3,7 +3,7 @@
 .selection {
     position: absolute;
     top: $navbar-height;
-    background-color: white;
+    background-color: $white;
     border-top: $base-border-width solid $primary-color;
     border-radius: 0 0 $base-border-radius $base-border-radius;
     box-shadow: $base-box-shadow;
@@ -28,4 +28,29 @@
 
 .active:hover {
     font-weight: $base-font-bold;
+}
+
+@media screen and (max-width: 768px) {
+
+    .selection {
+        display: flex;
+        top: 0;
+        position: relative;
+        box-shadow: none;
+        border-top: none;
+    }
+
+    .lang:hover {
+        background-color: $white;
+    }
+
+    .active {
+        font-weight: $base-font-bold;
+        color: $primary-color;
+    }
+    
+    .active:hover {
+        font-weight: $base-font-bold;
+        color: $primary-color;
+    }
 }

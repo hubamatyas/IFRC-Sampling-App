@@ -3,6 +3,7 @@ import styles from "./styles.module.scss";
 import logo from "../../assets/logo.svg";
 import lang from "../../lang.js";
 import { Link } from "react-router-dom";
+import LanguageDropdown from "../LanguageDropdown";
 
 const MobileNavbar = () => (
     <div className={styles.menu}>
@@ -18,6 +19,9 @@ const MobileNavbar = () => (
         <Link to="/about">
             <li className={styles.link}>{lang.menuAbout}</li>
         </Link>
+        <li className={styles.link}>
+            <LanguageDropdown />
+        </li>
     </div>
 );
 
