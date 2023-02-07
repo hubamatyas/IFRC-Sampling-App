@@ -1,0 +1,20 @@
+
+{
+    "question": {
+        "id": 0,
+        "full_name": "Do you have a list frame?"
+    },
+
+    "answers": [
+      {
+        "state_id": "0",
+        "answer": "Yes",
+        "child_id": "296"
+      },
+      {
+        "state_id": "0",
+        "answer": "No",
+        "child_id": "531"
+      }
+    ]
+  }
