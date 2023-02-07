@@ -1,0 +1,12 @@
+import lang from '../lang';
+
+// export * from './common';
+// export * from './user';
+// export * from './country';
+// export * from './project';
+// export * from './risk';
+// export * from './eru';
+// export * from './event';
+// export * from './dref';
+
+export type Strings = typeof lang;

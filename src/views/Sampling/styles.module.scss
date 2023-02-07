@@ -1,0 +1,17 @@
+@import "~/src/styles/variables";
+
+.intro {
+    padding: $global-spacing-5 0;
+    background: url('~/src/assets/homepage-bg.png') no-repeat;
+    color: $white;
+    background-size: cover;
+}
+
+.features {
+    padding: $global-spacing-5 0;
+}
+
+.questionTree {
+    padding: $global-spacing-5 0;
+    background-color: $grey-mist;
+}
