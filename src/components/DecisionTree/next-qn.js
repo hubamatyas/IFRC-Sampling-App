@@ -1,9 +1,10 @@
 import React from "react";
-import QuestionsCards from "./QuestionsCards";
+import QuestionsCards from "./qn-cards";
 // import "./styles/main.scss";
-import {Calculator} from "./Calculator";
+import {Calculator} from "../Calculators/simple-random";
 import Button from "../Button/index";
-import Terminology from "./Terminology";
+import Terminology from "../Terminology";
+import styles from "./styles.module.scss";
 
 
 // the current question to answer
@@ -31,12 +32,7 @@ const Question = ( {setUserAnswers, userAnswers} ) => {
       <div>
         <br></br>
         <p><Terminology word={userAnswers}/></p>
-        <div style={{
-          display:"flex",
-          justifyContent: 'center', 
-          alignItems: 'center',
-          flexDirection: 'row' 
-        }}>
+        <div className={styles.answerButtons}>
           {ansButtons}
         </div>
       </div>

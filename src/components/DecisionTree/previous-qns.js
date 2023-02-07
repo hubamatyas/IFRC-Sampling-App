@@ -1,6 +1,7 @@
-import QuestionsCards from "./QuestionsCards";
+import QuestionsCards from "./qn-cards";
 import Button from "../Button/index";
-import Terminology from "./Terminology";
+import Terminology from "../Terminology";
+import styles from "./styles.module.scss";
 
 // return the question cards that have been answered
 const UserAnswer = ( {userAnswers} ) => {
@@ -13,12 +14,7 @@ const UserAnswer = ( {userAnswers} ) => {
       <div key={dictkey}>
         <br></br>
         <p><Terminology word={dictkey}/></p>
-        <div style={{
-          display:"flex",
-          justifyContent: 'center', 
-          alignItems: 'center',
-          flexDirection: 'row' 
-        }}>
+        <div className={styles.answerButtons}>
           <Button 
             variant={"primary"}>
             {(QuestionsCards[dictkey][1][userAnswers.charAt(i)])}
@@ -32,4 +28,5 @@ const UserAnswer = ( {userAnswers} ) => {
     <div>{quescards}</div>
   );
 };
+
 export default UserAnswer;

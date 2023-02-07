@@ -1,8 +1,8 @@
-import "./styles.css";
 import React from "react";
-import Question from "./Question";
-import UserAnswer from "./UserAnswer";
+import Question from "./next-qn";
+import UserAnswer from "./previous-qns";
 import Button from "../Button/index";
+import styles from "./styles.module.scss";
 import lang from "../../lang.js"
 
 export default function DecisionTree() {

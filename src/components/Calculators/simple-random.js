@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import NumberInput from "../NumberInput";
 import Button from "../Button/index";
-import Terminology from "./Terminology";
+import Terminology from "../Terminology";
+import styles from "./styles.module.scss";
 
 export const Calculator = () => {
 
@@ -36,13 +37,9 @@ export const Calculator = () => {
     return (
         <div>
           <br></br>
-          <p style={{ fontWeight: 'bold', fontSize: '25px' }}> Sample size Calculator</p>
-          <div style={{
-          display:"flex",
-          justifyContent: 'center', 
-          alignItems: 'center' ,
-          flexDirection: 'column' 
-            }}>
+          <h1>Simple Random Sampling</h1>
+          <h2 style={{ fontWeight: 'bold', fontSize: '25px' }}> Sample Size Calculator</h2>
+          <div className={styles.formInputs}>
           <NumberInput
               label="Population Size:"
               type="number"
@@ -85,8 +82,8 @@ export const Calculator = () => {
           <br></br>
           </div>
 
-          <p style={{ fontWeight: 'bold', fontSize: '25px' }}>Sample size:</p>
-        <h id="sampleSize" style={{ fontWeight: 'bold', fontSize: '35px',color: '#f5333f'  }}>{sampleSize}</h>
+          <p className={styles.sampleSizeText}>Sample size:</p>
+        <h className={styles.sampleSizeNumber}>{sampleSize}</h>
         </div>
       );
     

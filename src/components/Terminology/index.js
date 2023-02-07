@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {BsInfoCircle} from 'react-icons/bs';
-import Explainations from './Explainations';
-import QuestionsCards from "./QuestionsCards";
-//import "./styles.css";
+import Explainations from './explainations';
+import QuestionsCards from "../DecisionTree/qn-cards";
+import styles from "./styles.module.scss";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 export default function Terminology({word}) {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -21,17 +21,16 @@ export default function Terminology({word}) {
 
   return (
     <>
-      <b className='terminology' variant="primary" onClick={handleShow} style={{cursor:'pointer'}}>
+      <b className={styles.term} variant="primary" onClick={handleShow} style={{cursor:'pointer'}}>
         {word}
         <BsInfoCircle />
       </b>
-      
 
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title style={{color:"#f5333f"}}>{word}</Offcanvas.Title>
+          <Offcanvas.Title className={styles.offcanvasTitle}>{word}</Offcanvas.Title>
         </Offcanvas.Header>
-        <Offcanvas.Body>
+        <Offcanvas.Body className={styles.offcanvasBody}>
           {Explainations[key]}
         </Offcanvas.Body>
       </Offcanvas>

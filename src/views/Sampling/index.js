@@ -2,9 +2,8 @@ import React from "react";
 import styles from "./styles.module.scss";
 // import lang from "../../lang.js"
 // import { useTranslation } from "react-i18next";
-import "./styles.css";
 import DecisionTree from "../../components/DecisionTree/index";
-import Terminology from "../../components/DecisionTree/Terminology.js";
+import Terminology from "../../components/Terminology/index.js";
 
 export default function App() {
 
@@ -22,7 +21,7 @@ export default function App() {
     </div>
 
       <br/>
-        <DecisionTree/>
+        <DecisionTree />
     </div>
   );
 }
