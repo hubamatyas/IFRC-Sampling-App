@@ -43,7 +43,10 @@ export default function DecisionTree() {
         <div >
             <h1>Surveying Tool</h1>
             <br/>
-
+            {/* {userAnswers[1].id}
+            {userAnswers[1].name}
+            {userAnswers[1].parent_id}
+            {userAnswers[1].description} */}
             {userAnswers.map(({id,name,parent_id,description},index)=>{
                 return(
                 <div key={index}>
