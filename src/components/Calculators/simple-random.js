@@ -35,7 +35,7 @@ export const Calculator = () => {
     };
 
     return (
-        <div>
+        <div className={styles.calculatorContainer}>
           <br></br>
           <h1>Simple Random Sampling</h1>
           <h2 style={{ fontWeight: 'bold', fontSize: '25px' }}> Sample Size Calculator</h2>
@@ -82,7 +82,7 @@ export const Calculator = () => {
           </div>
 
           <p className={styles.sampleSizeText}>Sample size:</p>
-        <h className={styles.sampleSizeNumber}>{sampleSize}</h>
+        <h1 className={styles.sampleSizeNumber}>{sampleSize}</h1>
         </div>
       );
     

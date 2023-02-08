@@ -32,7 +32,8 @@ export default function Terminology({word}) {
           <Offcanvas.Title className={styles.offcanvasTitle}>{word}</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body className={styles.offcanvasBody}>
-          {Explainations[key]}
+            {Explainations[key]}
+            <br></br>
         </Offcanvas.Body>
       </Offcanvas>
     </>

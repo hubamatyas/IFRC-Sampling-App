@@ -31,7 +31,7 @@ const Question = ( {setUserAnswers, userAnswers} ) => {
     return (
       <div>
         <br></br>
-        <p><Terminology word={userAnswers}/></p>
+        <p className={styles.questionText}><Terminology word={userAnswers}/></p>
         <div className={styles.answerButtons}>
           {ansButtons}
         </div>

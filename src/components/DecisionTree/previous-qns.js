@@ -13,7 +13,7 @@ const UserAnswer = ( {userAnswers} ) => {
     quescards.push(
       <div key={dictkey}>
         <br></br>
-        <p><Terminology word={dictkey}/></p>
+        <p className={styles.questionText}><Terminology word={dictkey}/></p>
         <div className={styles.answerButtons}>
           <Button 
             variant={"primary"}>
