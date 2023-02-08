@@ -40,46 +40,45 @@ export const Calculator = () => {
           <h1>Simple Random Sampling</h1>
           <h2 style={{ fontWeight: 'bold', fontSize: '25px' }}> Sample Size Calculator</h2>
           <div className={styles.formInputs}>
-          <NumberInput
-              label="Population Size:"
-              type="number"
-              id="population"
-              value={population}
-              onChange={e => setPopulation(e.target.value)}
-              autoFocus
-          >
-          </NumberInput>
-          <br></br>
-          <NumberInput
-              label={<Terminology word="Confidence Level"/>}
-              type="number"
-              id="confidencelevel"
-              value={confidenceLevel}
-              onChange={e => setConfidenceLevel(e.target.value)}
-              autoFocus
-          >
-          </NumberInput> 
-          <br></br>
-          <NumberInput
-              label={<Terminology word="Margin of Error"/>}
-              type="number"
-              id="MarginofError"
-              value={marginOfError}
-              onChange={e => setMarginOfError(e.target.value)}
-              autoFocus
-          >
-          </NumberInput> 
-          
-          <br></br>
-          
-          <Button
-            variant={"secondary"}
-            onClick={calculateSampleSize}
-                
-          >
-            SUBMIT
-          </Button>
-          <br></br>
+            <NumberInput
+                label="Population Size:"
+                type="number"
+                id="population"
+                value={population}
+                onChange={e => setPopulation(e.target.value)}
+                autoFocus
+            >
+            </NumberInput>
+            <br></br>
+            <NumberInput
+                label={<Terminology word="Confidence Level"/>}
+                type="number"
+                id="confidencelevel"
+                value={confidenceLevel}
+                onChange={e => setConfidenceLevel(e.target.value)}
+                autoFocus
+            >
+            </NumberInput> 
+            <br></br>
+            <NumberInput
+                label={<Terminology word="Margin of Error"/>}
+                type="number"
+                id="MarginofError"
+                value={marginOfError}
+                onChange={e => setMarginOfError(e.target.value)}
+                autoFocus
+            >
+            </NumberInput> 
+            
+            <br></br>
+            
+            <Button
+              variant={"secondary"}
+              onClick={calculateSampleSize}
+            >
+              SUBMIT
+            </Button>
+            <br></br>
           </div>
 
           <p className={styles.sampleSizeText}>Sample size:</p>

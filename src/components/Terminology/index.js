@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import {BsInfoCircle} from 'react-icons/bs';
 import Explainations from './explainations';
 import QuestionsCards from "../DecisionTree/qn-cards";
 import styles from "./styles.module.scss";
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 export default function Terminology({word}) {
