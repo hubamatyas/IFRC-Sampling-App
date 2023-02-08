@@ -1,5 +1,4 @@
-@import '~src/styles/settings/variables';
-
+@import '../../styles/settings/variables';
 .term:hover {
   color: $primary-color;
 }
@@ -9,5 +8,5 @@
 }
 
 .offcanvasBody {
-  text-align: left;
+  text-align: left !important;
 }
