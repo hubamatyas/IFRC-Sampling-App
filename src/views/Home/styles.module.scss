@@ -1,11 +1,5 @@
 @import "~/src/styles/variables";
 
-.element {
-    display: flex;
-    justify-content: center;
-    text-align: left;
-}
-
 .intro {
     padding: $global-spacing-5 0;
     background: url('~/src/assets/homepage-bg.png') no-repeat;
@@ -13,49 +7,11 @@
     background-size: cover;
 }
 
-.teaser {
-    padding: $global-spacing-4 0;
+.features {
+    padding: $global-spacing-5 0;
 }
 
 .howto {
-    padding: $global-spacing-4 0;
+    padding: $global-spacing-5 0;
     background-color: $grey-mist;
-}
-
-.homeButton {
-    padding: $global-spacing 0;
-    width: 10em;
-    border-radius: $full-border-radius;
-    background-color: $white;
-    border: none;
-}
-
-.homeButtonText {
-    text-decoration: none;
-    font-weight: $base-font-bold;
-    font-size: $font-size-md;
-    color: $primary-color;
-}
-
-.howButton {
-    padding: $global-spacing 0;
-    width: 10em;
-    border-radius: $full-border-radius;
-    background-color: $primary-color;
-    border: none;
-}
-
-.howButtonText {
-    text-decoration: none;
-    font-weight: $base-font-bold;
-    font-size: $font-size-md;
-    color: $white;
-}
-
-#home {
-    padding: $global-spacing-2 0;
-}
-
-#how {
-    padding: $global-spacing-2 0;
 }

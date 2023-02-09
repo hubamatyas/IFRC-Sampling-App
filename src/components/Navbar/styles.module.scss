@@ -2,10 +2,9 @@
 
 .header {
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
-    display: flex;
     position: sticky;
     top: 0;
-    justify-content: center;
+    height: $navbar-height;
     background-color: $white;
 }
 
@@ -16,6 +15,7 @@
     padding: $global-spacing;
     padding-top: 10px;
     width: $media-default;
+    margin: auto;
 }
 
 .link {
@@ -51,6 +51,10 @@
 .burger {
     display: none;
     color: $grey-coal;
+}
+
+img:hover {
+    opacity: 0.8;
 }
 
 @media screen and (max-width: 768px) {

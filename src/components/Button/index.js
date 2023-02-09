@@ -1,30 +1,32 @@
 import React from "react";
 import styles from "./styles.module.scss";
+import { Link } from "react-router-dom";
 
-function Button({children, ...props}) {
+function Button({text, link, style}) {
+    let buttonClass
+    let textClass
+
+    switch (style) {
+        case "inverse":
+            buttonClass = styles.inverse
+            textClass = styles.inverseText
+            break;
+        default:
+            buttonClass = styles.default
+            textClass = styles.defaultText
+            break;
+    }
+
     return (
-        <button
-            tabIndex="0"
-            className={`button button--${props.size} button--${props.type}`}
-            {...props}
-        >
-            {props.icon === 'download' ? (
-                <span className='f-icon-download font-size-sm spacing-half-r'></span>
-            ) : null}
-            {props.icon === 'back' ? (
-                <span className='f-icon-chevron-left font-size-sm spacing-half-r'></span>
-            ) : null}
-            {props.icon === 'down' ? (
-                <span className='underline f-icon-arrow-down'></span>
-            ) : null}
-
-            {props.text}
-
-            {props.icon === 'dropdown' ? (
-                <span className="f-icon-sm-triangle-down spacing-half-l"></span>
-            ) : null}
-
-        </button>
+        <div className={styles.button}>
+            <button className={ buttonClass }>
+                <Link
+                    className={ textClass }
+                    to={ link }>
+                    { text }
+                </Link>
+            </button>
+        </div>
     );
 }
 

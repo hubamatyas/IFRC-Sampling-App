@@ -1,73 +1,51 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import Section from "../../components/Section/index";
-import { Link } from "react-router-dom";
+import Button from "../../components/Button/index";
+import lang from "../../lang.js"
+import { useTranslation } from "react-i18next";
 
-const Home = () => (
-    <div className={styles.container}>
-        <div className={styles.intro}>
-            <div className={styles.element}>
-                <Section
-                    title="IFRC Community Sampling Tool"
-                    text="The IFRC Community Sampling Tool is a web-based application that allows users to create and manage sampling plans for community-based surveys."
+
+function Home(){
+    const { t } = useTranslation();
+    const userAction = async () => {
+        const response = await fetch('http://127.0.0.1:8000/api/decision-tree/2/');
+        const myJson = await response.json(); //extract JSON from the http response
+        // do something with myJson
+        console.log(myJson)
+      }
+    return (
+        <>
+            <div className={styles.intro} onClick={() => userAction()}>
+                <h1> {t('headerAppName')} </h1>
+                <p> {lang.aboutGoal} </p>
+                <p> {lang.aboutRedCross} </p>
+                <p> {lang.aboutDetail} </p>
+                <Button
+                    text={lang.buttonGetStarted}
+                    link="/sampling"
+                    style="default"
                 />
             </div>
-            <div className={styles.element}>
-                <Section
-                    text="The tool is designed to be used by IFRC staff and partners to support the implementation of the IFRC Monitoring and Evaluation Framework."
+            <div className={styles.features}>
+                <h1> {lang.headerFeatures} </h1>
+                <p> {lang.aboutFeatures} </p>
+                <h2> {lang.aboutFeaturesSubheader} </h2>
+                <ul>
+                    <li> {lang.aboutFeature1} </li>
+                    <li> {lang.aboutFeature2} </li>
+                    <li> {lang.aboutFeature3} </li>
+                </ul>
+            </div>
+            <div className={styles.howto}>
+                <h1> {lang.headerHowTo} </h1>
+                <Button
+                        text={lang.buttonGetStarted}
+                        link="/sampling"
+                        style="inverse"
                 />
             </div>
-            <div className={styles.element}>
-                <Section
-                    text="The Red Cross Red Crescent runs community surveys in nearly all their programming. It is critical for understanding the views of affected populations, and how effective programmes are."
-                />
-            </div>
-            <div className={styles.element}>
-                <Section
-                    text="It is critical for understanding the views of affected populations, and how effective programmes are. Often times, country-level teams do not have technical expertise in sampling."
-                />
-            </div>
-            <div className={[styles.element]} id={styles.home}>
-                <button className={styles.homeButton}>
-                    <Link to="/sampling" className={styles.homeButtonText}>Get Started</Link>
-                </button>
-            </div>
-        </div>
-        <div className={styles.teaser}>
-            <div className={styles.element}>
-                <Section
-                    title="Features"
-                    text="An intuitive tool that can guide as well as educate the IFRC volunteers via informational sections throughout the sampling process."
-                />
-            </div>
-            <div className={styles.element}>
-                <Section
-                    subtitle="The features of the tool include:"
-                    text1="1) the ability to create sampling plans for community-based surveys; "
-                    text2="2) the ability to manage sampling plans;"
-                    text3="3) the ability to generate sampling frames;"
-                />
-            </div>
-        </div>
-        <div className={styles.howto}>
-            <div className={styles.element}>
-                <Section
-                    title="How to use the tool"
-                    text="The IFRC Community Sampling Tool is a web-based application that allows users to create and manage sampling plans for community-based surveys."
-                />
-            </div>
-            <div className={styles.element}>
-                <Section
-                    text="..."
-                />
-            </div>
-            <div className={[styles.element]} id={styles.how}>
-                <button className={styles.howButton}>
-                    <Link to="/sampling" className={styles.howButtonText}>Get Started</Link>
-                </button>
-            </div>
-        </div>
-    </div>
-);
+        </>
+    );
+}
 
 export default Home;

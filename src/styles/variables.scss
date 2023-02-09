@@ -101,13 +101,13 @@
    
    /* Border radius */
    
-   $base-border-radius: 0.25rem;
+   $base-border-radius: 0.4rem;
    $full-border-radius: 100vh;
    $input-rounded-radius: 1.8rem;
    
    $base-border-color: rgba(#000, 0.1);
    $base-border-color--light: rgba(#000, 0.05);
-   $base-border-width: 1px;
+   $base-border-width: 5px;
    $border-width-errored-input: 4px;
    
    
@@ -132,6 +132,7 @@
    /* Sizing */
    
    $page-header-y: 0 !default;
+   $navbar-height: 3.5rem;
    
    /* Spacing */
    
