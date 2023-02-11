@@ -6,7 +6,7 @@ class DecisionTree extends React.Component {
     constructor(props) {
       super(props);
         this.state = {
-            questionCards: [],
+            questionCards: [1],
         };
         this.fetchState = this.loadQuestionCards.bind(this);
     }
@@ -20,13 +20,18 @@ class DecisionTree extends React.Component {
         this.setState({questionCards: [...this.state.questionCards, questionCard]});
     }
 
+    handleOption = (option) => {
+        console.log('Decision tree - parent', option);
+        this.setState({questionCards: [...this.state.questionCards, option]});
+    }
+
     render() {
-        const test = <QuestionCard id={1} />;
         return (
             <div className={styles.intro}>
                 <div>
-                        <QuestionCard id={1} />
-                        <QuestionCard id={2} />                        
+                        {this.state.questionCards.map((questionCard) => (
+                            <QuestionCard id={questionCard} onSelectOption={this.handleOption} />
+                        ))}
                 </div>
                 {/* <h1> {question} </h1>
                 <ul>
