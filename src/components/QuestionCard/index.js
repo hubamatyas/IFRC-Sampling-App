@@ -10,6 +10,7 @@ class QuestionCard extends React.Component {
             parent_id: null,
             description: '',
             options: [],
+            selected_option: null,
         };
         this.fetchState = this.fetchState.bind(this);
         this.handleOptionClick = this.handleOptionClick.bind(this);
@@ -34,15 +35,17 @@ class QuestionCard extends React.Component {
 
     // pass child_state to parent (i.e., DecisionTree) to render next question card
     handleOptionClick(child_state) {
-        console.log(child_state);
-        this.props.onSelectOption(child_state);
+        this.setState({selected_option: child_state},
+            () => this.props.onSelectOption(
+                this.state.selected_option,
+                this.state.id
+            )
+        );
     }
 
     render() {
         const question = this.state.question;
         const options = this.state.options;
-        console.log(question);
-        console.log(options);
         return (
             <div className={styles.intro}>
                 <h1> {question} </h1>
