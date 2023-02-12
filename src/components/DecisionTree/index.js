@@ -6,7 +6,7 @@ class DecisionTree extends React.Component {
     constructor(props) {
       super(props);
         this.state = {
-            // initial state is 1 so API call is made to get first question card
+            // initial state is [1] so API call is made to get first question card
             questionCards: [1],
         };
         this.fetchState = this.loadQuestionCards.bind(this);
@@ -35,9 +35,14 @@ class DecisionTree extends React.Component {
     render() {
         return (
             <div>
-                    {this.state.questionCards.map((questionCard) => (
-                        <QuestionCard key={questionCard} id={questionCard} onSelectOption={this.handleOption} />
-                    ))}
+                {this.state.questionCards.map((questionCard) => (
+                    <div className={styles.card}>
+                        <QuestionCard
+                            key={questionCard}
+                            id={questionCard}
+                            onSelectOption={this.handleOption}/>
+                    </div>
+                ))}
             </div>
         );
     }
