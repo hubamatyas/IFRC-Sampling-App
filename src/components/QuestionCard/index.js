@@ -22,7 +22,7 @@ class QuestionCard extends React.Component {
     }
 
     fetchState() {
-        fetch('http://127.0.0.1:8000/api/decision-tree/'+this.state.id+'/')
+        fetch('https://ifrc-sampling.azurewebsites.net/api/decision-tree/'+this.state.id+'/')
             .then(response => response.json())
             .then(data => 
                 this.setState({ 
