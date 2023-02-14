@@ -1,106 +1,51 @@
-import React, { useEffect } from "react";
-import Question from "./next-qn";
-import UserAnswer from "./previous-qns";
-import Button from "../Button/index";
+import React,{useEffect} from "react";
 import styles from "./styles.module.scss";
-import lang from "../../lang.js"
+import QuestionCard from "../QuestionCard";
 
-export default function DecisionTree() {
+class DecisionTree extends React.Component {
+    constructor(props) {
+      super(props);
+        this.state = {
+            // initial state is [1] so API call is made to get first question card
+            questionCards: [1],
+        };
+        this.fetchState = this.loadQuestionCards.bind(this);
+    }
 
-  const [userAnswers, setUserAnswers] = React.useState([{
-    "id": 0,
-    "name": "Do you have a list frame?",
-    "parent_id": null,
-    "description": "Some text"
-}]);
+    componentDidMount() {
+        this.loadQuestionCards();
+    }
 
-//   const restart = () => {
-//     setUserAnswers(setUserAnswers(userAnswers[0]));
-//   }; 
+    loadQuestionCards(questionCard) {
+        // add questionCard to questionCards in state
+        //this.setState({questionCards: [...this.state.questionCards, questionCard]});
+    }
 
-//   const goPrev =() => {
-//     if (userAnswers.length>1){
-//       setUserAnswers(userAnswers.slice(0, -1))
-//     }
-//   }
+    handleOption = (option, id) => {
+        // handles case when user goes back to previous question card
+        var questionCards = this.state.questionCards;
+        if (questionCards.includes(id)) {
+            var index = questionCards.indexOf(id);
+            questionCards.splice(index + 1, questionCards.length - index);
+        }
 
+        this.setState({questionCards: [...this.state.questionCards, option]});
+    }
 
-    useEffect( () => 
-  {
-    console.log('Fetching...')
-
-    fetch('http://127.0.0.1:8000/api/state-list/')
-    .then(response => response.json())
-    .then(data => 
-      setUserAnswers(
-        data
-      ))  
-  },[])
-  
-
-
-    return (
-        <div >
-            <h1>Surveying Tool</h1>
-            <br/>
-            {/* {userAnswers[1].id}
-            {userAnswers[1].name}
-            {userAnswers[1].parent_id}
-            {userAnswers[1].description} */}
-            {userAnswers.map(({id,name,parent_id,description},index)=>{
-                return(
-                <div key={index}>
-                    <li>{id}</li>
-                    <li>{name}</li>
-                    <li>{parent_id}</li>
-                    <li>{description}</li>
-                    <br></br>
-                </div>
-                )
-            })}
-            </div> 
-        )
-            
-    
-
-//   return (
-//     <div >
-//         <h1>Surveying Tool</h1>
-//         <br/>
-
-//         <UserAnswer userAnswers={userAnswers} />
-
-//         <Question
-//             setUserAnswers={setUserAnswers}
-//             userAnswers={userAnswers}
-//         /> 
-
-//         <hr></hr>
-//         <div style={{
-//           display:"flex",
-//           justifyContent: 'center', 
-//           alignItems: 'center',
-//           flexDirection: 'row' 
-//         }}>
-//             <Button
-//                 variant={"secondary"}
-//                 onClick={goPrev}
-//             >
-//                 previous question
-//             </Button>
-
-//             <Button
-//                 variant={"secondary"}
-//                 onClick={restart}
-//             >
-//                 Restart
-//             </Button>
-//         </div>
-//         <br/>
-//     </div>
-  
-//   );
-
-
-
+    render() {
+        return (
+            <div>
+                {this.state.questionCards.map((questionCard) => (
+                    <div className={styles.card}>
+                        <QuestionCard
+                            key={questionCard}
+                            id={questionCard}
+                            onSelectOption={this.handleOption}/>
+                    </div>
+                ))}
+            </div>
+        );
+    }
 }
+
+export default DecisionTree;

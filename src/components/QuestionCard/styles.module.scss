@@ -1,0 +1,42 @@
+@import "~/src/styles/variables";
+
+h3 {
+    text-align: center;
+}
+
+.card {
+    background-color: $white;
+    border-radius: $card-border-radius;
+    box-shadow: $base-box-shadow;
+    padding: 20px;
+    width: max-content;
+    margin: auto;
+}
+
+.answers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.optionBtn {
+    background-color: $grey-cloud;
+    border: none;
+    border-radius: $card-border-radius;
+    color: $white;
+    cursor: pointer;
+    font-size: $base-font-size;
+    font-weight: $base-font-bold;
+    margin: 0 10px;
+    padding: 10px;
+    width: 150px;
+    text-align: center;
+}
+
+.optionBtn:hover {
+    background-color: $primary-color;
+}
+
+.isActive {
+    background-color: $primary-color;
+}
