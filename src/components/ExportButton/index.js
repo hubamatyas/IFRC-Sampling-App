@@ -7,16 +7,15 @@ const MyDoc = ({questionCards}) =>{
   const [names, setNames] = React.useState([]);
   console.log("export question names:"+names)
 
+
   const fetchState = async(id) => {
-      
-      
+    await
       fetch('https://ifrc-sampling.azurewebsites.net/api/decision-tree/'+id+'/')
       .then(response => response.json())
       .then(data =>
           {setNames(names => [...names, data.state.name])
           console.log("Fetched question id:"+id)}
       )
-
       .catch(e => {
         console.error(e);
       })
@@ -37,16 +36,6 @@ const MyDoc = ({questionCards}) =>{
     fetchAll();
     
   },[questionCards])
-
-
-  //  {
-  //   for (let id of questionCards) {
-  //     await fetchState(id);
-  //   }
-  //   return names
-  //   // questionCards.reduce((p, id) => p.then(fetchState(id)), Promise.resolve())
-  //   // .then(resetNames)
-  // },[questionCards])
 
 
 
