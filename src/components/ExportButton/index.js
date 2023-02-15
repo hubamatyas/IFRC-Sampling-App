@@ -5,27 +5,48 @@ import React,{useEffect} from "react";
 const MyDoc = ({questionCards}) =>{
   console.log("export questions:"+questionCards)
   const [names, setNames] = React.useState([]);
-  console.log("export questions:"+names)
+  console.log("export question names:"+names)
 
   const fetchState = async(id) => {
       
-      console.log("Fetching question id:"+id)
+      
       fetch('https://ifrc-sampling.azurewebsites.net/api/decision-tree/'+id+'/')
       .then(response => response.json())
       .then(data =>
-          setNames(names => [...names, data.state.name])
-      );
+          {setNames(names => [...names, data.state.name])
+          console.log("Fetched question id:"+id)}
+      )
+
+      .catch(e => {
+        console.error(e);
+      })
   }
 
   async function resetNames() {
     setNames([]);
   }
 
-  useEffect( () =>
-  { 
-    questionCards.reduce((p, id) => p.then(fetchState(id)), Promise.resolve())
-    .then(resetNames)
+  useEffect( () =>{
+     const fetchAll = async() => {
+      await resetNames();
+      for (const id of questionCards) {
+        await fetchState(id);
+      }
+    }
+
+    fetchAll();
+    
   },[questionCards])
+
+
+  //  {
+  //   for (let id of questionCards) {
+  //     await fetchState(id);
+  //   }
+  //   return names
+  //   // questionCards.reduce((p, id) => p.then(fetchState(id)), Promise.resolve())
+  //   // .then(resetNames)
+  // },[questionCards])
 
 
 
@@ -33,6 +54,7 @@ const MyDoc = ({questionCards}) =>{
  <Document>
   <Page>
       <Text>Survey tool export</Text>
+      <Text>------------------</Text>
       {names.map((name,i) => (
         <Text key={i}>{name}</Text>
       ))}
@@ -53,7 +75,7 @@ const App = ({questionCards}) => {
     <div>
 
   <a href={instance.url} download="test.pdf" >
-    <button onClick={updateInstance}>
+    <button onClick={()=>{updateInstance()}}>
       Export
     </button>
   </a>
