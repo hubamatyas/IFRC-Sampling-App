@@ -6,11 +6,11 @@ class QuestionCard extends React.Component {
     constructor(props) {
       super(props);
         this.state = {
-            question: '',
-            id: props.id,
-            parent_id: null,
-            description: '',
             options: [],
+            id: props.id,
+            question: '',
+            description: '',
+            parent_id: null,
             selected_option: null,
         };
         this.fetchState = this.fetchState.bind(this);
@@ -52,6 +52,7 @@ class QuestionCard extends React.Component {
                 <h2> {question} </h2>
                 <div className={styles.answers}>
                     {options.map((option) => (
+
                         <button 
                             key={option.id}
                             className={_cs(
@@ -61,6 +62,7 @@ class QuestionCard extends React.Component {
                             onClick={() => this.handleOptionClick(option.child_state)}>
                             {option.option}
                         </button>
+                        
                     ))}
                 </div>
             </div>
