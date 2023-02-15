@@ -1,6 +1,7 @@
 import React,{useEffect} from "react";
 import styles from "./styles.module.scss";
 import QuestionCard from "../QuestionCard";
+import ExportButton from "../ExportButton";
 
 class DecisionTree extends React.Component {
     constructor(props) {
@@ -43,6 +44,9 @@ class DecisionTree extends React.Component {
                             onSelectOption={this.handleOption}/>
                     </div>
                 ))}
+
+                <ExportButton questionCards={this.state.questionCards}/>
+
             </div>
         );
     }
