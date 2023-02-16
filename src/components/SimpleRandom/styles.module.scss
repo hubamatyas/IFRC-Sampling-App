@@ -1,0 +1,73 @@
+@import "~/src/styles/variables";
+
+h3 {
+    text-align: center;
+}
+
+.card {
+    background-color: $grey-mist;
+    border-radius: $card-border-radius;
+    box-shadow: $base-box-shadow;
+    padding: 20px;
+    width: max-content;
+    margin: auto;
+    margin-bottom: 100px;
+}
+
+p {
+}
+
+.result {
+    background-color: $grey-mist;
+    border-radius: $card-border-radius;
+    box-shadow: $base-box-shadow;
+    width: 60%;
+    margin: auto;
+    padding: 20px 0;
+}
+
+.inputFields {
+    // grid template columns
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;    
+    margin: 20px 0;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    margin: 10px
+}
+
+input, select {
+    border: none;
+    border-radius: $base-border-radius;
+    padding: 7px;
+    background-color: $grey-titanium;
+    width: 300px;
+}
+
+.btn {
+    background-color: $primary-color;
+    border: none;
+    border-radius: $card-border-radius;
+    color: $white;
+    cursor: pointer;
+    font-size: $base-font-size;
+    font-weight: $base-font-bold;
+    margin: 0 10px;
+    padding: 10px;
+    width: 150px;
+    text-align: center;
+}
+
+.calculate {
+    margin: 20px 0 10px 0;
+}
+
+@media screen and (max-width: $media-small) {
+    .inputFields {
+        grid-template-columns: 1fr;
+    }
+}
