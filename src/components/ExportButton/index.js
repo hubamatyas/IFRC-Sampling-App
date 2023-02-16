@@ -4,16 +4,17 @@ import React,{useEffect} from "react";
 
 const MyDoc = ({questionCards}) =>{
   console.log("export questions:"+questionCards)
-  const [names, setNames] = React.useState([]);
-  console.log("export question names:"+names)
+  // const [names, setNames] = React.useState([]);
+  const names = React.useRef([]);
+  console.log("export question names:"+names.current)
 
+  const [qnames, setQnames] = React.useState([]);
 
   const fetchState = async(id) => {
-    await
-      fetch('https://ifrc-sampling.azurewebsites.net/api/decision-tree/'+id+'/')
+    await fetch('https://ifrc-sampling.azurewebsites.net/api/decision-tree/'+id+'/')
       .then(response => response.json())
       .then(data =>
-          {setNames(names => [...names, data.state.name])
+          {names.current =  [...names.current, data.state.name]
           console.log("Fetched question id:"+id)}
       )
       .catch(e => {
@@ -22,7 +23,7 @@ const MyDoc = ({questionCards}) =>{
   }
 
   async function resetNames() {
-    setNames([]);
+    names.current = [];
   }
 
   useEffect( () =>{
@@ -33,18 +34,20 @@ const MyDoc = ({questionCards}) =>{
       }
     }
 
-    fetchAll();
-    
+    fetchAll()
+    .then(()=>{setQnames(names.current)})
+    .then(()=>{console.log("finish fetching")})
+
   },[questionCards])
 
-
+  
 
  return (
  <Document>
   <Page>
       <Text>Survey tool export</Text>
       <Text>------------------</Text>
-      {names.map((name,i) => (
+      {qnames.map((name,i) => (
         <Text key={i}>{name}</Text>
       ))}
             
@@ -53,21 +56,54 @@ const MyDoc = ({questionCards}) =>{
  );
 }
 
+
+
 const App = ({questionCards}) => {
   
-  const [instance, updateInstance] = usePDF({ document: <MyDoc questionCards={questionCards}/> });
+  const [instance, updateInstance] = usePDF({ document: <MyDoc questionCards={questionCards} /> });
+
+  
+
   if (instance.loading) return <div>Loading ...</div>;
 
   if (instance.error) return <div>Something went wrong: {instance.error}</div>;
 
+
+  async function handleClick() {
+    console.log("start update")
+    await update().then(()=>{console.log("finish update")}).then(()=>{open()})
+    
+  }
+
+  async function handleAwaitClick() {
+    await update();
+    await open();
+  }
+
+
+  const update = async() => {
+    updateInstance(); 
+    return("finish update")
+  }
+  const open = async() => {
+    window.open(instance.url);
+  }
+
+
   return (
     <div>
-
-  <a href={instance.url} download="test.pdf" >
-    <button onClick={()=>{updateInstance()}}>
-      Export
-    </button>
-  </a>
+      <button onClick={update}>
+        update
+      </button>
+      <button onClick={open}>
+        open
+      </button>
+    {/* <a href={instance.url} download="test.pdf" > */}
+    <a>
+      <button onClick={handleAwaitClick}>
+        export report
+      </button>
+    </a>
     </div>
   );
 }
