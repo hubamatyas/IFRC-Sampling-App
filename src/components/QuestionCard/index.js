@@ -1,5 +1,6 @@
 import React,{useEffect} from "react";
 import styles from "./styles.module.scss";
+import Card from "../Card";
 import { _cs } from '@togglecorp/fujs';
 
 class QuestionCard extends React.Component {
@@ -48,22 +49,23 @@ class QuestionCard extends React.Component {
         const question = this.state.question;
         const options = this.state.options;
         return (
-            <div className={styles.card}>
+            <Card>
                 <h2> {question} </h2>
                 <div className={styles.answers}>
-                    {options.map((option) => (
+                    {options.map((answer) => (
                         <button 
-                            key={option.id}
+                            key={answer.id}
                             className={_cs(
                                 styles.optionBtn,
-                                option.child_state === this.state.selected_option && styles.isActive,
+                                answer.child_state === this.state.selected_option 
+                                && styles.isActive,
                             )}
-                            onClick={() => this.handleOptionClick(option.child_state)}>
-                            {option.option}
+                            onClick={() => this.handleOptionClick(answer.child_state)}>
+                            {answer.option}
                         </button>
                     ))}
                 </div>
-            </div>
+            </Card>
         );
     }
 }

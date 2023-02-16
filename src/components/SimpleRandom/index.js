@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import { withTranslation } from "react-i18next";
+import Card from "../Card";
 
 class SimpleRandom extends React.Component {
     constructor(props) {
@@ -46,8 +47,8 @@ class SimpleRandom extends React.Component {
         const { t } = this.props;
         return (
             <>
-                <div className={styles.card}>
-                    <h2> Simple Random Calculator</h2>
+                <Card>
+                    <h2>Simple Random Calculator</h2>
                     <form className={styles.inputFields} onSubmit={(e) => this.handleSubmit(e)}>
                         <div className={styles.field}>
                             <label for="margin"> Margin of error (%)</label>
@@ -83,16 +84,15 @@ class SimpleRandom extends React.Component {
                             <input type="submit" className={styles.btn} />
                         </div>
                     </form>
-                </div>
-                {/* render a new card if this.state.sampleSize is not null */}
+                </Card>
                 {this.state.sampleSize &&
                     <div className={styles.result}>
-                        <h2> Sample Size: {this.state.sampleSize} </h2>
-                        <p> {t('aboutGoal')}{t('aboutGoal')}{t('aboutGoal')}{t('aboutGoal')}{t('aboutGoal')}</p>
+                        <Card>
+                            <h2> Sample Size: {this.state.sampleSize} </h2>
+                            <p> {t('aboutGoal')}{t('aboutGoal')}{t('aboutGoal')}{t('aboutGoal')}{t('aboutGoal')}</p>
+                        </Card>
                     </div>
-
                 }
-
             </>
         )
     }

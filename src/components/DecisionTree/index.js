@@ -40,18 +40,15 @@ class DecisionTree extends React.Component {
         // should be QuestionCard
         if (questionCard !== 5) {
             return (
-                <div className={styles.card}>
-                    <QuestionCard
-                        key={questionCard}
-                        id={questionCard}
-                        onSelectOption={this.handleOption}/>
-                </div>
+                <QuestionCard
+                    key={questionCard}
+                    id={questionCard}
+                    onSelectOption={this.handleOption}
+                />
             );
         } else {
             return (
-                <div>
-                    <SimpleRandom />
-                </div>
+                <SimpleRandom />
             );
         }
     }

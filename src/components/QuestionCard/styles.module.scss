@@ -1,16 +1,7 @@
 @import "~/src/styles/variables";
 
-h3 {
-    text-align: center;
-}
-
-.card {
-    background-color: $grey-mist;
-    border-radius: $card-border-radius;
-    box-shadow: $base-box-shadow;
-    padding: 20px;
-    width: max-content;
-    margin: auto;
+h2 {
+    width: 80%;
 }
 
 .answers {
