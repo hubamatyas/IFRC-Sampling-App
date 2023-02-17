@@ -1,38 +1,77 @@
-@import 'src/styles/variables';
+@import '../../styles/settings/variables';
 
 .button {
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding: $spacing*0.25 $spacing*1.5;
+  border-radius: calc(#{$spacing} + 1em);
+  font-weight: $base-font-medium;
+  width: fit-content;
+  gap: $spacing*0.5;
+
+  .icons {
     display: flex;
-    justify-content: center;
-    width: $media-default;
-    margin: auto;
-}
+    flex-shrink: 0;
+    align-items: center;
+    font-size: 1.2em;
+  }
 
-.default {
-    padding: $global-spacing 0;
-    width: 10em;
-    border-radius: $full-border-radius;
-    background-color: $white;
-    border: none;
-}
+  .actions {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    font-size: 1.2em;
+  }
 
-.defaultText {
-    text-decoration: none;
-    font-weight: $base-font-bold;
-    font-size: $font-size-md;
-    color: $primary-color;
-}
+  .children {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+  }
 
-.inverse {
-    padding: $global-spacing 0;
-    width: 10em;
-    border-radius: $full-border-radius;
+  &.primary {
+    border: $base-border-width solid $primary-color;
     background-color: $primary-color;
-    border: none;
-}
+    color: $color-text-on-dark;
 
-.inverseText {
-    text-decoration: none;
-    font-weight: $base-font-bold;
-    font-size: $font-size-md;
-    color: $white;
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+
+  &.secondary {
+    border: $base-border-width solid $primary-color;
+    color: $primary-color;
+
+    &:hover {
+      background-color: $primary-color;
+      color: $color-text-on-dark;
+    }
+  }
+
+  &.tertiary {
+    padding: 0 $spacing*0.25;
+    color: $primary-color;
+  }
+
+  &.action {
+    padding: 0;
+    font-size: 1.4em;
+  }
+
+  &.transparent {
+    padding: 0;
+  }
+
+  &:not(.disabled) {
+    cursor: pointer;
+  }
+
+  &.disabled,
+  &:disabled {
+    opacity: $opacity-disabled-element;
+    filter: saturate($saturation-disabled-element);
+    pointer-events: none;
+  }
 }

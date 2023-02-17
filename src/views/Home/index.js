@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
-import Button from "../../components/Button/index";
+import Button from "../../components/ButtonLikeLink/index";
 import lang from "../../lang.js"
 import { useTranslation } from "react-i18next";
 

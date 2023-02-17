@@ -1,0 +1,40 @@
+@import '../../styles/settings/variables';
+
+// * {
+//   text-align: center;
+// }
+
+Button{
+  margin-right: 10px;
+}
+
+.calculatorContainer{
+
+  .answerButtons {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .formInputs {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .sampleSizeText {
+    font-weight: bold;
+    font-size: 25px;
+  }
+
+  .sampleSizeNumber {
+    font-weight: bold;
+    font-size: 35px;
+    color: $primary-color;
+  }
+  p,h1 {
+    text-align: center;
+  }
+}

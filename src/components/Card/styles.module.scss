@@ -1,0 +1,11 @@
+@import 'src/styles/variables';
+
+.card {
+    background-color: $grey-mist;
+    border-radius: $card-border-radius;
+    box-shadow: $base-box-shadow;
+    padding: $global-spacing-2;
+    margin: auto;
+    margin-bottom: $global-spacing-4;
+    width: fit-content;
+}

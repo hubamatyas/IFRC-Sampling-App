@@ -1,0 +1,22 @@
+@import '../../styles/settings/variables';
+.term:hover {
+  color: $primary-color;
+}
+
+.offcanvasTitle {
+  color: $primary-color;
+}
+
+.offcanvasBody {
+  p{
+    width: 100% ;
+    margin: 0px 0px 0px 0px ;
+  }
+  a{
+    color: black;
+    text-decoration: underline;
+  }
+  a:hover {
+    color: $primary-color;
+  }
+}
