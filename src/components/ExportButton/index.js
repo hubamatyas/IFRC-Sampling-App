@@ -1,6 +1,6 @@
-import { usePDF, Document, Page,Text, PDFDownloadLink, pdf } from '@react-pdf/renderer';
+import { Document, Page,Text, pdf } from '@react-pdf/renderer';
 import styles from "./styles.module.scss";
-import React,{useEffect} from "react";
+import React from "react";
 
 const MyDoc = ({qnames}) =>{
   console.log("write to pdf: "+qnames)
@@ -19,10 +19,10 @@ const MyDoc = ({qnames}) =>{
 }
 
 
-
 const App = ({questionCards}) => {
 
   const names = React.useRef([]);
+  const [loading, setLoading] = React.useState(false);
 
   const fetchState = async(id) => {
     await fetch('https://ifrc-sampling.azurewebsites.net/api/decision-tree/'+id+'/')
@@ -42,12 +42,14 @@ const App = ({questionCards}) => {
 
 
   const fetchAll = async() => {
+    setLoading(true);
     await resetNames();
     for (const id of questionCards) {
       await fetchState(id);
     }
 
     var url = await generatePDFDocument();
+    setLoading(false);
     window.open(url);
   }
 
@@ -63,7 +65,7 @@ const App = ({questionCards}) => {
     <div>
     <a>
       <button onClick={()=>{fetchAll()}}>
-        export report
+        {loading? "Loading..." : "Export report"}
       </button>
     </a>
     </div>
