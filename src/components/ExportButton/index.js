@@ -3,20 +3,19 @@ import styles from "./styles.module.scss";
 import React from "react";
 
 const MyDoc = ({qnames, answers}) =>{
-  console.log("questions write to pdf: "+qnames)
-  console.log("answers write to pdf: "+answers)
- return (
- <Document>
+
+  return (
+  <Document>
   <Page>
       <Text>Survey Tool Report</Text>
       <Text>----------------------------</Text>
+
       {qnames.map((name,i) => (
         <Text style={{ fontSize: 14, margin : 10 }} key={i}>
           {name}{"\n"}
           ---{answers[i]}
         </Text>
       ))}
-            
   </Page>
  </Document>
  );
@@ -30,30 +29,28 @@ const App = ({questionCards}) => {
   const answers = React.useRef([]);
   const [loading, setLoading] = React.useState(false);
   const [fetchedNum, setFetchedNum] = React.useState(0);
-
+  
   const fetchState = async(id) => {
     await fetch('https://ifrc-sampling.azurewebsites.net/api/decision-tree/'+id+'/')
       .then(response => response.json())
       .then(data =>{
-          names.current = [...names.current, data.state.name];
+        names.current.push(data.state.name);
 
-          if (options.current.length) {
-            answers.current = [...answers.current, 
-              options.current.find((opt)=>(opt.child_state === id)).option
-            ];
-          }
+        if (options.current.length) {
+          answers.current.push (
+            options.current.find((opt)=>(opt.child_state === id)).option
+          );
+        }
 
-          options.current = data.options;
+        options.current = data.options;
+      })
 
-        })
       .catch(e => {
         console.error(e);
       });
-      console.log("fetched qn id: "+id)
-
   }
 
-  async function resetRefs() {
+  const resetRefs = async() => {
     names.current=[];
     options.current=[];
     answers.current=[];
@@ -66,30 +63,29 @@ const App = ({questionCards}) => {
     return (URL.createObjectURL(blob))
   };
 
-  const fetchAll = async() => {
-    console.log(questionCards)
+  const handleClick = async() => {
     setFetchedNum(0);
     setLoading(true);
     await resetRefs();
+    
     for (const id of questionCards) {
       await fetchState(id);
       setFetchedNum((prev)=>prev+1);
     }
 
     var url = await generatePDFDocument();
-    setLoading(false);
     window.open(url);
+    setLoading(false);
   }
-
   
-
   return (
     <div>
-    <a>
-      <button onClick={()=>{fetchAll()}}>
-        {loading? ("Loading... "+ ~~(100*fetchedNum/questionCards.length) + "%") : "Export report"}
+      <button onClick={()=>{handleClick()}}>
+        {loading? 
+          ("Loading... "+ ~~(100*fetchedNum/questionCards.length) + "%") : 
+          "Export report"
+        }
       </button>
-    </a>
     </div>
   );
 }
