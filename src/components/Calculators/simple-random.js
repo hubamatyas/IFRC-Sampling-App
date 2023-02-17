@@ -3,6 +3,7 @@ import NumberInput from "../NumberInput";
 import Button from "../Button/index";
 import Terminology from "../Terminology";
 import styles from "./styles.module.scss";
+import ExportButton from "../ExportButton";
 
 export const Calculator = () => {
 

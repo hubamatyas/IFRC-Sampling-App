@@ -64,6 +64,7 @@ class DecisionTree extends React.Component {
                     hasSubroups={this.state.hasSubroups}
                     hasHouseholds={this.state.hasHouseholds}
                     hasIndividuals={this.state.hasIndividuals}
+                    questionCards={this.state.questionCards}
                 />
             );
         }
@@ -76,7 +77,7 @@ class DecisionTree extends React.Component {
                     this.renderElement(questionCard)
                 ))}
 
-                <ExportButton questionCards={this.state.questionCards}/>
+                {/* <ExportButton questionCards={this.state.questionCards}/> */}
 
             </div>
         );

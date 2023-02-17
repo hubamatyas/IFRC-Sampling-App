@@ -2,9 +2,9 @@ import { Document, Page,Text, pdf } from '@react-pdf/renderer';
 import styles from "./styles.module.scss";
 import React from "react";
 import { IoMdDownload } from 'react-icons/io';
-import jsPDF from 'jspdf';
 
-const MyDoc = ({qnames, answers}) =>{
+
+const MyDoc = ({qnames, answers, calcState}) =>{
 
   return (
   <Document>
@@ -15,16 +15,24 @@ const MyDoc = ({qnames, answers}) =>{
       {qnames.map((name,i) => (
         <Text style={{ fontSize: 14, margin : 10 }} key={i}>
           {name}{"\n"}
-          ---{answers[i]}
+          
+          {answers[i]? 
+            "---" + answers[i] :
+            Object.keys(calcState).map((key) => (
+              <Text> {key} :  {calcState[key]} {"\n"}</Text>
+            ))
+          }
         </Text>
       ))}
+
+
   </Page>
  </Document>
  );
 }
 
 
-const App = ({questionCards}) => {
+const App = ({questionCards, calcState}) => {
 
   const names = React.useRef([]);
   const options = React.useRef([]);
@@ -60,7 +68,7 @@ const App = ({questionCards}) => {
 
   const generatePDFDocument = async () => {
     const blob = await pdf(
-      <MyDoc qnames={names.current} answers={answers.current}/>
+      <MyDoc qnames={names.current} answers={answers.current} calcState={calcState}/>
     ).toBlob();
     return (URL.createObjectURL(blob))
   };
