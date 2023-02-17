@@ -2,15 +2,19 @@ import { Document, Page,Text, pdf } from '@react-pdf/renderer';
 import styles from "./styles.module.scss";
 import React from "react";
 
-const MyDoc = ({qnames}) =>{
-  console.log("write to pdf: "+qnames)
+const MyDoc = ({qnames, answers}) =>{
+  console.log("questions write to pdf: "+qnames)
+  console.log("answers write to pdf: "+answers)
  return (
  <Document>
   <Page>
-      <Text>Survey tool export</Text>
-      <Text>------------------</Text>
+      <Text>Survey Tool Report</Text>
+      <Text>----------------------------</Text>
       {qnames.map((name,i) => (
-        <Text style={{ fontSize: 14, margin : 10 }} key={i}>{name}</Text>
+        <Text style={{ fontSize: 14, margin : 10 }} key={i}>
+          {name}{"\n"}
+          ---{answers[i]}
+        </Text>
       ))}
             
   </Page>
@@ -22,30 +26,54 @@ const MyDoc = ({qnames}) =>{
 const App = ({questionCards}) => {
 
   const names = React.useRef([]);
+  const options = React.useRef([]);
+  const answers = React.useRef([]);
   const [loading, setLoading] = React.useState(false);
+  const [fetchedNum, setFetchedNum] = React.useState(0);
 
   const fetchState = async(id) => {
     await fetch('https://ifrc-sampling.azurewebsites.net/api/decision-tree/'+id+'/')
       .then(response => response.json())
       .then(data =>{
           names.current = [...names.current, data.state.name];
-          console.log("Fetched question id:"+id)
+
+          if (options.current.length) {
+            answers.current = [...answers.current, 
+              options.current.find((opt)=>(opt.child_state === id)).option
+            ];
+          }
+
+          options.current = data.options;
+
         })
       .catch(e => {
         console.error(e);
-      })
+      });
+      console.log("fetched qn id: "+id)
+
   }
 
-  async function resetNames() {
+  async function resetRefs() {
     names.current=[];
+    options.current=[];
+    answers.current=[];
   }
 
+  const generatePDFDocument = async () => {
+    const blob = await pdf(
+      <MyDoc qnames={names.current} answers={answers.current}/>
+    ).toBlob();
+    return (URL.createObjectURL(blob))
+  };
 
   const fetchAll = async() => {
+    console.log(questionCards)
+    setFetchedNum(0);
     setLoading(true);
-    await resetNames();
+    await resetRefs();
     for (const id of questionCards) {
       await fetchState(id);
+      setFetchedNum((prev)=>prev+1);
     }
 
     var url = await generatePDFDocument();
@@ -53,19 +81,13 @@ const App = ({questionCards}) => {
     window.open(url);
   }
 
-  const generatePDFDocument = async () => {
-    const blob = await pdf(
-      <MyDoc qnames={names.current} />
-    ).toBlob();
-    return (URL.createObjectURL(blob))
-  };
   
 
   return (
     <div>
     <a>
       <button onClick={()=>{fetchAll()}}>
-        {loading? "Loading..." : "Export report"}
+        {loading? ("Loading... "+ ~~(100*fetchedNum/questionCards.length) + "%") : "Export report"}
       </button>
     </a>
     </div>
