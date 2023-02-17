@@ -1,4 +1,4 @@
-import { usePDF, Document, Page,Text, PDFDownloadLink } from '@react-pdf/renderer';
+import { usePDF, Document, Page,Text, PDFDownloadLink, pdf } from '@react-pdf/renderer';
 import styles from "./styles.module.scss";
 import React,{useEffect} from "react";
 
@@ -23,6 +23,7 @@ const MyDoc = ({qnames}) =>{
 const App = ({questionCards}) => {
 
   const names = React.useRef([]);
+  // const [names, setNames] = React.useState([]);
   // const [qnames, setQnames] = React.useState([]);
   
   const [instance, updateInstance] = usePDF({ document: <MyDoc qnames={names.current} /> });
@@ -47,17 +48,16 @@ const App = ({questionCards}) => {
     await fetch('https://ifrc-sampling.azurewebsites.net/api/decision-tree/'+id+'/')
       .then(response => response.json())
       .then(data =>
-          {names.current =  [...names.current, data.state.name]
+          {names.current = [...names.current, data.state.name];
           console.log("Fetched question id:"+id)}
-      )
+          )
       .catch(e => {
         console.error(e);
       })
   }
 
   async function resetNames() {
-    names.current = [];
-    return names.current;
+    names.current=[];
   }
 
 
@@ -66,10 +66,24 @@ const App = ({questionCards}) => {
     for (const id of questionCards) {
       await fetchState(id);
     }
+    console.log("fetchAll: "+names.current)
 
-    await update();
-    await open();
+    var url = await generatePDFDocument();
+    window.open(url);
+    // await update();
+    // await open();
   }
+
+  const generatePDFDocument = async () => {
+    console.log("generatePDFDocument: "+names.current)
+    const blob = await pdf(
+      <MyDoc qnames={names.current} />
+    ).toBlob();
+    return (URL.createObjectURL(blob))
+    //window.open(URL.createObjectURL(blob));
+  
+    //console.log(blob);
+  };
   
 
 
