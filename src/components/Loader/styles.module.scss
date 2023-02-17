@@ -1,0 +1,16 @@
+@import 'src/styles/variables';
+
+.loader {
+    margin: auto;
+    width: 15px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    animation: dots 1s infinite linear alternate;
+  }
+  @keyframes dots {
+      0%  {box-shadow: 20px 0 $grey-cement, -20px 0 #0002;background: $grey-cement }
+      33% {box-shadow: 20px 0 $grey-cement, -20px 0 #0002;background: #0002}
+      66% {box-shadow: 20px 0 #0002,-20px 0 $grey-cement; background: #0002}
+      100%{box-shadow: 20px 0 #0002,-20px 0 $grey-cement; background: $grey-cement }
+  }
+      

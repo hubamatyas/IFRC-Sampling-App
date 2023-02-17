@@ -3,6 +3,7 @@ import styles from "./styles.module.scss";
 import Card from "../Card";
 import { _cs } from '@togglecorp/fujs';
 import Terminology from "../Terminology";
+import Loader from "../Loader";
 
 class QuestionCard extends React.Component {
     constructor(props) {
@@ -56,7 +57,7 @@ class QuestionCard extends React.Component {
         const short_name = this.state.short_name;
         return (
             <>
-                {this.state.isLoading ? <h1>...</h1> :
+                {this.state.isLoading ? <Loader/> :
                     <Card>
                         <>
                             <h2> <Terminology term={short_name} question={question}/> </h2>
