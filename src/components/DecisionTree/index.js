@@ -10,6 +10,9 @@ class DecisionTree extends React.Component {
             // initial state is [1] so API call is made to get first question card
             // refactor to store entire question card in state instead of just id
             questionCards: [1],
+            hasSubroups: false,
+            hasHouseholds: false,
+            hasIndividuals: false,
         };
         this.fetchState = this.loadQuestionCards.bind(this);
     }
@@ -48,7 +51,19 @@ class DecisionTree extends React.Component {
             );
         } else {
             return (
-                <SimpleRandom />
+                <SimpleRandom
+                    // ask how important it is to only render the subgroups,
+                    // households, and individuals input fields when they are
+                    // necessary. if not, we can just render every input field
+                    // and let user decide which ones to fill out, if yes, find
+                    // a way for QuestionCard to set hasSubgroups, hasHouseholds,
+                    // and hasIndividuals to true. this will probably require
+                    // a new field in the API database, called shortName. then,
+                    // if shortName is "subgroups", set hasSubgroups to true, etc.
+                    hasSubroups={this.state.hasSubroups}
+                    hasHouseholds={this.state.hasHouseholds}
+                    hasIndividuals={this.state.hasIndividuals}
+                />
             );
         }
     }
