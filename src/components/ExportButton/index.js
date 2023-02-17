@@ -1,6 +1,7 @@
 import { Document, Page,Text, pdf } from '@react-pdf/renderer';
 import styles from "./styles.module.scss";
 import React from "react";
+import { IoMdDownload } from 'react-icons/io';
 
 const MyDoc = ({qnames, answers}) =>{
 
@@ -81,9 +82,10 @@ const App = ({questionCards}) => {
   return (
     <div>
       <button onClick={()=>{handleClick()}}>
+        <IoMdDownload />
         {loading? 
-          ("Loading... "+ ~~(100*fetchedNum/questionCards.length) + "%") : 
-          "Export report"
+          (" Loading... "+ ~~(100*fetchedNum/questionCards.length) + "%") : 
+          " Export report"
         }
       </button>
     </div>
