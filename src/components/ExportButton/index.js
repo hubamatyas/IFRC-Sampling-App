@@ -10,7 +10,7 @@ const MyDoc = ({qnames}) =>{
       <Text>Survey tool export</Text>
       <Text>------------------</Text>
       {qnames.map((name,i) => (
-        <Text key={i}>{name}</Text>
+        <Text style={{ fontSize: 14, margin : 10 }} key={i}>{name}</Text>
       ))}
             
   </Page>
