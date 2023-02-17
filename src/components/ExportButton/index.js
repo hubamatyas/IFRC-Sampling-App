@@ -2,6 +2,7 @@ import { Document, Page,Text, pdf } from '@react-pdf/renderer';
 import styles from "./styles.module.scss";
 import React from "react";
 import { IoMdDownload } from 'react-icons/io';
+import jsPDF from 'jspdf';
 
 const MyDoc = ({qnames, answers}) =>{
 

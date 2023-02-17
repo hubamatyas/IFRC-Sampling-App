@@ -4,7 +4,7 @@ import Button from "../../components/Button/index";
 import lang from "../../lang.js"
 import { useTranslation } from "react-i18next";
 import QuestionCard from "../../components/QuestionCard/index";
-import DecisionTree from "src/components/DecisionTree";
+import DecisionTree from "../../components/DecisionTree";
 
 
 function Sampling(){
