@@ -81,7 +81,7 @@ const App = ({questionCards}) => {
   
   return (
     <div>
-      <button onClick={()=>{handleClick()}}>
+      <button className={styles.exportBtn} onClick={handleClick}>
         <IoMdDownload />
         {loading? 
           (" Loading... "+ ~~(100*fetchedNum/questionCards.length) + "%") : 
