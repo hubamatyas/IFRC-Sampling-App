@@ -57,25 +57,24 @@ class QuestionCard extends React.Component {
         const short_name = this.state.short_name;
         return (
             <>
+                {/* <img src={arrow} className={styles.arrow}/> */}
                 {this.state.isLoading ? <Loader/> :
                     <Card>
-                        <>
-                            <h2> <Terminology term={short_name} question={question}/> </h2>
-                            <div className={styles.answers}>
-                                {options.map((answer) => (
-                                    <button 
-                                        key={answer.id}
-                                        className={_cs(
-                                            styles.optionBtn,
-                                            answer.child_state === selected_option 
-                                            && styles.isActive,
-                                        )}
-                                        onClick={() => this.handleOptionClick(answer.child_state)}>
-                                        {answer.option}
-                                    </button>
-                                ))}
-                            </div>
-                        </>
+                        <h2> <Terminology term={short_name} text={question}/> </h2>
+                        <div className={styles.answers}>
+                            {options.map((answer) => (
+                                <button 
+                                    key={answer.id}
+                                    className={_cs(
+                                        styles.optionBtn,
+                                        answer.child_state === selected_option 
+                                        && styles.isActive,
+                                    )}
+                                    onClick={() => this.handleOptionClick(answer.child_state)}>
+                                    {answer.option}
+                                </button>
+                            ))}
+                        </div>
                     </Card>
                 }
             </>
