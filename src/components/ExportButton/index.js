@@ -4,47 +4,48 @@ import React from "react";
 import { IoMdDownload } from 'react-icons/io';
 
 
-const MyDoc = ({qnames, answers, calcState}) =>{
-
+const MyDoc = ({questionNames, answers, calculatorState}) =>{
   return (
   <Document>
   <Page>
       <Text>Survey Tool Report</Text>
       <Text>----------------------------</Text>
 
-      {qnames.map((name,i) => (
+      {questionNames.map((name,i) => (
         <Text style={{ fontSize: 14, margin : 10 }} key={i}>
           {name}{"\n"}
-          
+      
           {answers[i]? 
-            "---" + answers[i] :
-            Object.keys(calcState).map((key) => (
-              <Text> {key} :  {calcState[key]} {"\n"}</Text>
+            "---" + answers[i] 
+            :
+            Object.keys(calculatorState).map((stateKey, i) => (
+              <Text key={i}> 
+                {stateKey} :  {calculatorState[stateKey]} {"\n"}
+              </Text>
             ))
           }
         </Text>
       ))}
-
-
   </Page>
  </Document>
  );
 }
 
 
-const App = ({questionCards, calcState}) => {
+const App = ({questionCards, calculatorState}) => {
 
-  const names = React.useRef([]);
+  const questionNames = React.useRef([]);
   const options = React.useRef([]);
   const answers = React.useRef([]);
   const [loading, setLoading] = React.useState(false);
   const [fetchedNum, setFetchedNum] = React.useState(0);
   
   const fetchState = async(id) => {
+    let success = true
     await fetch('https://ifrc-sampling.azurewebsites.net/api/decision-tree/'+id+'/')
       .then(response => response.json())
       .then(data =>{
-        names.current.push(data.state.name);
+        questionNames.current.push(data.state.name);
 
         if (options.current.length) {
           answers.current.push (
@@ -57,20 +58,36 @@ const App = ({questionCards, calcState}) => {
 
       .catch(e => {
         console.error(e);
+        alert("Sorry we have a little problem fetching data. Export failed." );
+        success = false
       });
+
+    return success;
   }
 
   const resetRefs = async() => {
-    names.current=[];
+    questionNames.current=[];
     options.current=[];
     answers.current=[];
   }
 
   const generatePDFDocument = async () => {
-    const blob = await pdf(
-      <MyDoc qnames={names.current} answers={answers.current} calcState={calcState}/>
-    ).toBlob();
-    return (URL.createObjectURL(blob))
+    try{
+      const blob = await pdf(
+        <MyDoc 
+          questionNames={questionNames.current} 
+          answers={answers.current} 
+          calculatorState={calculatorState}
+        />
+      ).toBlob();
+      return (URL.createObjectURL(blob));
+    }
+    
+    catch(err) {
+      console.log(err.message);
+      alert("Sorry we have a little problem rendering PDF. Export failed." );
+      return null;
+    }
   };
 
   const handleClick = async() => {
@@ -79,12 +96,15 @@ const App = ({questionCards, calcState}) => {
     await resetRefs();
     
     for (const id of questionCards) {
-      await fetchState(id);
+      if (! await fetchState(id)) {
+        setLoading(false);
+        return;
+      };
       setFetchedNum((prev)=>prev+1);
     }
 
     var url = await generatePDFDocument();
-    window.open(url);
+    if (url) {window.open(url);}
     setLoading(false);
   }
   
@@ -93,7 +113,8 @@ const App = ({questionCards, calcState}) => {
       <button className={styles.exportBtn} onClick={handleClick}>
         <IoMdDownload />
         {loading? 
-          (" Loading... "+ ~~(100*fetchedNum/questionCards.length) + "%") : 
+          (" Loading... "+ ~~(99*fetchedNum/(questionCards.length)) + "%") 
+          : 
           " Export report"
         }
       </button>

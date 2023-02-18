@@ -97,7 +97,7 @@ class SimpleRandom extends React.Component {
                             <h2> Sample Size: {this.state.sampleSize} </h2>
                             <p> {t('aboutGoal')}{t('aboutGoal')}{t('aboutGoal')}{t('aboutGoal')}{t('aboutGoal')}</p>
                         </Card>
-                        <ExportButton questionCards={this.props.questionCards} calcState={this.state}/>
+                        <ExportButton questionCards={this.props.questionCards} calculatorState={this.state}/>
                     </div>
                 }
             </>
