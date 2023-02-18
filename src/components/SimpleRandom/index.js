@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import { withTranslation } from "react-i18next";
 import Card from "../Card";
+import ExportButton from "../ExportButton";
 
 class SimpleRandom extends React.Component {
     constructor(props) {
@@ -96,6 +97,7 @@ class SimpleRandom extends React.Component {
                             <h2> Sample Size: {this.state.sampleSize} </h2>
                             <p> {t('aboutGoal')}{t('aboutGoal')}{t('aboutGoal')}{t('aboutGoal')}{t('aboutGoal')}</p>
                         </Card>
+                        <ExportButton questionCards={this.props.questionCards} calcState={this.state}/>
                     </div>
                 }
             </>
