@@ -43,11 +43,17 @@ class SimpleRandom extends React.Component {
 
     calculateSampleSize() {
         // call API to calculate sample size
-        this.setState(
-            { sampleSize: 50 }
-        )
+        const url = 'http://127.0.0.1:8000/api/simple-random/sample-size/?margin_of_error=${marginOfError}&confidence_level=${confidenceLevel}&non_response_rate=${nonResponseRate}&subgroups=${subgroups}&households=${households}&individuals=${individuals}'  
+        fetch(url)
+        .then(response => response.json)
+        .then(data => {
+            this.setState({sampleSize:data.sampleSize});
+        })
+        .catch(error => {
+            console.error('Error');
+            this.setState({sampleSize:'Error'})
+        })
     }
-        
 
     render() {
         const { t } = this.props;
