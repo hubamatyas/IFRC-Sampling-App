@@ -1,25 +1,46 @@
-import { Document, Page,Text, pdf } from '@react-pdf/renderer';
+import { Document, Page, Image, Text, pdf, StyleSheet } from '@react-pdf/renderer';
 import styles from "./styles.module.scss";
 import React from "react";
 import { IoMdDownload } from 'react-icons/io';
+import logo from "../../assets/logo.svg";
 
 
 const MyDoc = ({questionNames, answers, calculatorState}) =>{
+  const styles = StyleSheet.create({
+    pageBackground: {
+      position: 'absolute',
+      minWidth: '100%',
+      minHeight: '100%',
+      display: 'block',
+      height: '100%',
+      width: '100%',
+    },
+    text: {
+      position: "absolute",
+      left: '0px',
+      right: '0px',
+      marginHorizontal: 'auto',
+      textAlign: "center",
+      justifyContent: 'center',
+  }
+  });
+
   return (
   <Document>
   <Page>
-      <Text>Survey Tool Report</Text>
-      <Text>----------------------------</Text>
+      <Image src={require("../../assets/homepage-bg.png")} />
+      <Text style={{ textAlign:'center',top:"30px", ...styles.text }}>Survey Tool Report</Text>
+      <Text style={{ textAlign:'center',top:"40px", ...styles.text }}>---------------------------------</Text>
 
       {questionNames.map((name,i) => (
-        <Text style={{ fontSize: 14, margin : 10 }} key={i}>
+        <Text style={{ fontSize: 14, margin : 10, marginLeft:"10%" }} key={i}>
           {name}{"\n"}
       
           {answers[i]? 
             "---" + answers[i] 
             :
             Object.keys(calculatorState).map((stateKey, i) => (
-              <Text key={i}> 
+              <Text style={{ marginLeft:"10%" }} key={i}> 
                 {stateKey} :  {calculatorState[stateKey]} {"\n"}
               </Text>
             ))
