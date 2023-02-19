@@ -63,6 +63,7 @@ class DecisionTree extends React.Component {
                     hasSubroups={this.state.hasSubroups}
                     hasHouseholds={this.state.hasHouseholds}
                     hasIndividuals={this.state.hasIndividuals}
+                    questionCards={this.state.questionCards}
                 />
             );
         }
