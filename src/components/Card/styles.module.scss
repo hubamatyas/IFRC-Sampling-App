@@ -6,6 +6,20 @@
     box-shadow: $base-box-shadow;
     padding: $global-spacing-2;
     margin: auto;
-    margin-bottom: $global-spacing-4;
     width: fit-content;
+}
+
+.arrow {
+    display: flex;
+    margin: auto;
+    animation: arrow 1.5s;
+}
+
+@keyframes arrow {
+    0% {
+        clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+    }
+    100% {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
 }

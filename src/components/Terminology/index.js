@@ -6,7 +6,7 @@ class Terminology extends React.Component {
         super(props);
         this.state = {
             term: props.term,
-            question: props.question,
+            text: props.text,
             defintion: null,
         };
         this.componentDidMount = this.componentDidMount.bind(this);
@@ -20,8 +20,9 @@ class Terminology extends React.Component {
 
     render() {
         const term = this.state.term;
+        const text = this.state.text;
         const regex = new RegExp(`(${term})`, "gi");
-        const parts = this.state.question.split(regex);
+        const parts = this.state.text.split(regex);
         return (
             <>
                 {this.state.defintion ?
@@ -29,10 +30,10 @@ class Terminology extends React.Component {
                     <>
                         {parts.length > 1 ?
                         <span>{parts.map(part => part.toLowerCase() === term.toLowerCase() ? <u>{part}</u> : part)}</span>
-                        : <u>{this.state.question}</u>
+                        : <u>{text}</u>
                         }
                     </>
-                    : <> {this.state.question} </>
+                    : <> {text} </>
                 }
             </>
         )
