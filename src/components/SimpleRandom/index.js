@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import { withTranslation } from "react-i18next";
 import Card from "../Card";
+import ExportButton from "../ExportButton";
+import Terminology from "../Terminology";
 
 class SimpleRandom extends React.Component {
     constructor(props) {
@@ -53,7 +55,7 @@ class SimpleRandom extends React.Component {
         return (
             <>
                 <Card>
-                    <h2>Simple Random Calculator</h2>
+                    <h2> <Terminology term="simple random" text="Simple Random Calculator" /></h2>
                     <form className={styles.inputFields} onSubmit={(e) => this.handleSubmit(e)}>
                         <div className={styles.field}>
                             <label for="margin"> Margin of error (%)</label>
@@ -92,10 +94,11 @@ class SimpleRandom extends React.Component {
                 </Card>
                 {this.state.sampleSize &&
                     <div className={styles.result}>
-                        <Card>
+                        <Card hasArrow={false}>
                             <h2> Sample Size: {this.state.sampleSize} </h2>
                             <p> {t('aboutGoal')}{t('aboutGoal')}{t('aboutGoal')}{t('aboutGoal')}{t('aboutGoal')}</p>
                         </Card>
+                        <ExportButton questionCards={this.props.questionCards} calculatorState={this.state}/>
                     </div>
                 }
             </>
