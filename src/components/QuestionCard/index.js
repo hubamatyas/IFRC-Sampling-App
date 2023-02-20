@@ -32,8 +32,8 @@ class QuestionCard extends React.Component {
             .then(data => 
                 this.setState({ 
                 question: data.state.name,
-                parent_id: data.state.parent_id,
-                description: data.state.description,
+                parent_id: data.state.parent_state,
+                description: data.state.term,
                 options: data.options,
                 // short_name: data.state.short_name,
                 }))
@@ -62,16 +62,16 @@ class QuestionCard extends React.Component {
                     <Card>
                         <h2> <Terminology term={short_name} text={question}/> </h2>
                         <div className={styles.answers}>
-                            {options.map((answer) => (
+                            {options.map((option) => (
                                 <button 
-                                    key={answer.id}
+                                    key={option.id}
                                     className={_cs(
                                         styles.optionBtn,
-                                        answer.child_state === selected_option 
+                                        option.child_state === selected_option 
                                         && styles.isActive,
                                     )}
-                                    onClick={() => this.handleOptionClick(answer.child_state)}>
-                                    {answer.option}
+                                    onClick={() => this.handleOptionClick(option.child_state)}>
+                                    {option.name}
                                 </button>
                             ))}
                         </div>

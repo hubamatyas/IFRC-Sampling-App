@@ -49,7 +49,7 @@ const App = ({questionCards, calculatorState}) => {
 
         if (options.current.length) {
           answers.current.push (
-            options.current.find((opt)=>(opt.child_state === id)).option
+            options.current.find((opt)=>(opt.child_state === id)).name
           );
         }
 
