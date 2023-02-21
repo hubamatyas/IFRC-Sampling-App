@@ -1,36 +1,8 @@
-import { Document, Page,Text, pdf } from '@react-pdf/renderer';
+import {pdf} from '@react-pdf/renderer';
 import styles from "./styles.module.scss";
 import React from "react";
 import { IoMdDownload } from 'react-icons/io';
-
-
-const MyDoc = ({questionNames, answers, calculatorState}) =>{
-  return (
-  <Document>
-  <Page>
-      <Text>Survey Tool Report</Text>
-      <Text>----------------------------</Text>
-
-      {questionNames.map((name,i) => (
-        <Text style={{ fontSize: 14, margin : 10 }} key={i}>
-          {name}{"\n"}
-      
-          {answers[i]? 
-            "---" + answers[i] 
-            :
-            Object.keys(calculatorState).map((stateKey, i) => (
-              <Text key={i}> 
-                {stateKey} :  {calculatorState[stateKey]} {"\n"}
-              </Text>
-            ))
-          }
-        </Text>
-      ))}
-  </Page>
- </Document>
- );
-}
-
+import MyDoc from '../ReportDocument';
 
 const App = ({questionCards, calculatorState}) => {
 
