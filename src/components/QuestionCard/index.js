@@ -10,12 +10,11 @@ class QuestionCard extends React.Component {
       super(props);
         this.state = {
             question: null,
-            short_name: "list frame",
+            term: null,
             id: props.id,
             parent_id: null,
-            description: null,
             options: [],
-            selected_option: null,
+            answer: null,
             isLoading: true,
         };
         this.fetchState = this.fetchState.bind(this);
@@ -33,19 +32,20 @@ class QuestionCard extends React.Component {
                 this.setState({ 
                 question: data.state.name,
                 parent_id: data.state.parent_state,
-                description: data.state.term,
                 options: data.options,
-                // short_name: data.state.short_name,
+                term: data.state.term,
                 }))
             .then(() => this.setState({isLoading: false}));
     }
 
     // pass child_state to parent (i.e., DecisionTree) to render next question card
-    handleOptionClick(child_state) {
-        this.setState({selected_option: child_state},
+    handleOptionClick(term, option) {
+        this.setState({answer: option.child_state},
             () => this.props.onSelectOption(
-                this.state.selected_option,
-                this.state.id
+                {answer: this.state.answer,
+                id: this.state.id,
+                isHouseholds: option.name === "Households" ? true : false,
+                isSubgroup: term === "sub-population groups" && option.name === "Yes" ? true : false,}
             )
         );
     }
@@ -53,24 +53,24 @@ class QuestionCard extends React.Component {
     render() {
         const question = this.state.question;
         const options = this.state.options;
-        const selected_option = this.state.selected_option;
-        const short_name = this.state.short_name;
+        const answer = this.state.answer;
+        const term = this.state.term;
         return (
             <>
                 {/* <img src={arrow} className={styles.arrow}/> */}
                 {this.state.isLoading ? <Loader/> :
                     <Card>
-                        <h2> <Terminology term={short_name} text={question}/> </h2>
+                        <h2> <Terminology term={term} text={question}/> </h2>
                         <div className={styles.answers}>
                             {options.map((option) => (
                                 <button 
                                     key={option.id}
                                     className={_cs(
                                         styles.optionBtn,
-                                        option.child_state === selected_option 
+                                        option.child_state === answer 
                                         && styles.isActive,
                                     )}
-                                    onClick={() => this.handleOptionClick(option.child_state)}>
+                                    onClick={() => this.handleOptionClick(term, option)}>
                                     {option.name}
                                 </button>
                             ))}

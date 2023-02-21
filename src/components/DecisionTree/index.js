@@ -2,6 +2,7 @@ import React,{useEffect} from "react";
 import styles from "./styles.module.scss";
 import QuestionCard from "../QuestionCard";
 import SimpleRandom from "../SimpleRandom";
+import cloneDeep from 'lodash/cloneDeep';
 
 class DecisionTree extends React.Component {
     constructor(props) {
@@ -12,9 +13,11 @@ class DecisionTree extends React.Component {
             questionCards: [1],
             hasSubroups: false,
             hasHouseholds: false,
-            hasIndividuals: false,
+            hasIndividuals: true,
         };
-        this.fetchState = this.loadQuestionCards.bind(this);
+        this.handleOption = this.handleOption.bind(this);
+        this.backwardsStateUpdate = this.backwardsStateUpdate.bind(this);
+        this.forwardsStateUpdate = this.forwardsStateUpdate.bind(this);
     }
 
     componentDidMount() {
@@ -26,15 +29,42 @@ class DecisionTree extends React.Component {
         //this.setState({questionCards: [...this.state.questionCards, questionCard]});
     }
 
-    handleOption = (option, id) => {
-        // handles case when user goes back to previous question card
+    // arguments are passed from QuestionCard
+    handleOption = ({answer, id, isHouseholds, isSubgroup}) => {
         var questionCards = this.state.questionCards;
-        if (questionCards.includes(id)) {
-            var index = questionCards.indexOf(id);
-            questionCards.splice(index + 1, questionCards.length - index);
+        var originalLength = questionCards.length;
+        
+        // test whether id appears twice in questionCards by checking id's index
+        // if it's not the last element in the array, remove all elements after it
+        var index = questionCards.indexOf(id);
+        questionCards.splice(index + 1, questionCards.length - index);
+        
+        // reset state when user goes back to previous question card
+        var splicedLength = questionCards.length;
+        if (originalLength !== splicedLength) {
+            this.backwardsStateUpdate(isHouseholds, isSubgroup);
+        } else {
+            this.forwardsStateUpdate(isHouseholds, isSubgroup);
         }
+        this.setState({
+            questionCards: [...questionCards, answer],
+        });
+    }
 
-        this.setState({questionCards: [...questionCards, option]});
+    backwardsStateUpdate = (isHouseholds, isSubgroup) => {
+        this.setState({
+            hasHouseholds: isHouseholds,
+            hasIndividuals: !isHouseholds,
+            hasSubroups: isSubgroup,
+        })
+    }
+
+    forwardsStateUpdate = (isHouseholds, isSubgroup) => {
+        this.setState({
+            hasSubroups: isSubgroup ? true : this.state.hasSubroups,
+            hasHouseholds: isHouseholds ? true : this.state.hasHouseholds,
+            hasIndividuals: isHouseholds ? false : this.state.hasIndividuals,
+        });
     }
 
     renderElement = (questionCard) => {
@@ -52,18 +82,12 @@ class DecisionTree extends React.Component {
         } else {
             return (
                 <SimpleRandom
-                    // ask how important it is to only render the subgroups,
-                    // households, and individuals input fields when they are
-                    // necessary. if not, we can just render every input field
-                    // and let user decide which ones to fill out, if yes, find
-                    // a way for QuestionCard to set hasSubgroups, hasHouseholds,
-                    // and hasIndividuals to true. this will probably require
-                    // a new field in the API database, called shortName. then,
-                    // if shortName is "subgroups", set hasSubgroups to true, etc.
+                    // re-render SimpleRandom whenever hasSubroups or hasHouseholds changes
+                    key={this.state.hasSubroups || this.state.hasHouseholds }
                     hasSubroups={this.state.hasSubroups}
+                    questionCards={this.state.questionCards}
                     hasHouseholds={this.state.hasHouseholds}
                     hasIndividuals={this.state.hasIndividuals}
-                    questionCards={this.state.questionCards}
                 />
             );
         }

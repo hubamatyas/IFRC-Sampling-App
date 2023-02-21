@@ -16,11 +16,9 @@ class SimpleRandom extends React.Component {
             households: null,
             individuals: null,
             sampleSize: null,
-            // hasSubroups: false,
-            // hasHouseholds: false,
-            // hasIndividuals: false,
-            // conditionally render these fields in the form
-            // they should be passed down to SimpleRandom as props
+            hasSubroups: props.hasSubroups,
+            hasHouseholds: props.hasHouseholds,
+            hasIndividuals: props.hasIndividuals,
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.calculateSampleSize = this.calculateSampleSize.bind(this);
@@ -29,6 +27,7 @@ class SimpleRandom extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        console.log(this.state.hasHouseholds, this.state.hasIndividuals, this.state.hasSubroups)
         this.setState({
             marginOfError: event.target.margin.value,
             confidenceLevel: event.target.confidence.value,
