@@ -11,12 +11,24 @@ import { FiMenu } from "react-icons/fi";
 
 
 function Navbar(){
+
     const { t } = useTranslation();
 
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [isLangOpen, setIsLangOpen] = useState(false);
+    const [items, setItems] = useState([]);
     let mobileNav
     let langDropdown
+
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         const result = await axios(
+    //             'https://ifrc-sampling.azurewebsites.net/api/decision-tree/',
+    //         );
+    //         setItems(result.data);
+    //     }
+    //     fetchData();
+    // },[isNavOpen]);
 
     if (isNavOpen) {
         mobileNav = ( <MobileNavbar/> )

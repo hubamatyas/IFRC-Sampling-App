@@ -30,6 +30,27 @@ input, select {
     width: 300px;
 }
 
+.subgroup {
+    display: flex;
+}
+
+.newRow {
+    margin-left: 10px;
+    height: 30px;
+    width: 30px;
+    border-radius: $full-border-radius;
+    border-color: $primary-color;
+    background-color: $white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.calculate {
+    grid-column-start: 1;
+}
+
 // extract into component
 .btn {
     background-color: $primary-color;
@@ -58,5 +79,10 @@ input, select {
 
     .result {
         width: 90%;
+    }
+
+    .calculate {
+        display: flex;
+        justify-content: center;
     }
 }
