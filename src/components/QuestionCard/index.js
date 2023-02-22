@@ -15,6 +15,7 @@ class QuestionCard extends React.Component {
             parent_id: null,
             options: [],
             answer: null,
+            answerKey: null,
             isLoading: true,
         };
         this.fetchState = this.fetchState.bind(this);
@@ -40,7 +41,9 @@ class QuestionCard extends React.Component {
 
     // pass child_state to parent (i.e., DecisionTree) to render next question card
     handleOptionClick(term, option) {
-        this.setState({answer: option.child_state},
+        this.setState({
+            answer: option.child_state,
+            answerKey: option.child_state + option.name,},
             () => this.props.onSelectOption(
                 {answer: this.state.answer,
                 id: this.state.id,
@@ -51,9 +54,9 @@ class QuestionCard extends React.Component {
     }
 
     render() {
+        const answer_key = this.state.answerKey;
         const question = this.state.question;
         const options = this.state.options;
-        const answer = this.state.answer;
         const term = this.state.term;
         return (
             <>
@@ -67,7 +70,7 @@ class QuestionCard extends React.Component {
                                     key={option.id}
                                     className={_cs(
                                         styles.optionBtn,
-                                        option.child_state === answer 
+                                        option.child_state + option.name === answer_key
                                         && styles.isActive,
                                     )}
                                     onClick={() => this.handleOptionClick(term, option)}>

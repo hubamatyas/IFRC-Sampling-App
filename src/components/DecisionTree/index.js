@@ -38,7 +38,6 @@ class DecisionTree extends React.Component {
         // if it's not the last element in the array, remove all elements after it
         var index = questionCards.indexOf(id);
         questionCards.splice(index + 1, questionCards.length - index);
-        
         // reset state when user goes back to previous question card
         var splicedLength = questionCards.length;
         if (originalLength !== splicedLength) {
@@ -83,7 +82,7 @@ class DecisionTree extends React.Component {
             return (
                 <SimpleRandom
                     // re-render SimpleRandom whenever hasSubroups or hasHouseholds changes
-                    key={this.state.hasSubroups || this.state.hasHouseholds }
+                    key={this.state.hasSubroups.toString() + this.state.hasHouseholds.toString()}
                     hasSubroups={this.state.hasSubroups}
                     questionCards={this.state.questionCards}
                     hasHouseholds={this.state.hasHouseholds}

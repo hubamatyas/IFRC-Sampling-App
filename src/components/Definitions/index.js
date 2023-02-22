@@ -24,4 +24,9 @@ export const definitions = {
     In frequentist statistics, a confidence interval (CI) is a range of estimates for an unknown parameter. A confidence interval is computed at a designated confidence level; the 95% confidence level is most common, but other levels, such as 90% or 99%, are sometimes used. The confidence level represents the long-run proportion of CIs (at the given confidence level) that theoretically contain the true value of the parameter. For example, out of all intervals computed at the 95% level, 95% of them should contain the parameter's true value.[3]
     Factors affecting the width of the CI include the sample size, the variability in the sample, and the confidence level.[4] All else being the same, a larger sample produces a narrower confidence interval, greater variability in the sample produces a wider confidence interval, and a higher confidence level produces a wider confidence interval.
     </div>,
+
+    "sub-population groups":
+    <div>
+    <p>Sub-population groups are sub-groups of the target population that are of interest to the survey. For example, if the target population is all residents of a city, sub-population groups could be all residents of a particular neighborhood, all residents of a particular age group, all residents of a particular income group, etc. </p>
+    </div>,
 }

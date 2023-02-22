@@ -22,14 +22,10 @@ class SimpleRandom extends React.Component {
             hasIndividuals: props.hasIndividuals,
             loadedSubgroups: false,
         };
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.calculateSampleSize = this.calculateSampleSize.bind(this);
     }
     
-
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state.hasHouseholds, this.state.hasIndividuals, this.state.hasSubroups)
         this.setState({
             marginOfError: event.target.margin.value,
             confidenceLevel: event.target.confidence.value,
@@ -50,9 +46,10 @@ class SimpleRandom extends React.Component {
     }
     
     createSubgroup = () => {
+        const x = Math.random();
         return (
             <div className={styles.field}>
-                <label for="margin"> Group </label>
+                <label for="margin"> Group {x}</label>
                 <div className={styles.subgroup}>
                     <input type="number" id="margin" name="margin" required />
                     <button
@@ -106,9 +103,10 @@ class SimpleRandom extends React.Component {
 
     render() {
         const { t } = this.props;
+        console.log(this.state.hasHouseholds, this.state.hasIndividuals, this.state.hasSubroups)
         return (
             <>
-                {this.state.hasSubroups &&
+                {this.state.hasSubroups && !this.hasHouseholds &&
                     <Card>
                     <h2> <Terminology term="sub-population groups" text="Identify sub-population groups" /></h2>
                     <form onSubmit={(e) => this.handleSubgroupSubmit(e)}>
@@ -121,9 +119,9 @@ class SimpleRandom extends React.Component {
                     </form>
                     </Card>
                 }
-                {this.state.hasHouseholds
+                {(this.state.hasHouseholds
                 || (this.state.hasIndividuals && this.state.loadedSubgroups
-                || (this.state.hasIndividuals && !this.state.hasSubroups)) &&
+                || (this.state.hasIndividuals && !this.state.hasSubroups))) &&
                     <Card>
                         <h2> <Terminology term="simple random" text="Simple Random Calculator" /></h2>
                         <form className={styles.inputFields} onSubmit={(e) => this.handleSubmit(e)}>
