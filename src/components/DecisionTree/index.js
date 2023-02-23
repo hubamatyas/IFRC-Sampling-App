@@ -2,7 +2,6 @@ import React,{useEffect} from "react";
 import styles from "./styles.module.scss";
 import QuestionCard from "../QuestionCard";
 import SimpleRandom from "../SimpleRandom";
-import cloneDeep from 'lodash/cloneDeep';
 
 class DecisionTree extends React.Component {
     constructor(props) {
@@ -11,7 +10,7 @@ class DecisionTree extends React.Component {
             // initial state is [1] so API call is made to get first question card
             // refactor to store entire question card in state instead of just id
             questionCards: [1],
-            hasSubroups: false,
+            hasSubgroups: false,
             hasHouseholds: false,
             hasIndividuals: true,
         };
@@ -54,13 +53,13 @@ class DecisionTree extends React.Component {
         this.setState({
             hasHouseholds: isHouseholds,
             hasIndividuals: !isHouseholds,
-            hasSubroups: isSubgroup,
+            hasSubgroups: isSubgroup,
         })
     }
 
     forwardsStateUpdate = (isHouseholds, isSubgroup) => {
         this.setState({
-            hasSubroups: isSubgroup ? true : this.state.hasSubroups,
+            hasSubgroups: isSubgroup ? true : this.state.hasSubgroups,
             hasHouseholds: isHouseholds ? true : this.state.hasHouseholds,
             hasIndividuals: isHouseholds ? false : this.state.hasIndividuals,
         });
@@ -82,8 +81,8 @@ class DecisionTree extends React.Component {
             return (
                 <SimpleRandom
                     // re-render SimpleRandom whenever hasSubroups or hasHouseholds changes
-                    key={this.state.hasSubroups.toString() + this.state.hasHouseholds.toString()}
-                    hasSubroups={this.state.hasSubroups}
+                    key={this.state.hasSubgroups.toString() + this.state.hasHouseholds.toString()}
+                    hasSubgroups={this.state.hasSubgroups}
                     questionCards={this.state.questionCards}
                     hasHouseholds={this.state.hasHouseholds}
                     hasIndividuals={this.state.hasIndividuals}
