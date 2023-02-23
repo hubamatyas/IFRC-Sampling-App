@@ -6,37 +6,14 @@ import { useTranslation } from "react-i18next";
 import MobileNavbar from "../MobileNavbar";
 import LanguageDropdown from "../LanguageDropdown";
 import lang from "../../lang.js";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
 
-
-function Navbar(){
-
+function Navbar() {
     const { t } = useTranslation();
-
     const [isNavOpen, setIsNavOpen] = useState(false);
     const [isLangOpen, setIsLangOpen] = useState(false);
-    const [items, setItems] = useState([]);
-    let mobileNav
-    let langDropdown
-
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         const result = await axios(
-    //             'https://ifrc-sampling.azurewebsites.net/api/decision-tree/',
-    //         );
-    //         setItems(result.data);
-    //     }
-    //     fetchData();
-    // },[isNavOpen]);
-
-    if (isNavOpen) {
-        mobileNav = ( <MobileNavbar/> )
-    }
-
-    if (isLangOpen) {
-        langDropdown = ( <LanguageDropdown/> )
-    }
+    const location = useLocation();
 
     return (
         <>
@@ -50,32 +27,32 @@ function Navbar(){
                         </Link>
                     </div>
                     <div className={styles.navlinks}>
-                        <Link to="/">
+                        <Link to="/" className={location.pathname === '/' ? styles.active : ''}>
                             <li className={styles.link}>{t('menuHome')}</li>
                         </Link>
-                        <Link to="/sampling">
+                        <Link to="/sampling" className={location.pathname === '/sampling' ? styles.active : ''}>
                             <li className={styles.link}>{lang.menuSampling}</li>
                         </Link>
-                        <Link to="/resources">
+                        <Link to="/resources" className={location.pathname === '/resources' ? styles.active : ''}>
                             <li className={styles.link}>{lang.menuResources}</li>
                         </Link>
-                        <Link to="/about">
+                        <Link to="/about" className={location.pathname === '/about' ? styles.active : ''}>
                             <li className={styles.link}>{lang.menuAbout}</li>
                         </Link>
                         <li className={styles.link} onMouseOver={() => setIsLangOpen(true)}>
-                            <img src={globe} alt={lang.altGlobe} onMouseOut={() => setIsLangOpen(false)}/>
+                            <img src={globe} alt={lang.altGlobe} onMouseOut={() => setIsLangOpen(false)} />
                             <div onClick={() => setIsLangOpen(false)} onMouseLeave={() => setIsLangOpen(false)}>
-                                { langDropdown }
+                                {isLangOpen && <LanguageDropdown />}
                             </div>
                         </li>
                     </div>
                     <button className={styles.navBtn} onClick={() => setIsNavOpen(!isNavOpen)}>
-                        <FiMenu size={40} className={styles.burger}/>
+                        <FiMenu size={40} className={styles.burger} />
                     </button>
                 </div>
             </header>
             <div onClick={() => setIsNavOpen(false)}>
-                { mobileNav }
+                {isNavOpen && <MobileNavbar />}
             </div>
         </>
     )

@@ -8,6 +8,10 @@
     background-color: $white;
 }
 
+.active {
+    font-weight: $base-font-bold;
+}
+
 .bar {
     display: flex;
     align-items: center;
