@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./styles.module.scss";
-import arrow from "../../assets/arrow.svg";
+import arrowSvg from "../../assets/arrow.svg";
 
-function Card(props){
-    let hasArrow = true;
-    if (props.hasArrow === false) {
-        hasArrow = false;
-    }
+function Card({ hasArrow, ...props }){
+    const [arrow, setArrow] = useState(true);
+
+    useEffect(() => {
+        setArrow(hasArrow !== undefined ? hasArrow : true);
+    }, []);
 
     return (
         <>
@@ -17,7 +18,7 @@ function Card(props){
                     </div>
                 ))}
             </section>
-            {hasArrow && <img src={arrow} className={styles.arrow}/>}
+            {arrow && <img src={arrowSvg} className={styles.arrow}/>}
         </>
     )
 }
