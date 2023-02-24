@@ -5,14 +5,25 @@ import { _cs } from '@togglecorp/fujs';
 import Terminology from '../Terminology';
 import Loader from '../Loader';
 
-function QuestionCard({ id, onSelectOption }) {
-    const [question, setQuestion] = useState(null);
-    const [term, setTerm] = useState(null);
-    const [parent_id, setParentId] = useState(null);
-    const [options, setOptions] = useState([]);
-    const [answer, setAnswer] = useState(null);
-    const [answerKey, setAnswerKey] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+interface Option {
+    id: number;
+    name: string;
+    child_state: number;
+}
+
+interface QuestionCardProps {
+    id: number;
+    onSelectOption: (option: { answer: number; id: number; isHouseholds: boolean; isSubgroup: boolean }) => void;
+}
+
+function QuestionCard({ id, onSelectOption }: QuestionCardProps): JSX.Element {
+    const [question, setQuestion] = useState<string | null>(null);
+    const [term, setTerm] = useState<string | null>(null);
+    const [parent_id, setParentId] = useState<number | null>(null);
+    const [options, setOptions] = useState<Option[]>([]);
+    const [answer, setAnswer] = useState<number | null>(null);
+    const [answerKey, setAnswerKey] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchState = async () => {
@@ -34,7 +45,7 @@ function QuestionCard({ id, onSelectOption }) {
         fetchState();
     }, []);
 
-    const handleOptionClick = (term, option) => {
+    const handleOptionClick = (term: string | null, option: Option) => {
         setAnswer(option.child_state);
         setAnswerKey(option.child_state + option.name);
 
@@ -50,8 +61,7 @@ function QuestionCard({ id, onSelectOption }) {
         <>
             {isLoading ? (
                 <Loader />
-            ) : 
-            (
+            ) : (
                 <Card>
                     <h2>
                         <Terminology term={term} text={question} />

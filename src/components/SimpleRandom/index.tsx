@@ -1,28 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.scss";
-import { withTranslation } from "react-i18next";
+import { WithTranslation, withTranslation } from "react-i18next";
 import Card from "../Card";
 import ExportButton from "../ExportButton";
 import Terminology from "../Terminology";
 import SubgroupInput from "../SubgroupInput";
 
+interface SimpleRandomProps extends WithTranslation {
+    hasSubgroups: boolean;
+    hasHouseholds: boolean;
+    hasIndividuals: boolean;
+    questionCards: number[];
+}
 
-const SimpleRandom = ({ hasSubgroups, hasHouseholds, hasIndividuals, t, questionCards }) => {
-    const [marginOfError, setMarginOfError] = useState(null);
-    const [confidenceLevel, setConfidenceLevel] = useState(null);
-    const [nonResponseRate, setNonResponseRate] = useState(null);
-    const [households, setHouseholds] = useState(null);
-    const [individuals, setIndividuals] = useState(null);
-    const [sampleSize, setSampleSize] = useState(null);
-    const [subgroups, setSubgroups] = useState(null);
+const SimpleRandom: React.FC<SimpleRandomProps> = ({
+    hasSubgroups,
+    hasHouseholds,
+    hasIndividuals,
+    t,
+    questionCards,
+}) => {
+    const [marginOfError, setMarginOfError] = useState<number | null>(null);
+    const [confidenceLevel, setConfidenceLevel] = useState<number | null>(null);
+    const [nonResponseRate, setNonResponseRate] = useState<number | null>(null);
+    const [households, setHouseholds] = useState<number | null>(null);
+    const [individuals, setIndividuals] = useState<number | null>(null);
+    const [sampleSize, setSampleSize] = useState<number | null>(null);
+    const [subgroups, setSubgroups] = useState<any[] | null>(null);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setMarginOfError(event.target.margin.value);
-        setConfidenceLevel(event.target.confidence.value);
-        setNonResponseRate(event.target.response.value);
-        setHouseholds(event.target.households ? event.target.households.value : null);
-        setIndividuals(event.target.individuals ? event.target.individuals.value : null);
+        setMarginOfError(Number(event.currentTarget.margin.value));
+        setConfidenceLevel(Number(event.currentTarget.confidence.value));
+        setNonResponseRate(Number(event.currentTarget.response.value));
+        setHouseholds(
+            event.currentTarget.households
+                ? Number(event.currentTarget.households.value)
+                : null
+        );
+        setIndividuals(
+            event.currentTarget.individuals
+                ? Number(event.currentTarget.individuals.value)
+                : null
+        );
         calculateSampleSize();
     };
 
@@ -38,9 +58,7 @@ const SimpleRandom = ({ hasSubgroups, hasHouseholds, hasIndividuals, t, question
                     <h2>
                         <Terminology term="sub-population groups" text="Identify sub-population groups" />
                     </h2>
-                    <SubgroupInput 
-                        onSubmitSubgroups={(subgroups) => setSubgroups(subgroups)}   
-                    />
+                    <SubgroupInput onSubmitSubgroups={(subgroups) => setSubgroups(subgroups)} />
                 </Card>
             )}
             {(hasHouseholds || (hasIndividuals && subgroups) || (hasIndividuals && !hasSubgroups)) && (
