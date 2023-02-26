@@ -1,14 +1,5 @@
 @import "~/src/styles/variables";
 
-.result {
-    width: $media-default;
-    margin: auto;
-}
-
-p {
-    width: 80%;
-}
-
 .inputFields {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -30,10 +21,27 @@ input, select {
     width: 300px;
 }
 
-.calculate {
-    grid-column-start: 1;
+.textInput {
+    background-color: transparent;
+    font-size: $font-size-lg;
+}
+
+.subgroup {
     display: flex;
+    align-items: flex-end;
+}
+
+.newRow {
+    height: 30px;
+    width: 30px;
+    border-radius: $full-border-radius;
+    border-color: $primary-color;
+    background-color: $white;
+    display: flex;
+    align-items: center;
     justify-content: center;
+    cursor: pointer;
+    margin: $global-spacing 0 $global-spacing $global-spacing;
 }
 
 // extract into component
