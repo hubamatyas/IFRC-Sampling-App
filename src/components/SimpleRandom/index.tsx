@@ -71,9 +71,31 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
         calculateSampleSize();
     };
 
-    const calculateSampleSize = () => {
-        // call API to calculate sample size
-        setSampleSize(individuals);
+    const calculateSampleSize = async () => {
+        const data = {
+            margin_of_error: marginOfError,
+            confidence_level: confidenceLevel,
+            non_response_rate: nonResponseRate,
+            subgroups: subgroups,
+            households: households,
+            individuals: individuals,
+        };
+        const url = `http://127.0.0.1:8000/api/simple-random/`;
+
+        try {
+            const response = await fetch(url, { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            const responseData = await response.json();
+            setSampleSize(responseData['sample_size']);
+        } catch (error) {
+            window.alert('Error: ' + 'Calculation failed');
+            console.error('Error:', error);
+        }
     };
 
     return (

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import { WithTranslation, withTranslation } from "react-i18next";
 import Card from "../../components/Card";
@@ -32,8 +32,15 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
     questionCards,
 }) => {
     const [sampleSize, setSampleSize] = useState<number | null>(null);
+    const [isSubgroupsReady, setIsSubgroupsReady] = useState<boolean>(false);
     const [subgroups, setSubgroups] = useState<any[] | null>(null);
     const [simpleRandomResponse, setSimpleRandomResponse] = useState<SimpleRandomResponse | null>(null);
+
+    useEffect(() => {
+        if (!isSubgroupsReady) {
+            setSampleSize(null);
+        }
+    }, [isSubgroupsReady]);
 
     const onSimpleRandomCalculation = useCallback((simpleRandomResponse: SimpleRandomResponse) => {
         setSimpleRandomResponse(simpleRandomResponse);
@@ -48,10 +55,16 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
                     <h2>
                         <Terminology term="sub-population groups" text="Identify sub-population groups" />
                     </h2>
-                    <SubgroupInput onSubmitSubgroups={(subgroups) => setSubgroups(subgroups)} />
+                    <SubgroupInput
+                        onSubmitSubgroups={(subgroups, isReady) => {
+                                setSubgroups(subgroups);
+                                setIsSubgroupsReady(isReady);
+                            }
+                        }
+                    />
                 </Card>
             )}
-            {(hasHouseholds || (hasIndividuals && subgroups) || (hasIndividuals && !hasSubgroups)) && (
+            {isSubgroupsReady && (hasHouseholds || (hasIndividuals && subgroups) || (hasIndividuals && !hasSubgroups)) && (
                 <SimpleRandom
                     subgroups={subgroups}
                     hasSubgroups={hasSubgroups}
