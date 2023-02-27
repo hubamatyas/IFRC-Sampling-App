@@ -7,12 +7,13 @@
     padding: $global-spacing-2;
     margin: auto;
     width: fit-content;
+    animation: card 1s;
 }
 
 .arrow {
     display: flex;
     margin: auto;
-    animation: arrow 1.5s;
+    animation: arrow 2s;
 }
 
 @keyframes arrow {
@@ -21,5 +22,16 @@
     }
     100% {
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
+
+@keyframes card {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styles from './styles.module.scss';
 import QuestionCard from '../QuestionCard';
-import SimpleRandom from '../SimpleRandom';
+import SimpleRandomCalculator from '../../calculators/SimpleRandomCalculator';
+import SystematicRandomCalculator from '../../calculators/SystematicRandomCalculator';
+import TimeLocationCalculator from '../../calculators/TimeLocationCalculator';
+import config from 'src/util/config';
 
 interface OptionProps {
     answer: number;
@@ -51,9 +54,26 @@ const DecisionTree = (): JSX.Element => {
         // calculators as the case, not the id. default of switch
         // should be QuestionCard
         switch (questionCard) {
-            case 5:
+            case config.timeLocation:
                 return (
-                    <SimpleRandom
+                    <TimeLocationCalculator
+                        // re-render TimeLocation whenever hasSubroups or hasHouseholds changes
+                        key={`${hasSubgroups}${hasHouseholds}`}
+                        questionCards={questionCards}
+                    />
+                );
+            case config.systematicRandom:
+                return (
+                    <SystematicRandomCalculator
+                        // re-render SystematicRandom whenever hasSubroups or hasHouseholds changes
+                        key={`${hasSubgroups}`}
+                        hasSubgroups={hasSubgroups}
+                        questionCards={questionCards}
+                    />
+                );
+            case config.simpleRandom:
+                return (
+                    <SimpleRandomCalculator
                         // re-render SimpleRandom whenever hasSubroups or hasHouseholds changes
                         key={`${hasSubgroups}${hasHouseholds}`}
                         hasSubgroups={hasSubgroups}
@@ -74,8 +94,7 @@ const DecisionTree = (): JSX.Element => {
     }, [questionCards, hasSubgroups, hasHouseholds, hasIndividuals, handleOption]);
 
     useEffect(() => {
-        // initial state is [1] so API call is made to get first question card
-        setQuestionCards([1]);
+        setQuestionCards([config.startId]);
     }, []);
 
     return (

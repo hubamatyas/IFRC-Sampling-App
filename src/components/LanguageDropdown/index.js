@@ -14,7 +14,7 @@ function LanguageDropdown() {
 
     return (
         <div className={styles.selection}>
-            <ul>
+            <ul className={styles.langList}>
                 {languages.map((language, index) => (
                     <Link to="/" key={index}>
                         <li
