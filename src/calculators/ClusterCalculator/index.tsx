@@ -117,32 +117,42 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                 <form onSubmit={handleClusterSubmit}>
                     <div className={styles.parameters}>
                         <div className={styles.field}>
-                            <label htmlFor="communities">Number of Communities</label>        
+                            <label htmlFor="communities">Number of communities</label>        
                             <input
                                 required
                                 type="number"
                                 id="communities"
                                 name="communities"
+                                min={1}
+                                max={20}
+                                step={1}
                                 onChange={(e) => setNumOfCommunities(parseInt(e.target.value))}
                             />
                         </div>
                         <div className={styles.field}>
-                            <label htmlFor="margin">Margin or error</label>
+                            <label htmlFor="margin">Margin or error (%)</label>
                             <input
                                 required
                                 type="number"
                                 id="margin"
                                 name="margin"
+                                min={0}
+                                max={100}
+                                step={1}
                             />
                         </div>
                         <div className={styles.field}>
-                            <label htmlFor="confidence">Confidence level</label>
-                            <input
-                                required
-                                type="number"
+                            <label htmlFor="confidence"> Confidence level (%)</label>
+                            <select
                                 id="confidence"
                                 name="confidence"
-                            />
+                            >
+                                <option value="95">95</option>
+                                <option value="99">99</option>
+                                <option value="90">90</option>
+                                <option value="85">85</option>
+                                <option value="80">80</option>
+                            </select>
                         </div>
                     </div>
                     {inputFields && 
