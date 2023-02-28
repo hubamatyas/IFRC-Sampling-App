@@ -33,6 +33,7 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
 }) => {
     const [sampleSize, setSampleSize] = useState<number | null>(null);
     const [isSubgroupsReady, setIsSubgroupsReady] = useState<boolean>(false);
+    const [isSimpleRandomReady, setIsSimpleRandomReady] = useState<boolean>(false);
     const [subgroups, setSubgroups] = useState<any[] | null>(null);
     const [simpleRandomResponse, setSimpleRandomResponse] = useState<SimpleRandomResponse | null>(null);
 
@@ -64,7 +65,7 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
                     />
                 </Card>
             )}
-            {isSubgroupsReady && (hasHouseholds || (hasIndividuals && subgroups) || (hasIndividuals && !hasSubgroups)) && (
+            {(hasHouseholds || isSubgroupsReady && (hasIndividuals && subgroups) || (hasIndividuals && !hasSubgroups)) && (
                 <SimpleRandom
                     subgroups={subgroups}
                     hasSubgroups={hasSubgroups}

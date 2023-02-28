@@ -12,7 +12,7 @@ interface SimpleRandomProps extends WithTranslation {
     hasHouseholds: boolean;
     hasIndividuals: boolean;
     // add onSubmit prop which should be a function or null, and should be optional
-    onSubmitSimpleRandom: (simpleRandomResponse: SimpleRandomResponse) => void;
+    onSubmitSimpleRandom: (simpleRandomResponse: SimpleRandomResponse, isSimpleRandomReady: boolean) => void;
 }
 
 interface SimpleRandomResponse {
@@ -50,8 +50,20 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
             households: households,
             individuals: individuals,
             // subgroups: subgroups,
-        });
+        }, true);
+        console.log(sampleSize)
     }, [sampleSize]);
+    
+    // useEffect(() => {
+    //     onSubmitSimpleRandom({
+    //         sampleSize: null,
+    //         marginOfError: null,
+    //         confidenceLevel: null,
+    //         nonResponseRate: null,
+    //         households: null,
+    //         individuals: null,
+    //     }, false);
+    // }, [marginOfError, confidenceLevel, nonResponseRate, households, individuals]);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -72,30 +84,31 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
     };
 
     const calculateSampleSize = async () => {
-        const data = {
-            margin_of_error: marginOfError,
-            confidence_level: confidenceLevel,
-            non_response_rate: nonResponseRate,
-            subgroups: subgroups,
-            households: households,
-            individuals: individuals,
-        };
-        const url = `http://127.0.0.1:8000/api/simple-random/`;
+        // const data = {
+        //     margin_of_error: marginOfError,
+        //     confidence_level: confidenceLevel,
+        //     non_response_rate: nonResponseRate,
+        //     subgroups: subgroups,
+        //     households: households,
+        //     individuals: individuals,
+        // };
+        // const url = `http://127.0.0.1:8000/api/simple-random/sample-size/`;
 
-        try {
-            const response = await fetch(url, { 
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-            const responseData = await response.json();
-            setSampleSize(responseData['sample_size']);
-        } catch (error) {
-            window.alert('Error: ' + 'Calculation failed');
-            console.error('Error:', error);
-        }
+        // try {
+        //     const response = await fetch(url, { 
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify(data)
+        //     });
+        //     const responseData = await response.json();
+        //     setSampleSize(responseData['sample_size']);
+        // } catch (error) {
+        //     window.alert('Error: ' + 'Calculation failed');
+        //     console.error('Error:', error);
+        // }
+        setSampleSize(100);
     };
 
     return (
@@ -106,11 +119,25 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
             <form className={styles.inputFields} onSubmit={handleSubmit}>
                 <div className={styles.field}>
                     <label htmlFor="margin"> Margin of error (%)</label>
-                    <input type="number" id="margin" name="margin" placeholder="5" />
+                    <input
+                        type="number"
+                        id="margin"
+                        name="margin"
+                        placeholder="5"
+                        // onChange={(e) => {
+                        //     setMarginOfError(Number(e.target.value));
+                        // }}
+                    />
                 </div>
                 <div className={styles.field}>
                     <label htmlFor="confidence"> Confidence level (%)</label>
-                    <select id="confidence" name="confidence">
+                    <select
+                        id="confidence"
+                        name="confidence"
+                        // onChange={(e) => {
+                        //     setConfidenceLevel(Number(e.target.value));
+                        // }}
+                    >
                         <option value="95">95</option>
                         <option value="99">99</option>
                         <option value="90">90</option>
@@ -120,18 +147,41 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
                 </div>
                 <div className={styles.field}>
                     <label htmlFor="response"> Non-response rate (%)</label>
-                    <input type="number" id="response" name="response" placeholder="0" />
+                    <input type="number"
+                        id="response"
+                        name="response"
+                        placeholder="0"
+                        // onChange={(e) => {
+                        //     setNonResponseRate(Number(e.target.value));
+                        // }}
+                    />
                 </div>
                 {hasHouseholds && (
                     <div className={styles.field}>
                         <label htmlFor="households"> Number of households </label>
-                        <input type="number" id="households" name="households" placeholder="" />
+                        <input
+                            type="number"
+                            id="households"
+                            name="households"
+                            placeholder=""
+                            // onChange={(e) => {
+                            //     setHouseholds(parseInt(e.target.value));
+                            // }}
+                        />
                     </div>
                 )}
                 {hasIndividuals && !hasSubgroups && (
                     <div className={styles.field}>
                         <label htmlFor="individuals"> Number of individuals </label>
-                        <input type="number" id="individuals" name="individuals" placeholder="" />
+                        <input
+                            type="number"
+                            id="individuals"
+                            name="individuals"
+                            placeholder=""
+                            // onChange={(e) => {
+                            //     setIndividuals(parseInt(e.target.value));
+                            // }}
+                        />
                     </div>
                 )}
                 <div className={styles.calculate}>

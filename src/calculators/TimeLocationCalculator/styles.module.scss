@@ -15,10 +15,8 @@ p {
     grid-gap: $global-spacing-2;
 }
 
-.field {
-    display: flex;
-    flex-direction: column;
-    margin: $global-spacing 0;
+label {
+    font-weight: $base-font-bold;
 }
 
 // extract into component
@@ -28,6 +26,13 @@ input, select {
     padding: 7px;
     background-color: $grey-titanium;
     width: 300px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    margin: $global-spacing 0;
+    padding: $global-spacing;
 }
 
 .calculate {
