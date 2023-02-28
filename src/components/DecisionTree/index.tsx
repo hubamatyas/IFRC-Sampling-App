@@ -4,6 +4,7 @@ import QuestionCard from '../QuestionCard';
 import SimpleRandomCalculator from '../../calculators/SimpleRandomCalculator';
 import SystematicRandomCalculator from '../../calculators/SystematicRandomCalculator';
 import TimeLocationCalculator from '../../calculators/TimeLocationCalculator';
+import ClusterCalculator from '../../calculators/ClusterCalculator';
 import config from 'src/util/config';
 
 interface OptionProps {
@@ -54,6 +55,12 @@ const DecisionTree = (): JSX.Element => {
         // calculators as the case, not the id. default of switch
         // should be QuestionCard
         switch (questionCard) {
+            case config.cluster:
+                return (
+                    <ClusterCalculator
+                        questionCards={questionCards}
+                    />
+                );
             case config.timeLocation:
                 return (
                     <TimeLocationCalculator
