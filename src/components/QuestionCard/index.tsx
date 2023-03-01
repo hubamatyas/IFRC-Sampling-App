@@ -62,7 +62,7 @@ function QuestionCard({ id, onSelectOption }: QuestionCardProps): JSX.Element {
             {isLoading ? (
                 <Loader />
             ) : (
-                <Card>
+                <Card hasPulse={id === 1? true : false}>
                     <h2>
                         <Terminology term={term} text={question} />
                     </h2>

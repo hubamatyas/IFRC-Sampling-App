@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles.module.scss";
 import ArrowSvg from "../../assets/arrow.svg";
+import { _cs } from "@togglecorp/fujs";
 
 type Props = {
   hasArrow?: boolean,
+  hasPulse?: boolean,
   [key: string]: React.ReactNode,
 }
 
-function Card({ hasArrow = true, ...props }: Props): JSX.Element {
+function Card({ hasArrow = true, hasPulse, ...props }: Props): JSX.Element {
     const [arrow, setArrow] = useState<boolean>(true);
 
     useEffect(() => {
@@ -16,7 +18,10 @@ function Card({ hasArrow = true, ...props }: Props): JSX.Element {
 
     return (
         <>
-            <section className={styles.card}>
+            <section className={_cs(
+                styles.card,
+                hasPulse && styles.pulse,
+            )}>
                 {Object.keys(props).map((key: string) => (
                     <div key={key}>
                         {props[key]}

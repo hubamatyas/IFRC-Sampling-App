@@ -52,20 +52,20 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
         onSubmitSubgroups(null, false);
     }, [inputFields, inputs, sum, isSumValid, populationSize]);
 
-    const handleSubgroupSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const handleSubgroupSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         const subgroups = [];
-        for (let i = 0; i < event.currentTarget.length; i++) {
-          if (event.currentTarget[i].id) {
-            const subgroup = {
-              name: (event.currentTarget[i] as HTMLInputElement).value,
-              size: parseInt(
-                (event.currentTarget[++i] as HTMLInputElement).value
-              )
-            };
-            subgroups.push(subgroup);
-          }
+        for (let i = 0; i < e.currentTarget.length; i++) {
+            const element = e.currentTarget[i] as HTMLInputElement;
+            if (element.name === "name") {
+                const community = {
+                    name: element.value,
+                    size: parseInt((e.currentTarget[++i] as HTMLInputElement).value)
+                }
+                subgroups.push(community);
+            }
         }
+        console.log(subgroups)
         onSubmitSubgroups(subgroups, true);
       };
 

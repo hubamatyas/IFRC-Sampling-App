@@ -60,7 +60,7 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
             {( subgroups || !hasSubgroups) && (
                 <Card>
                     <h2>
-                        <Terminology term="simple random" text="Simple Random Calculator" />
+                        <Terminology term="systematic random" text="Systematic Random Calculator" />
                     </h2>
                     <form className={styles.inputFields} onSubmit={handleSubmit}>
                         <div className={styles.field}>

@@ -14,10 +14,24 @@
     box-shadow: $strong-box-shadow;
 }
 
+.pulse {
+    animation: pulse 2s;
+    animation-iteration-count: 3;
+}
+
 .arrow {
     display: flex;
     margin: auto;
     animation: arrow 2s;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
 }
 
 @keyframes arrow {

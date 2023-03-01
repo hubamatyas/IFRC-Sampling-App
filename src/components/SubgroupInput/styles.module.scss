@@ -33,6 +33,7 @@ input, select {
 .textInput {
     background-color: transparent;
     font-size: $font-size-lg;
+    border-bottom: 1px solid $primary-color;
 }
 
 .subgroup {
