@@ -1,15 +1,34 @@
 @import "~/src/styles/variables";
 
-.inputFields {
+.result {
+    width: $media-default;
+    margin: auto;
+}
+
+.desription {
+    width: 80%;
+}
+
+.parameters {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: $global-spacing-2;
+    justify-content: center;
+}
+
+.textInput {
+    background-color: transparent;
+    font-size: $font-size-lg;
 }
 
 .field {
     display: flex;
     flex-direction: column;
     margin: $global-spacing 0;
+    padding: $global-spacing;
+}
+
+.inputFields {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .calculate {
@@ -36,6 +55,10 @@
 @media screen and (max-width: $media-medium) {
     .result {
         width: 90%;
+    }
+
+    .inputFields {
+        grid-template-columns: 1fr 1fr;
     }
 }
 

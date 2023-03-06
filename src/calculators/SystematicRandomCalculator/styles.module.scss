@@ -1,5 +1,14 @@
 @import "~/src/styles/variables";
 
+.result {
+    width: $media-default;
+    margin: auto;
+}
+
+.description {
+    width: 80%;
+}
+
 .inputFields {
     display: grid;
     grid-template-columns: 1fr 1fr;

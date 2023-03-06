@@ -1,29 +1,24 @@
 @import "~/src/styles/variables";
 
-.inputFields {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: $global-spacing-2;
-}
-
 .field {
     display: flex;
     flex-direction: column;
     margin: $global-spacing 0;
 }
 
-// extract into component
-input, select {
-    border: none;
-    border-radius: $base-border-radius;
-    padding: 7px;
-    background-color: $grey-titanium;
-    width: 300px;
+.population {
+    padding-bottom: $global-spacing-2;
+    margin: 0;
+}
+
+.subtitle {
+    margin: 0;
 }
 
 .textInput {
     background-color: transparent;
     font-size: $font-size-lg;
+    border-bottom: 1px solid $primary-color;
 }
 
 .subgroup {
@@ -57,6 +52,11 @@ input, select {
     padding: 10px;
     width: 150px;
     text-align: center;
+}
+
+.btn:disabled {
+    background-color: $grey-cloud;
+    cursor: not-allowed;
 }
 
 @media screen and (max-width: $media-medium) {

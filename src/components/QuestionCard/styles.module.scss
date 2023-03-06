@@ -11,10 +11,10 @@ h2 {
 }
 
 .optionBtn {
-    background-color: $grey-cloud;
-    border: none;
+    background-color: $white;
+    border: 1px solid $primary-color;
     border-radius: $card-border-radius;
-    color: $white;
+    color: $primary-color;
     cursor: pointer;
     font-size: $base-font-size;
     font-weight: $base-font-bold;
@@ -26,8 +26,10 @@ h2 {
 
 .optionBtn:hover {
     background-color: $primary-color;
+    color: $white;
 }
 
 .isActive {
     background-color: $primary-color;
+    color: $white;
 }

@@ -26,6 +26,19 @@ h2 {
   text-align: center;
 }
 
+input, select {
+  border: none;
+  border-radius: $base-border-radius;
+  padding: 7px;
+  background-color: $grey-titanium;
+  width: 300px;
+  display: block;
+}
+
+label {
+  font-weight: $base-font-bold;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

@@ -6,32 +6,37 @@ import Terminology from '../Terminology';
 import Loader from '../Loader';
 
 interface Option {
-    id: number;
-    name: string;
     child_state: number;
+    name: string;
+    id: number;
 }
 
 interface QuestionCardProps {
     id: number;
-    onSelectOption: (option: { answer: number; id: number; isHouseholds: boolean; isSubgroup: boolean }) => void;
+    onSelectOption: (option: {
+        isHouseholds: boolean;
+        isSubgroup: boolean
+        answer: number;
+        id: number;
+    }) => void;
 }
 
 function QuestionCard({ id, onSelectOption }: QuestionCardProps): JSX.Element {
-    const [question, setQuestion] = useState<string | null>(null);
-    const [term, setTerm] = useState<string | null>(null);
-    const [parent_id, setParentId] = useState<number | null>(null);
-    const [options, setOptions] = useState<Option[]>([]);
-    const [answer, setAnswer] = useState<number | null>(null);
     const [answerKey, setAnswerKey] = useState<string | null>(null);
+    const [parent_id, setParentId] = useState<number | null>(null);
+    const [question, setQuestion] = useState<string | null>(null);
+    const [answer, setAnswer] = useState<number | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [term, setTerm] = useState<string | null>(null);
+    const [options, setOptions] = useState<Option[]>([]);
 
     useEffect(() => {
         const fetchState = async () => {
             try {
                 const response = await fetch(`https://ifrc-sampling.azurewebsites.net/api/decision-tree/${id}/`);
                 const data = await response.json();
-                setQuestion(data.state.name);
                 setParentId(data.state.parent_state);
+                setQuestion(data.state.name);
                 setOptions(data.options);
                 setTerm(data.state.term);
             } catch (error) {
@@ -41,17 +46,15 @@ function QuestionCard({ id, onSelectOption }: QuestionCardProps): JSX.Element {
                 setIsLoading(false);
             }
         };
-
         fetchState();
     }, []);
 
     const handleOptionClick = (term: string | null, option: Option) => {
-        setAnswer(option.child_state);
         setAnswerKey(option.child_state + option.name);
-
+        setAnswer(option.child_state);
         onSelectOption({
-            answer: option.child_state,
             id: id,
+            answer: option.child_state,
             isHouseholds: option.name === 'Households' ? true : false,
             isSubgroup: term === 'sub-population groups' && option.name === 'Yes' ? true : false,
         });
@@ -62,7 +65,7 @@ function QuestionCard({ id, onSelectOption }: QuestionCardProps): JSX.Element {
             {isLoading ? (
                 <Loader />
             ) : (
-                <Card>
+                <Card hasPulse={id === 1? true : false}>
                     <h2>
                         <Terminology term={term} text={question} />
                     </h2>
