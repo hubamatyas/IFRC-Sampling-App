@@ -1,14 +1,5 @@
 @import "~/src/styles/variables";
 
-.result {
-    width: $media-default;
-    margin: auto;
-}
-
-p {
-    width: 80%;
-}
-
 .inputFields {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -19,15 +10,6 @@ p {
     display: flex;
     flex-direction: column;
     margin: $global-spacing 0;
-}
-
-// extract into component
-input, select {
-    border: none;
-    border-radius: $base-border-radius;
-    padding: 7px;
-    background-color: $grey-titanium;
-    width: 300px;
 }
 
 .calculate {

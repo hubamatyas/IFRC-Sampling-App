@@ -1,0 +1,15 @@
+@import 'src/styles/variables';
+
+.field {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: $global-spacing-2;
+    margin: $global-spacing 0;
+    padding: $global-spacing;
+}
+
+@media screen and (max-width: $media-small) {
+    .field {
+        grid-template-columns: 1fr;
+    }
+}

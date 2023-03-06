@@ -79,7 +79,7 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
                 <div className={styles.result}>
                     <Card hasArrow={false}>
                         <h2> Sample Size: {sampleSize} </h2>
-                        <p>
+                        <p className={styles.description}>
                             {t('aboutGoal')}
                             {t('aboutGoal')}
                             {t('aboutGoal')}

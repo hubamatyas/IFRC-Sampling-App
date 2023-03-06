@@ -5,14 +5,8 @@
     margin: auto;
 }
 
-p {
+.desription {
     width: 80%;
-}
-
-
-
-label {
-    font-weight: $base-font-bold;
 }
 
 .parameters {
@@ -24,17 +18,6 @@ label {
     background-color: transparent;
     font-size: $font-size-lg;
 }
-
-// extract into component
-input, select {
-    border: none;
-    border-radius: $base-border-radius;
-    padding: 7px;
-    background-color: $grey-titanium;
-    width: 300px;
-}
-
-
 
 .field {
     display: flex;

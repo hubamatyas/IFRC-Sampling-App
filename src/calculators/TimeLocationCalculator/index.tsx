@@ -121,7 +121,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
                 <div className={styles.result}>
                     <Card hasArrow={false}>
                         <h2> Sample Size: {timeLocationResponse.sampleSize} </h2>
-                        <p>
+                        <p className={styles.description}>
                             {t('aboutGoal')}
                             {t('aboutGoal')}
                             {t('aboutGoal')}

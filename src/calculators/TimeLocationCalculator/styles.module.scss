@@ -5,27 +5,8 @@
     margin: auto;
 }
 
-p {
+.description {
     width: 80%;
-}
-
-.inputFields {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: $global-spacing-2;
-}
-
-label {
-    font-weight: $base-font-bold;
-}
-
-// extract into component
-input, select {
-    border: none;
-    border-radius: $base-border-radius;
-    padding: 7px;
-    background-color: $grey-titanium;
-    width: 300px;
 }
 
 .field {

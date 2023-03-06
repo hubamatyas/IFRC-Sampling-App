@@ -6,6 +6,7 @@ import ExportButton from "../../components/ExportButton";
 import Terminology from "../../components/Terminology";
 import SimpleRandom from "../../components/SimpleRandom";
 import SubgroupInput from "../../components/SubgroupInput";
+import Input from "../../components/Input";
 
 interface Community {
     name: string;
@@ -169,7 +170,7 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                 <div className={styles.result}>
                     <Card hasArrow={false}>
                         <h2> Sample Size: {clusterResponse.sampleSize} </h2>
-                        <p>
+                        <p className={styles.description}>
                             {t('aboutGoal')}
                             {t('aboutGoal')}
                             {t('aboutGoal')}
