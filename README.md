@@ -45,7 +45,7 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 ## Testing
 
-Crypress framework is used for both component and end-to-end testings.
+Crypress framework is used for both component and end-to-end testings.\
 See the [documentation](https://docs.cypress.io/) for more about testing using Cypress.
 
 ### `npx cypress open`
@@ -54,7 +54,7 @@ Launches the Cypress test runner in the interactive watch mode.
 
 ### `npx cypress run`
 
-Runs the Cypress tests and displays the results in terminal.
+Runs the Cypress tests and displays the results in terminal.\
 Automatic video recording has been turned off. See [here](https://docs.cypress.io/guides/guides/screenshots-and-videos) for more information.
 
 ## Learn More
