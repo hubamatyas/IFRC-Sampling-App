@@ -1,5 +1,3 @@
-import 'cypress-react-selector';
-
 describe('Test the first question card', () => {
 
   beforeEach(() => {
