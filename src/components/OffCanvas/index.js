@@ -2,25 +2,7 @@ import React,{ useState } from "react";
 import styles from "./styles.module.scss";
 import { definitions } from "../Definitions";
 
-// const openBtn = document.querySelector('.open-btn');
-// const closeBtn = document.querySelector('.close-btn');
-// const offcanvas = document.querySelector('.offcanvas');
-
-// open off-canvas menu
-// openBtn.addEventListener('click', function() {
-//   offcanvas.classList.add('open');
-// });
-
-// close off-canvas menu
-// closeBtn.addEventListener('click', function() {
-//   offcanvas.classList.remove('open');
-// });
-
-{/* <u onclick={()=>{offcanvas.classList.add('open');}}>terminology</u> */}
-
-
 function OffCanvas({terminology}) {
-
     const [isActive, setIsActive] = useState(false);
     const openCanvas = () => {
         setIsActive(true);
@@ -28,24 +10,19 @@ function OffCanvas({terminology}) {
     const closeCanvas = () => {
         setIsActive(false);
     }
+    const content = definitions[terminology].props.children;
     
-
     return (
-        <div>
+        <>
             <u onClick={openCanvas}>{terminology}</u>
-
-            <div className={isActive? styles.offcanvasOpen: styles.offcanvas}>
-                {/* <div className={styles.offcanvasInner}> */}
+            <div className={isActive? styles.open: styles.default}>
                 <button className={styles.closeBtn} onClick={closeCanvas}>
                     &times;
                 </button>
-                <div className={styles.offcanvasContent}>
-                    <h2 className={styles.offcanvasHeader}>{terminology}</h2>
-                    <div>{definitions[terminology]}</div>
-                </div>
-                {/* </div> */}
+                <h3 className={styles.title}>{terminology.charAt(0).toUpperCase() + terminology.slice(1)}</h3>
+                <div className={styles.content}>{content}</div>
             </div>
-        </div>
+        </>
     )
 }
 
