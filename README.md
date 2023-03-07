@@ -45,7 +45,7 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 ## Testing
 
-Crypress framework is used for both component and end-to-end testings.\
+Cypress framework is used for both component and end-to-end testings.\
 See the [documentation](https://docs.cypress.io/) for more about testing using Cypress.
 
 ### `npx cypress open`
