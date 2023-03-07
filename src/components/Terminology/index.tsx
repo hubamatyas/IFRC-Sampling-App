@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { definitions } from "../Definitions";
+import OffCanvas from "../Off-canvas";
 
 interface Props {
   term: string | null;
@@ -21,13 +22,14 @@ const Terminology: React.FC<Props> = ({ term, text }: Props) => {
   return (
     <>
       {definition ? (
-        // add Offcanvas/Tooltip component when ready
-        <>
+           
+     <>
           {parts.length > 1 ? (
             <span>
               {parts.map((part) =>
                 part.toLowerCase() === term?.toLowerCase() ? (
-                  <u key={part}>{part}</u>
+                  // <u key={part}>{part}</u>
+                  <OffCanvas terminology={part}/> 
                 ) : (
                   part
                 )
