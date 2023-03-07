@@ -82,6 +82,8 @@ type Definition = {
           particular neighborhood, all residents of a particular age group, all
           residents of a particular income group, etc.
         </p>
+        <img src={logo} width='400px'/>
+
       </div>
     ),
     "time-location": (
