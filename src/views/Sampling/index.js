@@ -11,13 +11,7 @@ function Sampling(){
     const { t } = useTranslation();
     return (
         <>
-            <div className={styles.intro}>
-                <h1> {t('headerAppName')} </h1>
-                <p> {lang.aboutGoal} </p>
-                <p> {lang.aboutRedCross} </p>
-                <p> {lang.aboutDetail} </p>
-            </div>
-            <div className={styles.features}>
+            <div className={styles.tool}>
                 <DecisionTree />
             </div>
             <div className={styles.howto}>

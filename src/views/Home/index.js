@@ -9,17 +9,19 @@ function Home(){
     const { t } = useTranslation();
 
     return (
-        <>
-            <div className={styles.intro}>
-                <h1> {t('headerAppName')} </h1>
-                <p> {lang.aboutGoal} </p>
-                <p> {lang.aboutRedCross} </p>
-                <p> {lang.aboutDetail} </p>
-                <Button
-                    text={lang.buttonGetStarted}
-                    link="/sampling"
-                    style="default"
-                />
+        <div>
+            <div className={styles.background}>
+                <div className={styles.intro}>
+                    <h1> {t('headerAppName')} </h1>
+                    <p> {lang.aboutGoal} </p>
+                    <p> {lang.aboutRedCross} </p>
+                    <p> {lang.aboutDetail} </p>
+                    <Button
+                        text={lang.buttonGetStarted}
+                        link="/sampling"
+                        style="default"
+                    />
+                </div>
             </div>
             <div className={styles.features}>
                 <h1> {lang.headerFeatures} </h1>
@@ -39,7 +41,7 @@ function Home(){
                         style="inverse"
                 />
             </div>
-        </>
+        </div>
     );
 }
 

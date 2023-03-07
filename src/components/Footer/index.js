@@ -17,7 +17,7 @@ const Footer = () => {
                         About GO
                     </div>
                     <div className={styles.row}>IFRC GO is a Red Cross Red Crescent platform to connect information on emergency needs with the right response.</div>
-                    <div className={styles.row}>IFRC @{year}</div>
+                    <div className={styles.row}>@{year}</div>
                 </div>
                 <div className={styles.column}>
                 <div className={_cs(
@@ -27,17 +27,19 @@ const Footer = () => {
                         Developers
                     </div>
                     <div className={styles.row}>
-                        <ul>
-                            <li><a href="">API Documentation</a></li>
-                            <li><a href="">Terms of Use</a></li>
-                            <li><a href="">Privacy Policy</a></li>
+                        <ul className={styles.list}>
+                            <li><a href="" className={styles.link}>API Documentation</a></li>
+                            <li><a href="" className={styles.link}>Terms of Use</a></li>
+                            <li><a href="" className={styles.link}>Privacy Policy</a></li>
                         </ul>
                     </div>
                 </div>
                 <div className={styles.column}>
-                    <div className={styles.row}>IFRC</div>
-                    <div className={styles.row}> <a href="https://www.ifrc.org/en/" target="_blank" rel="noopener noreferrer">IFRC</a> </div>
-                    <div className={styles.row}>@{year}</div>
+                    <div className={_cs(
+                        styles.row,
+                        styles.title,
+                    )}>UCL INX</div>
+                    <div className={styles.row}>UCL Computer Science. Project developed as part of the Systems Engineering module.</div>
                 </div>
             </div>
         </div>
