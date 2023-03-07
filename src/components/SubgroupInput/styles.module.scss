@@ -15,6 +15,18 @@
     margin: 0;
 }
 
+.calculate {
+    padding-top: $global-spacing-2;
+}
+
+.alert {
+    padding-left: $global-spacing;
+}
+
+.alertText {
+    width: 100%;
+}
+
 .textInput {
     background-color: transparent;
     font-size: $font-size-lg;

@@ -1,0 +1,56 @@
+@import "~/src/styles/variables";
+
+.card {
+    background-color: $white;
+    width: 60%;
+    margin: auto;
+    margin-bottom: $global-spacing-2;
+    padding-bottom: $global-spacing;
+    box-shadow: $base-box-shadow;
+    border-radius: $card-border-radius;
+
+    &:hover {
+        box-shadow: $strong-box-shadow;
+    }
+}
+
+.content {
+    width: 80%;
+    margin: auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+}
+
+.button {
+    background-color: $white;
+    border-radius: $full-border-radius;
+    padding: 5px 20px; 
+    color: $primary-color;
+    cursor: pointer;
+    border: 1px solid $primary-color;
+    font-family: Poppins;
+    font-weight: $base-font-bold;
+
+    &:hover {
+        background-color: $primary-color;
+        color: $white;
+    }
+}
+
+@media screen and (max-width: $media-medium) {
+    .card {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: $media-small) {
+    .card {
+        width: 95%;
+    }
+}
