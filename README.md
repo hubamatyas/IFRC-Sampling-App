@@ -43,6 +43,20 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
+## Testing
+
+Crypress framework is used for both component and end-to-end testings.
+See the [documentation](https://docs.cypress.io/) for more about testing using Cypress.
+
+### `npx cypress open`
+
+Launches the Cypress test runner in the interactive watch mode.
+
+### `npx cypress run`
+
+Runs the Cypress tests and displays the results in terminal.
+Automatic video recording has been turned off. See [here](https://docs.cypress.io/guides/guides/screenshots-and-videos) for more information.
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
