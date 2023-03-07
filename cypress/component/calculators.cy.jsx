@@ -1,18 +1,15 @@
 import SimpleRandomCalculator from '../../src/calculators/SimpleRandomCalculator'
 
-describe('Foo component test', () => {
-  beforeEach(() => {
-    cy.mount(
-    <SimpleRandomCalculator
-      hasSubgroups={true}
-      hasHouseholds={true}
-      hasIndividuals={true}
-    />
-    )
-  })
+describe('Test simple random calculator', () => {
   
-  it('mount calculator', () => {
-    
+  it('check the input field labels for sampling households with no subgroups', () => {
+    cy.mount(
+      <SimpleRandomCalculator
+        hasSubgroups={false}
+        hasHouseholds={true}
+        hasIndividuals={false}
+      />
+      )
     cy.get("label").contains("Margin").should('exist')
     cy.get("label").contains("households").should('exist')
     cy.get("label").contains("Non-response").should('exist')
