@@ -8,6 +8,20 @@
   padding: $global-spacing-3;
 }
 
+.term {
+  text-decoration: underline;
+  text-decoration-color: $primary-color;
+  cursor: pointer;
+}
+
+.term:hover {
+  color: $primary-color;
+}
+
+sup {
+  cursor: pointer;
+}
+
 .open {
   top: $navbar-height;
   position: fixed;

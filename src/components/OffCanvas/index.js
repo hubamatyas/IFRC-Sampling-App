@@ -1,6 +1,8 @@
 import React,{ useState } from "react";
 import styles from "./styles.module.scss";
 import { definitions } from "../Definitions";
+// import an fa icon that has a question mark
+
 
 function OffCanvas({terminology}) {
     const [isActive, setIsActive] = useState(false);
@@ -10,11 +12,14 @@ function OffCanvas({terminology}) {
     const closeCanvas = () => {
         setIsActive(false);
     }
-    const content = definitions[terminology].props.children;
+    
+    // catch the error if the terminology is not found in the definitions
+    const content = definitions[terminology.toLowerCase()].props.children;
     
     return (
         <>
-            <u onClick={openCanvas}>{terminology}</u>
+            <span onClick={openCanvas} className={styles.term}>{terminology}</span>
+            <sup onClick={openCanvas}>&#9432;</sup>
             <div className={isActive? styles.open: styles.default}>
                 <button className={styles.closeBtn} onClick={closeCanvas}>
                     &times;

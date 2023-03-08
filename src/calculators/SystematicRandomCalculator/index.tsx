@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./styles.module.scss";
 import { WithTranslation, withTranslation } from "react-i18next";
 import Card from "../../components/Card";
 import ExportButton from "../../components/ExportButton";
 import Terminology from "../../components/Terminology";
 import SubgroupInput from "../../components/SubgroupInput";
+import axios from "axios";
 
 interface SystematicRandomProps extends WithTranslation {
     hasSubgroups: boolean;
@@ -21,8 +22,15 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
     const [nonResponseRate, setNonResponseRate] = useState<number | null>(null);
     const [households, setHouseholds] = useState<number | null>(null);
     const [individuals, setIndividuals] = useState<number | null>(null);
-    const [sampleSize, setSampleSize] = useState<number | null>(null);
+    const [intervals, setIntervals] = useState<{ [key: string]: number } | null>(null);
     const [subgroups, setSubgroups] = useState<any[] | null>(null);
+
+    useEffect(() => {
+        if (marginOfError && confidenceLevel && nonResponseRate && (households || individuals || subgroups)) {
+            calculateSampleSize();
+        }
+    }, [marginOfError, confidenceLevel, nonResponseRate, households, individuals]);
+    
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -39,12 +47,36 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                 ? Number(event.currentTarget.individuals.value)
                 : null
         );
-        calculateSampleSize();
     };
 
-    const calculateSampleSize = () => {
-        // call API to calculate sample size
-        setSampleSize(50);
+    const calculateSampleSize = async () => {
+        const data = {
+            margin_of_error: marginOfError,
+            confidence_level: confidenceLevel,
+            non_response_rate: nonResponseRate,
+            subgroups: subgroups,
+            households: households,
+            individuals: individuals,
+        };
+
+        const url = `https://ifrc-sampling.azurewebsites.net/api/systematic-random/`;
+
+        try {
+            const response = await axios.post(url, data, { 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            if (response.status !== 200) {
+                const errorMessage = await response.data;
+                throw new Error(errorMessage);
+            }
+            console.log(response.data["intervals"])
+            setIntervals(response.data["intervals"]);
+        } catch (error) {
+            console.log(error);
+            window.alert(error);
+        }
     };
 
     return (
@@ -81,13 +113,13 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                             <label htmlFor="response"> Non-response rate (%)</label>
                             <input type="number" id="response" name="response" placeholder="0" />
                         </div>
-                        {(
+                        {!subgroups && (
                             <div className={styles.field}>
                                 <label htmlFor="households"> Number of households </label>
                                 <input type="number" id="households" name="households" placeholder="" />
                             </div>
                         )}
-                        {(
+                        {!subgroups && (
                             <div className={styles.field}>
                                 <label htmlFor="individuals"> Number of individuals </label>
                                 <input type="number" id="individuals" name="individuals" placeholder="" />
@@ -99,17 +131,28 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                     </form>
                 </Card>
             )}
-            {sampleSize && (
+            {intervals && (
                 <div className={styles.result}>
                     <Card hasArrow={false}>
-                        <h2> Sample Size: {sampleSize} </h2>
-                        <p className={styles.description}>
-                            {t('aboutGoal')}
-                            {t('aboutGoal')}
-                            {t('aboutGoal')}
-                            {t('aboutGoal')}
-                            {t('aboutGoal')}
-                        </p>
+                    {subgroups ? (
+                            <>
+                                {Object.keys(intervals).map((key: string) => (
+                                    <div key={key}>
+                                        <h3>Interval for <u>{key}</u> is <u>{intervals[key]}</u></h3>
+                                    </div>
+                                ))}
+                                <p className={styles.description}>
+                                    {t('aboutGoal')}
+                                </p>
+                            </>
+                        ) : (
+                            <>
+                                <h3>Interval: {Object.values(intervals)[0]}</h3>
+                                <p className={styles.description}>
+                                    {t('aboutGoal')}
+                                </p>
+                            </>
+                        )}
                     </Card>
                     <ExportButton questionCards={questionCards} calculatorState={
                         {
@@ -118,7 +161,7 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                             nonResponseRate,
                             households,
                             individuals,
-                            sampleSize,
+                            sampleSize: intervals,
                             // also pass subgroups
                         }
                     } />

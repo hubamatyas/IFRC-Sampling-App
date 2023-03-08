@@ -5,6 +5,7 @@ import Card from "../../components/Card";
 import ExportButton from "../../components/ExportButton";
 import Terminology from "../../components/Terminology";
 import SubgroupInput from "../../components/SubgroupInput";
+import axios from "axios";
 
 interface SimpleRandomProps extends WithTranslation {
     subgroups?: any[] | null;
@@ -16,7 +17,7 @@ interface SimpleRandomProps extends WithTranslation {
 }
 
 interface SimpleRandomResponse {
-    sampleSize: number | null;
+    sampleSize: {} | null;
     marginOfError: number | null;
     confidenceLevel: number | null;
     nonResponseRate: number | null;
@@ -38,7 +39,7 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
     const [nonResponseRate, setNonResponseRate] = useState<number | null>(null);
     const [households, setHouseholds] = useState<number | null>(null);
     const [individuals, setIndividuals] = useState<number | null>(null);
-    const [sampleSize, setSampleSize] = useState<number | null>(null);
+    const [sampleSize, setSampleSize] = useState<{} | null>(null);
 
     useEffect(() => {
         // return sample size to parent component
@@ -51,8 +52,13 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
             individuals: individuals,
             // subgroups: subgroups,
         }, true);
-        console.log(sampleSize)
     }, [sampleSize]);
+
+    useEffect(() => {
+        if (marginOfError && confidenceLevel && nonResponseRate && (households || individuals || subgroups)) {
+            calculateSampleSize();
+        }
+    }, [marginOfError, confidenceLevel, nonResponseRate, households, individuals]);
     
     // useEffect(() => {
     //     onSubmitSimpleRandom({
@@ -80,35 +86,34 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
                 ? Number(event.currentTarget.individuals.value)
                 : null
         );
-        calculateSampleSize();
     };
 
     const calculateSampleSize = async () => {
-        // const data = {
-        //     margin_of_error: marginOfError,
-        //     confidence_level: confidenceLevel,
-        //     non_response_rate: nonResponseRate,
-        //     subgroups: subgroups,
-        //     households: households,
-        //     individuals: individuals,
-        // };
-        // const url = `http://127.0.0.1:8000/api/simple-random/sample-size/`;
+        const data = {
+            margin_of_error: marginOfError,
+            confidence_level: confidenceLevel,
+            non_response_rate: nonResponseRate,
+            subgroups: subgroups,
+            households: households,
+            individuals: individuals,
+        };
+        const url = `https://ifrc-sampling.azurewebsites.net/api/simple-random/`;
 
-        // try {
-        //     const response = await fetch(url, { 
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify(data)
-        //     });
-        //     const responseData = await response.json();
-        //     setSampleSize(responseData['sample_size']);
-        // } catch (error) {
-        //     window.alert('Error: ' + 'Calculation failed');
-        //     console.error('Error:', error);
-        // }
-        setSampleSize(100);
+        try {
+            const response = await axios.post(url, data, { 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            if (response.status !== 200) {
+                const errorMessage = await response.data;
+                throw new Error(errorMessage);
+            }
+            setSampleSize(response.data["sample_size"]);
+        } catch (error) {
+            console.log(error);
+            window.alert(error);
+        }
     };
 
     return (
