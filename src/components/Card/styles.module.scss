@@ -1,0 +1,55 @@
+@import 'src/styles/variables';
+
+.card {
+    background-color: $white;
+    border-radius: $card-border-radius;
+    box-shadow: $base-box-shadow;
+    padding: $global-spacing-2;
+    margin: auto;
+    width: fit-content;
+    animation: card 1s;
+}
+
+.card:hover {
+    box-shadow: $strong-box-shadow;
+}
+
+.pulse {
+    animation: pulse 2s;
+    animation-iteration-count: 3;
+}
+
+.arrow {
+    display: flex;
+    margin: auto;
+    animation: arrow 2s;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+}
+
+@keyframes arrow {
+    0% {
+        clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+    }
+    100% {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
+
+@keyframes card {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

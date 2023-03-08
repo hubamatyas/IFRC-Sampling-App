@@ -7,23 +7,21 @@ import { useTranslation } from "react-i18next";
 
 function Home(){
     const { t } = useTranslation();
-    const userAction = async () => {
-        const response = await fetch('http://127.0.0.1:8000/api/decision-tree/2/');
-        const myJson = await response.json(); //extract JSON from the http response
-        console.log(myJson)
-      }
+
     return (
-        <>
-            <div className={styles.intro} onClick={() => userAction()}>
-                <h1> {t('headerAppName')} </h1>
-                <p> {lang.aboutGoal} </p>
-                <p> {lang.aboutRedCross} </p>
-                <p> {lang.aboutDetail} </p>
-                <Button
-                    text={lang.buttonGetStarted}
-                    link="/sampling"
-                    style="default"
-                />
+        <div>
+            <div className={styles.background}>
+                <div className={styles.intro}>
+                    <h1> {t('headerAppName')} </h1>
+                    <p> {lang.aboutGoal} </p>
+                    <p> {lang.aboutRedCross} </p>
+                    <p> {lang.aboutDetail} </p>
+                    <Button
+                        text={lang.buttonGetStarted}
+                        link="/sampling"
+                        style="default"
+                    />
+                </div>
             </div>
             <div className={styles.features}>
                 <h1> {lang.headerFeatures} </h1>
@@ -43,7 +41,7 @@ function Home(){
                         style="inverse"
                 />
             </div>
-        </>
+        </div>
     );
 }
 

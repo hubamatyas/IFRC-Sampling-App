@@ -6,6 +6,15 @@
   background-color: $grey-coal;
 }
 
+.title {
+  font-size: $font-size-lg;
+  font-weight: $base-font-bold;
+}
+
+.row {
+  padding: $global-spacing;
+}
+
 .bar {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -13,8 +22,12 @@
   font-family: $base-font-family;
   color: $white;
   padding: 1rem;
-  text-align: center;
-  justify-content: space-around;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 @media screen and (max-width: 768px) {
@@ -26,7 +39,7 @@
   }
 }
 
-a {
+.link {
   text-decoration: underline;
   color: $white;
 }

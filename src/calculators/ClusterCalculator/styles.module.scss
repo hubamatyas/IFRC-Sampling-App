@@ -1,0 +1,73 @@
+@import "~/src/styles/variables";
+
+.result {
+    width: $media-default;
+    margin: auto;
+}
+
+.desription {
+    width: 80%;
+}
+
+.parameters {
+    display: grid;
+    justify-content: center;
+}
+
+.textInput {
+    background-color: transparent;
+    font-size: $font-size-lg;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    margin: $global-spacing 0;
+    padding: $global-spacing;
+}
+
+.inputFields {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.calculate {
+    grid-column-start: 1;
+    display: flex;
+    justify-content: center;
+}
+
+// extract into component
+.btn {
+    background-color: $primary-color;
+    border: none;
+    border-radius: $card-border-radius;
+    color: $white;
+    cursor: pointer;
+    font-size: $base-font-size;
+    font-weight: $base-font-bold;
+    margin: 0 10px;
+    padding: 10px;
+    width: 150px;
+    text-align: center;
+}
+
+@media screen and (max-width: $media-medium) {
+    .result {
+        width: 90%;
+    }
+
+    .inputFields {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: $media-small) {
+    .inputFields {
+        grid-template-columns: 1fr;
+    }
+
+    .result {
+        width: 90%;
+    }
+}

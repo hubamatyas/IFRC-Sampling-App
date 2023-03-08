@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import { Link } from "react-router-dom";
 import i18nex from "i18next";
+import { _cs } from "@togglecorp/fujs";
 
 function LanguageDropdown() {
     const languages = [
@@ -11,19 +12,22 @@ function LanguageDropdown() {
         { name: "Arabic", code: "ar" }
     ];
 
-    console.log(i18nex.language);
-
     return (
         <div className={styles.selection}>
-            {languages.map((language, index) => (
-                <Link to="/" key={index}>
-                    <li
-                        className={[styles.lang, i18nex.language === language.code ? styles.active : ""].join(" ")}
-                        onClick={() => i18nex.changeLanguage(language.code)}>
-                        {language.name}
-                    </li>
-                </Link>
-            ))}
+            <ul className={styles.langList}>
+                {languages.map((language, index) => (
+                    <Link to="/" key={index}>
+                        <li
+                            className={_cs(
+                                styles.lang,
+                                i18nex.language === language.code && styles.active
+                            )}
+                            onClick={() => i18nex.changeLanguage(language.code)}>
+                            {language.name}
+                        </li>
+                    </Link>
+                ))}
+            </ul>
         </div>
     )
 }
