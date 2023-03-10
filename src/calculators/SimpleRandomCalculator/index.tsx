@@ -5,7 +5,7 @@ import Card from "../../components/Card";
 import ExportButton from "../../components/ExportButton";
 import Terminology from "../../components/Terminology";
 import SubgroupInput from "../../components/SubgroupInput";
-import SimpleRandom from "src/components/SimpleRandom";
+import SimpleRandom from "../../components/SimpleRandom";
 
 interface SimpleRandomCalculatorProps extends WithTranslation {
     hasSubgroups: boolean;

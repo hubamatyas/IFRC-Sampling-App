@@ -5,7 +5,7 @@ import SimpleRandomCalculator from '../../calculators/SimpleRandomCalculator';
 import SystematicRandomCalculator from '../../calculators/SystematicRandomCalculator';
 import TimeLocationCalculator from '../../calculators/TimeLocationCalculator';
 import ClusterCalculator from '../../calculators/ClusterCalculator';
-import config from 'src/util/config';
+import config from '../../util/config';
 
 interface OptionProps {
     answer: number;

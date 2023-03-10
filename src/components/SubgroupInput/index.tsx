@@ -96,6 +96,7 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                     placeholder="0"
                     onChange={handleInputChange}
                     required
+                    onWheel={ event => event.currentTarget.blur()}
                 />
             </div>
         );
@@ -134,6 +135,7 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                     onChange={(event) =>
                         setPopulationSize(parseInt(event.target.value))
                     }
+                    onWheel={ event => event.currentTarget.blur()}
                 />
             </div>
             {inputFields.map((field) => (

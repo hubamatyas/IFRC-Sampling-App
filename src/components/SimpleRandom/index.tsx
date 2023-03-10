@@ -129,6 +129,7 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
                         id="margin"
                         name="margin"
                         placeholder="5"
+                        onWheel={ event => event.currentTarget.blur()}
                         // onChange={(e) => {
                         //     setMarginOfError(Number(e.target.value));
                         // }}
@@ -156,6 +157,7 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
                         id="response"
                         name="response"
                         placeholder="0"
+                        onWheel={ event => event.currentTarget.blur()}
                         // onChange={(e) => {
                         //     setNonResponseRate(Number(e.target.value));
                         // }}
@@ -169,6 +171,7 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
                             id="households"
                             name="households"
                             placeholder=""
+                            onWheel={ event => event.currentTarget.blur()}
                             // onChange={(e) => {
                             //     setHouseholds(parseInt(e.target.value));
                             // }}
@@ -183,6 +186,7 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
                             id="individuals"
                             name="individuals"
                             placeholder=""
+                            onWheel={ event => event.currentTarget.blur()}
                             // onChange={(e) => {
                             //     setIndividuals(parseInt(e.target.value));
                             // }}
