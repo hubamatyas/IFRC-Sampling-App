@@ -190,7 +190,7 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
                     </div>
                 )}
                 <div className={styles.calculate}>
-                    <input type="submit" className={styles.btn} />
+                    <input type="submit" className={styles.btn} data-cy={"submitCalculator-btn"} />
                 </div>
             </form>
         </Card>

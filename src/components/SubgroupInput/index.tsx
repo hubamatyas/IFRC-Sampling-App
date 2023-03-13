@@ -87,6 +87,7 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                     placeholder="Subgroup name..."
                     id="name"
                     name="name"
+                    data-cy={"subgroup-name"}
                 />
                 <label htmlFor={"size" + currentId}></label>
                 <input
@@ -96,6 +97,7 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                     placeholder="0"
                     onChange={handleInputChange}
                     required
+                    data-cy={"subgroup-size"}
                 />
             </div>
         );
@@ -137,9 +139,13 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                 />
             </div>
             {inputFields.map((field) => (
-                <div key={field.id} className={styles.subgroup}>
+                <div key={field.id} className={styles.subgroup} data-cy={"group-inputs"+field.id}>
                     {field.input}
-                    <button className={styles.newRow} onClick={handleAddSubroup}>
+                    <button 
+                        className={styles.newRow} 
+                        onClick={handleAddSubroup} 
+                        data-cy={"addgroup-btn"}
+                    >
                         <AiOutlinePlus />
                     </button>
                     {/* Prevent first input box from being removed */}
@@ -154,7 +160,7 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                 </div>
             ))}
             <div className={styles.calculate}>
-                <input type="submit" className={styles.btn} disabled={!isSumValid}/>
+                <input type="submit" className={styles.btn} disabled={!isSumValid} data-cy={"submitgroups-btn"}/>
             </div>
             {!isSumValid && (
                 <div className={styles.alert}>
