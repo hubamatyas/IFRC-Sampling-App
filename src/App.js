@@ -5,6 +5,7 @@ import Home from './views/Home/index';
 import Sampling from './views/Sampling/index';
 import Footer from './components/Footer/index';
 import Navbar from './components/Navbar/index';
+import Resources from './views/Resources';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />}></Route>
           <Route path="/sampling" element={<Sampling />}></Route>
+          <Route path="/resources" element={<Resources />}></Route>
         </Routes>
       </Router>
       <Footer />

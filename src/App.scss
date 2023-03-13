@@ -9,10 +9,17 @@
   color: $grey-coal;
 }
 
-h1, h2, p, ul {
+h2 {
   width: $media-default;
   margin: auto;
   margin-bottom: $global-spacing-2;
+}
+
+// centre img
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 h1 {
@@ -31,7 +38,7 @@ input, select {
   border: none;
   border-radius: $base-border-radius;
   padding: 7px;
-  background-color: $grey-titanium;
+  background-color: $grey-fog;
   width: 300px;
   display: block;
 }

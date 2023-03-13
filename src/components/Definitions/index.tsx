@@ -1,4 +1,6 @@
 import React from "react";
+import logo from "../../assets/logo.svg";
+
 
 type Definition = {
     [term: string]: JSX.Element;
@@ -12,6 +14,7 @@ type Definition = {
           information (address, phone, email, etc.) whereby they can be reached
           and invited to participate in the survey.
         </p>
+        <img src={logo} width='400px'/>
       </div>
     ),
   
@@ -79,6 +82,8 @@ type Definition = {
           particular neighborhood, all residents of a particular age group, all
           residents of a particular income group, etc.
         </p>
+        <img src={logo} width='400px'/>
+
       </div>
     ),
     "time-location": (

@@ -1,0 +1,28 @@
+@import "~/src/styles/variables";
+
+.intro {
+    padding-top: $global-spacing-4;
+    padding-bottom: $global-spacing-2;
+    background-color: $grey-mist;
+}
+
+.introText {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+.resources {
+    background-color: $white;
+    padding: $global-spacing-3 0;
+}
+
+@media (max-width: $media-small) {
+    .title {
+        width: 80%;
+    }
+
+    .introText {
+        width: 80%;
+    }
+}

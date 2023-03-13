@@ -1,17 +1,41 @@
 @import "~/src/styles/variables";
 
-.intro {
-    padding: $global-spacing-5 0;
+.background {
     background: url('~/src/assets/homepage-bg.png') no-repeat;
-    color: $white;
     background-size: cover;
+}
+.intro {
+    padding: $global-spacing-4 0;
+    color: $white;
+    width: 60%;
+    margin: auto;
 }
 
 .features {
     padding: $global-spacing-5 0;
+    width: 60%;
+    margin: auto;
 }
 
 .howto {
     padding: $global-spacing-5 0;
     background-color: $grey-mist;
+}
+
+@media screen and (max-width: $media-medium) {
+    .intro {
+        width: 80%;
+    }
+    .features {
+        width: 80%;
+    }
+}
+
+@media (max-width: $media-small) {
+    .intro {
+        width: 90%;
+    }
+    .features {
+        width: 90%;
+    }
 }

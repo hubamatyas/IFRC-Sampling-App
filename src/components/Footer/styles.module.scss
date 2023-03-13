@@ -22,7 +22,12 @@
   font-family: $base-font-family;
   color: $white;
   padding: 1rem;
-  justify-content: space-around;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 @media screen and (max-width: 768px) {
@@ -34,7 +39,7 @@
   }
 }
 
-a {
+.link {
   text-decoration: underline;
   color: $white;
 }

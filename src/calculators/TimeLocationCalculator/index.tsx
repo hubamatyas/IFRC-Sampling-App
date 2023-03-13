@@ -12,7 +12,7 @@ interface TimeLocationProps extends WithTranslation {
 }
 
 interface SimpleRandomResponse {
-    sampleSize: number | null;
+    sampleSize: {} | null;
     marginOfError: number | null;
     confidenceLevel: number | null;
     nonResponseRate: number | null;
@@ -30,7 +30,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
     questionCards,
 }) => {
     const [simpleRandomResponse, setSimpleRandomResponse] = useState<SimpleRandomResponse | null>(null);
-    const [simpleRandomSampleSize, setSimpleRandomSampleSize] = useState<number | null>(null);
+    const [simpleRandomSampleSize, setSimpleRandomSampleSize] = useState<{} | null>(null);
     const [locations, setLocations] = useState<number | null>(null);
     const [days, setDays] = useState<number | null>(null);
     const [interviews, setInterviews] = useState<number | null>(null);

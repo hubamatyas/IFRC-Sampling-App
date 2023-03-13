@@ -61,9 +61,10 @@ img:hover {
     opacity: 0.8;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: $media-small) {
     .bar {
         width: 100%;
+        padding-right: 0;
     }
 
     .navBtn {

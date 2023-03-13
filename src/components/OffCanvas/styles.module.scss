@@ -1,0 +1,75 @@
+@import 'src/styles/variables';
+
+.default {
+  display:none;
+}
+
+.canvas {
+  padding: $global-spacing-3;
+}
+
+.term {
+  text-decoration: underline;
+  text-decoration-color: $primary-color;
+  cursor: pointer;
+}
+
+.term:hover {
+  color: $primary-color;
+}
+
+sup {
+  cursor: pointer;
+}
+
+.open {
+  top: $navbar-height;
+  position: fixed;
+  width: 40%;
+  height: 100%;
+  background-color: rgba($secondary-color, 0.9);
+  left: 0;
+  padding: 0 $global-spacing-2;
+  animation: slideIn 0.5s ease-in-out;
+}
+
+@keyframes slideIn {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+.closeBtn {
+  font-size: 40px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: $white;
+}
+
+.title {
+  color: $white;
+}
+
+.content {
+  text-align: left;
+  color: $white;
+  font-size: $font-size-md;
+  font-weight: $base-font-style;
+}
+
+@media screen and (max-width: $media-medium) {
+  .open {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: $media-small) {
+  .open {
+    width: 100%;
+    padding: 0;
+  }
+}

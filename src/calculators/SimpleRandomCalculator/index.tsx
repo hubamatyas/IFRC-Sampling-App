@@ -15,7 +15,7 @@ interface SimpleRandomCalculatorProps extends WithTranslation {
 }
 
 interface SimpleRandomResponse {
-    sampleSize: number | null;
+    sampleSize: { [key: string]: number } | null;
     marginOfError: number | null;
     confidenceLevel: number | null;
     nonResponseRate: number | null;
@@ -31,7 +31,7 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
     t,
     questionCards,
 }) => {
-    const [sampleSize, setSampleSize] = useState<number | null>(null);
+    const [sampleSize, setSampleSize] = useState<{ [key: string]: number } | null>(null);
     const [isSubgroupsReady, setIsSubgroupsReady] = useState<boolean>(false);
     const [isSimpleRandomReady, setIsSimpleRandomReady] = useState<boolean>(false);
     const [subgroups, setSubgroups] = useState<any[] | null>(null);
@@ -45,7 +45,6 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
 
     const onSimpleRandomCalculation = useCallback((simpleRandomResponse: SimpleRandomResponse) => {
         setSimpleRandomResponse(simpleRandomResponse);
-        console.log(simpleRandomResponse)
         setSampleSize(simpleRandomResponse.sampleSize);
     }, []);
 
@@ -78,14 +77,25 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
             {sampleSize && (
                 <div className={styles.result}>
                     <Card hasArrow={false}>
-                        <h2> Sample Size: {sampleSize} </h2>
-                        <p className={styles.description}>
-                            {t('aboutGoal')}
-                            {t('aboutGoal')}
-                            {t('aboutGoal')}
-                            {t('aboutGoal')}
-                            {t('aboutGoal')}
-                        </p>
+                        {subgroups ? (
+                            <>
+                                {Object.keys(sampleSize).map((key: string) => (
+                                    <div key={key}>
+                                        <h3>Sample size for <u>{key}</u> is <u>{sampleSize[key]}</u></h3>
+                                    </div>
+                                ))}
+                                <p className={styles.description}>
+                                    {t('aboutGoal')}
+                                </p>
+                            </>
+                        ) : (
+                            <>
+                                <h3>Sample size: {Object.values(sampleSize)[0]}</h3>
+                                <p className={styles.description}>
+                                    {t('aboutGoal')}
+                                </p>
+                            </>
+                        )}
                     </Card>
                     <ExportButton questionCards={questionCards} calculatorState={
                         simpleRandomResponse

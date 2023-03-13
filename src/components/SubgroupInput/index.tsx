@@ -93,6 +93,7 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                     type="number"
                     id={`${currentId}`}
                     name={"size" + currentId}
+                    placeholder="0"
                     onChange={handleInputChange}
                     required
                 />
@@ -155,6 +156,11 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
             <div className={styles.calculate}>
                 <input type="submit" className={styles.btn} disabled={!isSumValid}/>
             </div>
+            {!isSumValid && (
+                <div className={styles.alert}>
+                    <p className={styles.alertText}>Sum of subgroups must equal to total population.</p>
+                </div>
+            )}
         </form>
     );
 };

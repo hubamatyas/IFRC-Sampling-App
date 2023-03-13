@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { definitions } from "../Definitions";
+import OffCanvas from "../OffCanvas";
 
 interface Props {
   term: string | null;
@@ -27,7 +28,8 @@ const Terminology: React.FC<Props> = ({ term, text }: Props) => {
             <span>
               {parts.map((part) =>
                 part.toLowerCase() === term?.toLowerCase() ? (
-                  <u key={part}>{part}</u>
+                  //<u key={part}>{part}</u>
+                  <OffCanvas terminology={part}/> 
                 ) : (
                   part
                 )
