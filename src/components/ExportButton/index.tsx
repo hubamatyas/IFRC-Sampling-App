@@ -1,18 +1,38 @@
 import {pdf} from '@react-pdf/renderer';
 import styles from "./styles.module.scss";
-import React from "react";
+import React, {useRef,useState} from "react";
 import { IoMdDownload } from 'react-icons/io';
 import MyDoc from '../ReportDocument';
+import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType} from "../../types/calculatorResponse";
+interface ExportProps {
+  questionCards: number[],
+  calculatorInputs: calculatorInputs,
+  calculatorOutputs: calculatorOutputs,
+  subgroupSizes: subgroupsType,
+}
 
-const App = ({questionCards, calculatorState}) => {
+interface Option {
+  id: number;
+  name: string;
+  child_state: number;
+}
 
-  const questionNames = React.useRef([]);
-  const options = React.useRef([]);
-  const answers = React.useRef([]);
-  const [loading, setLoading] = React.useState(false);
-  const [fetchedNum, setFetchedNum] = React.useState(0);
-  
-  const fetchState = async(id) => {
+const App: React.FC<ExportProps> = ({
+  questionCards,
+  calculatorInputs,
+  calculatorOutputs,
+  subgroupSizes,
+  },
+
+) => {
+
+  const questionNames = useRef<string[]>([]);
+  const options = useRef<Option[]>([]);
+  const answers = useRef<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [fetchedNum, setFetchedNum] = useState<number>(0);
+
+  const fetchState = async(id:number) => {
     let success = true
     await fetch('https://ifrc-sampling.azurewebsites.net/api/decision-tree/'+id+'/')
       .then(response => response.json())
@@ -21,7 +41,7 @@ const App = ({questionCards, calculatorState}) => {
 
         if (options.current.length) {
           answers.current.push (
-            options.current.find((opt)=>(opt.child_state === id)).name
+            options.current.find((opt)=>(opt.child_state === id))!.name
           );
         }
 
@@ -49,14 +69,16 @@ const App = ({questionCards, calculatorState}) => {
         <MyDoc 
           questionNames={questionNames.current} 
           answers={answers.current} 
-          calculatorState={calculatorState}
+          calculatorInputs={calculatorInputs}
+          calculatorOutputs={calculatorOutputs}
+          subgroupSizes={subgroupSizes}
         />
       ).toBlob();
+      console.log("PDF generated.")
       return (URL.createObjectURL(blob));
     }
     
     catch(err) {
-      console.log(err.message);
       alert("Sorry we have a little problem rendering PDF. Export failed." );
       return null;
     }

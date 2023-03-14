@@ -6,6 +6,7 @@ import ExportButton from "../../components/ExportButton";
 import Terminology from "../../components/Terminology";
 import SubgroupInput from "../../components/SubgroupInput";
 import axios from "axios";
+import { intervalsType } from "../../types/calculatorResponse";
 
 interface SystematicRandomProps extends WithTranslation {
     hasSubgroups: boolean;
@@ -22,7 +23,7 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
     const [nonResponseRate, setNonResponseRate] = useState<number | null>(null);
     const [households, setHouseholds] = useState<number | null>(null);
     const [individuals, setIndividuals] = useState<number | null>(null);
-    const [intervals, setIntervals] = useState<{ [key: string]: number } | null>(null);
+    const [intervals, setIntervals] = useState<intervalsType>(null);
     const [subgroups, setSubgroups] = useState<any[] | null>(null);
 
     useEffect(() => {
@@ -154,17 +155,21 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                             </>
                         )}
                     </Card>
-                    <ExportButton questionCards={questionCards} calculatorState={
-                        {
-                            marginOfError,
-                            confidenceLevel,
-                            nonResponseRate,
-                            households,
-                            individuals,
-                            sampleSize: intervals,
-                            // also pass subgroups
-                        }
-                    } />
+                    <ExportButton 
+                        questionCards={questionCards}
+                        calculatorInputs={{
+                            "Margin of error": marginOfError,
+                            "Confidence level": confidenceLevel,
+                            "Non-response rate": nonResponseRate,
+                            "Households": households,
+                            "Individuals": individuals,
+                        }}
+                        calculatorOutputs={{
+                            intervals : intervals,
+                            aboutGoal : t('aboutGoal')
+                        }}
+                        subgroupSizes={subgroups}
+                    />
                 </div>
             )}
         </>
