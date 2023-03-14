@@ -2,6 +2,7 @@ import { Document, Page, Image, Text, StyleSheet, Link, View } from '@react-pdf/
 import {styles} from './styleSheet';
 import React from 'react';
 import {calculatorInputs, calculatorOutputs} from "../../types/calculatorResponse";
+import {ImNotification} from 'react-icons/im';
 
 
 export interface DocProps {
@@ -23,7 +24,7 @@ const MyDoc: React.FC<DocProps> = ({
 ) => {
     let today = new Date().toISOString().slice(0, 10);
     let notes = "Some notes about this survey... "
-    let copyRight = "© 2023 International Federation of Red Cross and Red Crescent Societies. All rights reserved."
+    // let copyRight = "© 2023 International Federation of Red Cross and Red Crescent Societies. All rights reserved."
 
     return (
     <Document>
@@ -128,14 +129,9 @@ const MyDoc: React.FC<DocProps> = ({
         })()}
         </View>
 
-
           <Text style={styles.goalText}>
             {calculatorOutputs?.aboutGoal}
           </Text>
-
-        
-      
-
 
 
         <View style={styles.table}> 
@@ -176,6 +172,29 @@ const MyDoc: React.FC<DocProps> = ({
           </View> 
         </View>
 
+
+        <View style={{marginBottom:"auto",marginTop:"auto"}} break>
+        <Image src={require("../../assets/Damaged-Affected.png")} style={{alignSelf:"center", width:"25", height:"25", margin : 6}}/>
+          <Text style={{ fontSize: 14, margin : 6, marginLeft:"10%", marginRight:"10%" }}>
+            This tool was developed by IFRC staff and UCL INX students 
+            with the intent of being shared and used by National Societies 
+            of the Red Cross Red Crescent Movement, but also by the wider 
+            humanitarian network. Other agencies and organisations are most 
+            welcome and highly encouraged to make use of this tool for their 
+            sampling work.
+          </Text>
+          <Text style={{ fontSize: 14, margin : 6, marginLeft:"10%", marginRight:"10%" }}>
+            IFRC and UCL INX have made all reasonable efforts to ensure that 
+            the information contained within this Sampling Tool is of a quality 
+            and reliability consistent with its purpose. However, there is no 
+            guarantee that the results will be accurate or the best placed for 
+            their context or environment. Responsibility rests with the user to 
+            undertake appropriate validation before following the recommended 
+            sampling plan.
+          </Text>
+        </View>
+
+
   
         <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
             `${pageNumber} / ${totalPages}`
@@ -187,9 +206,10 @@ const MyDoc: React.FC<DocProps> = ({
         <Link src="https://www.ifrc.org/en/" style={styles.linkRight} fixed >
           IFRC Community
         </Link>
-        <Text style={styles.copyRight} fixed>
+
+        {/* <Text style={styles.copyRight} fixed>
           {copyRight}
-        </Text>
+        </Text> */}
         
     </Page>
    </Document> 
