@@ -1,6 +1,20 @@
-describe('Test the simple random sampling calculator with subgroups', () => {
+describe('Test the simple random sampling calculator', () => {
   beforeEach(() => {
     cy.visit("/sampling")
+  })
+
+  it('should show sample sizes for no subgroups', () => {
+    cy.intercept(`https://ifrc-sampling.azurewebsites.net/api/decision-tree/1/`, { fixture: 'subgroup_simple.json' })
+    cy.get("[data-cy='option-btn']").contains("No").click()
+
+    cy.get("[id='margin']").type("5")
+    cy.get("[id='response']").type("5")
+    cy.get("[id='confidence']").select("90")
+    cy.get("[id='confidence']").should("have.value", "90")
+    cy.get("[id='individuals']").type("200")
+    cy.get("[data-cy='submitCalculator-btn']").click()
+
+    cy.get("[data-cy='sampleSize']").should("contain", "Sample size: 122")
   })
 
 
@@ -13,10 +27,11 @@ describe('Test the simple random sampling calculator with subgroups', () => {
 
     cy.get("[id='margin']").type("5")
     cy.get("[id='response']").type("5")
-    cy.get("[id='confidence']").type("90")
+    cy.get("[id='confidence']").select("90")
+    cy.get("[id='confidence']").should("have.value", "90")
     cy.get("[data-cy='submitCalculator-btn']").click()
 
-    cy.checkResult([11,21,30])
+    cy.checkResult([11,20,29])
   })
 
 })
