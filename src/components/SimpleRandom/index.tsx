@@ -1,13 +1,11 @@
 import { WithTranslation, withTranslation } from "react-i18next";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
 import styles from "./styles.module.scss";
-
 import config from 'src/util/config';
 import Card from "../../components/Card";
 import Terminology from "../../components/Terminology";
-import ExportButton from "../../components/ExportButton";
+import {calculatorInputs, sampleSizeType} from "../../types/calculatorResponse";
 
 /**
  * Describes the expected shape of the props object received by SimpleRandom.
@@ -27,63 +25,59 @@ import ExportButton from "../../components/ExportButton";
  * @property {number} onSubmitSimpleRandom.simpleRandomResponse.nonResponseRate - The non-response rate.
  */
 
-interface SimpleRandomProps extends WithTranslation {
+ interface SimpleRandomProps extends WithTranslation {
+    subgroups?: any[] | null;
     hasSubgroups: boolean;
     hasHouseholds: boolean;
     hasIndividuals: boolean;
-    subgroups?: any[] | null;
+    // add onSubmit prop which should be a function or null, and should be optional
     onSubmitSimpleRandom: (
-        simpleRandomResponse: SimpleRandomResponse,
-        isSimpleRandomReady: boolean,
-    )=> void;
+        calculatorInputs: calculatorInputs,
+        sampleSize: sampleSizeType,
+        isSimpleRandomReady: boolean) => void;
 }
 
-interface SimpleRandomResponse {
-    sampleSize: {} | null;
-    households: number | null;
-    individuals: number | null;
-    marginOfError: number | null;
-    confidenceLevel: number | null;
-    nonResponseRate: number | null;
-}
 
 const SimpleRandom: React.FC<SimpleRandomProps> = ({
-    t,
     subgroups,
     hasSubgroups,
     hasHouseholds,
     hasIndividuals,
+    t,
     onSubmitSimpleRandom,
 }) => {
-    const [sampleSize, setSampleSize] = useState<{} | null>(null);
-    const [households, setHouseholds] = useState<number | null>(null);
-    const [individuals, setIndividuals] = useState<number | null>(null);
     const [marginOfError, setMarginOfError] = useState<number | null>(null);
     const [confidenceLevel, setConfidenceLevel] = useState<number | null>(null);
     const [nonResponseRate, setNonResponseRate] = useState<number | null>(null);
+    const [households, setHouseholds] = useState<number | null>(null);
+    const [individuals, setIndividuals] = useState<number | null>(null);
+    const [sampleSize, setSampleSize] = useState<sampleSizeType>(null);
 
     useEffect(() => {
-        onSubmitSimpleRandom({
-            households: households,
-            sampleSize: sampleSize,
-            individuals: individuals,
-            marginOfError: marginOfError,
-            nonResponseRate: nonResponseRate,
-            confidenceLevel: confidenceLevel,
-        }, true);
+        // return sample size to parent component
+        onSubmitSimpleRandom(
+        {
+            "Margin of error": marginOfError,
+            "Confidence level": confidenceLevel,
+            "Non-response rate": nonResponseRate,
+            "Households": households,
+            "Individuals": individuals,
+        },
+        sampleSize,
+        true);
     }, [sampleSize]);
 
     useEffect(() => {
-        if (marginOfError && confidenceLevel && (households || individuals || subgroups)) {
+        if (marginOfError && confidenceLevel && nonResponseRate && (households || individuals || subgroups)) {
             calculateSampleSize();
         }
     }, [marginOfError, confidenceLevel, nonResponseRate, households, individuals]);
-  
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setMarginOfError(Number(event.currentTarget.margin.value));
-        setNonResponseRate(Number(event.currentTarget.response.value));
         setConfidenceLevel(Number(event.currentTarget.confidence.value));
+        setNonResponseRate(Number(event.currentTarget.response.value));
         setHouseholds(
             event.currentTarget.households
                 ? Number(event.currentTarget.households.value)

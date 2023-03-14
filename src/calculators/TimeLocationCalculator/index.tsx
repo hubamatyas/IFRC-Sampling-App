@@ -6,6 +6,7 @@ import ExportButton from "../../components/ExportButton";
 import Terminology from "../../components/Terminology";
 import SimpleRandom from "../../components/SimpleRandom";
 import SubgroupInput from "../../components/SubgroupInput";
+import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType} from "../../types/calculatorResponse";
 import config from "../../util/config";
 import axios from "axios";
 
@@ -38,11 +39,22 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
     const [interviews, setInterviews] = useState<number | null>(null);
     const [timeLocationResponse, setTimeLocationResponse] = useState<TimeLocationResponse | null>(null);
 
-    const onSimpleRandomCalculation = useCallback((simpleRandomResponse: SimpleRandomResponse) => {
-        setSimpleRandomResponse(simpleRandomResponse);
-        console.log('simple random')
-        console.log(simpleRandomResponse)
-        setSimpleRandomSampleSize(simpleRandomResponse.sampleSize);
+    const [calculatorInputs, setCalculatorInputs] = useState<calculatorInputs>(null);
+    const [calculatorOutputs, setCalculatorOutputs] = useState<calculatorOutputs>(null);
+
+    // const onSimpleRandomCalculation = useCallback((simpleRandomResponse: SimpleRandomResponse) => {
+    //     setSimpleRandomResponse(simpleRandomResponse);
+    //     console.log(simpleRandomResponse)
+    //     setSimpleRandomSampleSize(simpleRandomResponse.sampleSize);
+    // }, []);
+
+    const onSimpleRandomCalculation = useCallback((
+        calculatorInputs: calculatorInputs, 
+        sampleSize: Record<string, number> | null
+    ) => {
+        setCalculatorInputs(calculatorInputs);
+        setCalculatorOutputs({sampleSize:sampleSize, aboutGoal:t('aboutGoal')});
+        setSimpleRandomSampleSize(sampleSize);
     }, []);
 
     const handleParameterSubmit = (e: React.FormEvent<HTMLFormElement>) => {

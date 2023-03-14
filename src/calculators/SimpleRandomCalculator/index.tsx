@@ -5,7 +5,8 @@ import Card from "../../components/Card";
 import ExportButton from "../../components/ExportButton";
 import Terminology from "../../components/Terminology";
 import SubgroupInput from "../../components/SubgroupInput";
-import SimpleRandom from "src/components/SimpleRandom";
+import SimpleRandom from "../../components/SimpleRandom";
+import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType} from "../../types/calculatorResponse";
 
 interface SimpleRandomCalculatorProps extends WithTranslation {
     hasSubgroups: boolean;
@@ -14,15 +15,6 @@ interface SimpleRandomCalculatorProps extends WithTranslation {
     questionCards: number[];
 }
 
-interface SimpleRandomResponse {
-    sampleSize: { [key: string]: number } | null;
-    marginOfError: number | null;
-    confidenceLevel: number | null;
-    nonResponseRate: number | null;
-    households: number | null;
-    individuals: number | null;
-    //subgroups: any[] | null;
-}
 
 const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
     hasSubgroups,
@@ -31,11 +23,12 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
     t,
     questionCards,
 }) => {
-    const [sampleSize, setSampleSize] = useState<{ [key: string]: number } | null>(null);
+    const [sampleSize, setSampleSize] = useState<sampleSizeType>(null);
     const [isSubgroupsReady, setIsSubgroupsReady] = useState<boolean>(false);
     const [isSimpleRandomReady, setIsSimpleRandomReady] = useState<boolean>(false);
-    const [subgroups, setSubgroups] = useState<any[] | null>(null);
-    const [simpleRandomResponse, setSimpleRandomResponse] = useState<SimpleRandomResponse | null>(null);
+    const [subgroups, setSubgroups] = useState<subgroupsType>(null);
+    const [calculatorInputs, setCalculatorInputs] = useState<calculatorInputs>(null);
+    const [calculatorOutputs, setCalculatorOutputs] = useState<calculatorOutputs>(null);
 
     useEffect(() => {
         if (!isSubgroupsReady) {
@@ -43,9 +36,13 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
         }
     }, [isSubgroupsReady]);
 
-    const onSimpleRandomCalculation = useCallback((simpleRandomResponse: SimpleRandomResponse) => {
-        setSimpleRandomResponse(simpleRandomResponse);
-        setSampleSize(simpleRandomResponse.sampleSize);
+    const onSimpleRandomCalculation = useCallback((
+        calculatorInputs: calculatorInputs, 
+        sampleSize: Record<string, number> | null
+    ) => {
+        setCalculatorInputs(calculatorInputs);
+        setCalculatorOutputs({sampleSize:sampleSize, aboutGoal:t('aboutGoal')});
+        setSampleSize(sampleSize);
     }, []);
 
     return (
@@ -71,7 +68,7 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
                     hasHouseholds={hasHouseholds}
                     hasIndividuals={hasIndividuals}
                     onSubmitSimpleRandom={onSimpleRandomCalculation}
-                    // onSubmitSimpleRandom={(simpleRandomResponse) => setSampleSize(simpleRandomResponse.sampleSize)}
+                    // onSubmitSimpleRandom={(calculatorInputs) => setSampleSize(calculatorInputs.sampleSize)}
                 />
             )}
             {sampleSize && (
@@ -97,10 +94,12 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
                             </>
                         )}
                     </Card>
-                    <ExportButton questionCards={questionCards} calculatorState={
-                        simpleRandomResponse
-                        // add subgroups
-                    } />
+                    <ExportButton 
+                        questionCards={questionCards} 
+                        calculatorInputs={calculatorInputs}
+                        calculatorOutputs={calculatorOutputs}
+                        subgroupSizes={subgroups}
+                    />
                 </div>
             )}
         </>
