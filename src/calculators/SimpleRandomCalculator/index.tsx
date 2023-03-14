@@ -76,18 +76,22 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
                     <Card hasArrow={false}>
                         {subgroups ? (
                             <>
-                                {Object.keys(sampleSize).map((key: string) => (
-                                    <div key={key}>
-                                        <h3>Sample size for <u>{key}</u> is <u>{sampleSize[key]}</u></h3>
-                                    </div>
-                                ))}
+                                <div className={styles.content}>
+                                    {Object.keys(sampleSize).map((key: string) => (
+                                        <div key={key}>
+                                            <h2 className={styles.title} >Sample size for <b>{key}</b> is:</h2>
+                                            <h3 className={styles.number}>{sampleSize[key]}</h3>
+                                        </div>
+                                    ))}
+                                </div>
                                 <p className={styles.description}>
                                     {t('aboutGoal')}
                                 </p>
                             </>
                         ) : (
                             <>
-                                <h3>Sample size: {Object.values(sampleSize)[0]}</h3>
+                                <h1 className={styles.title}>Sample size:</h1>
+                                <h2 className={styles.number}>{Object.values(sampleSize)[0]}</h2>
                                 <p className={styles.description}>
                                     {t('aboutGoal')}
                                 </p>

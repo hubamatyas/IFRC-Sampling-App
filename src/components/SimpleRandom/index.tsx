@@ -68,7 +68,7 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
     }, [sampleSize]);
 
     useEffect(() => {
-        if (marginOfError && confidenceLevel && nonResponseRate && (households || individuals || subgroups)) {
+        if (marginOfError && confidenceLevel && (households || individuals || subgroups)) {
             calculateSampleSize();
         }
     }, [marginOfError, confidenceLevel, nonResponseRate, households, individuals]);

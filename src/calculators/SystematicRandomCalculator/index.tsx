@@ -138,18 +138,22 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                     <Card hasArrow={false}>
                     {subgroups ? (
                             <>
-                                {Object.keys(intervals).map((key: string) => (
-                                    <div key={key}>
-                                        <h3>Interval for <u>{key}</u> is <u>{intervals[key]}</u></h3>
-                                    </div>
-                                ))}
+                                <div className={styles.content}>
+                                    {Object.keys(intervals).map((key: string) => (
+                                        <div key={key}>
+                                            <h2 className={styles.title}>Interval for <b>{key}</b> is</h2>
+                                            <h3 className={styles.number}>{intervals[key]}</h3>
+                                        </div>
+                                    ))}
+                                </div>
                                 <p className={styles.description}>
                                     {t('aboutGoal')}
                                 </p>
                             </>
                         ) : (
                             <>
-                                <h3>Interval: {Object.values(intervals)[0]}</h3>
+                                <h1 className={styles.title}>Interval</h1>
+                                <h2 className={styles.number}>{Object.values(intervals)[0]}</h2>
                                 <p className={styles.description}>
                                     {t('aboutGoal')}
                                 </p>

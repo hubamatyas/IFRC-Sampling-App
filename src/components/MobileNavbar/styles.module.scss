@@ -2,8 +2,9 @@
 
 .menu {
     background-color: rgba($secondary-color, 0.9);
+    box-shadow: $strong-box-shadow;
     height: 100%;
-    width: 100%;
+    width: 40%;
     position: fixed;
     overflow: hidden;
     right: 0;
@@ -30,6 +31,13 @@
 
 .link:hover {
     color: $primary-color
+}
+
+.active {
+    text-decoration: underline;
+    text-decoration-color: $primary-color;
+    text-decoration-thickness: 4px;
+    text-underline-offset: 10px;
 }
 
 .lang {

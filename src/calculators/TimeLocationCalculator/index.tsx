@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import { WithTranslation, withTranslation } from "react-i18next";
 import Card from "../../components/Card";
@@ -48,6 +48,12 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
     //     setSimpleRandomSampleSize(simpleRandomResponse.sampleSize);
     // }, []);
 
+    useEffect(() => {
+        if (calculatorInputs && simpleRandomSampleSize && locations && days && interviews) {
+            calculateTimeLocation();
+        }
+    }, [calculatorInputs, simpleRandomSampleSize, locations, days, interviews]);
+
     const onSimpleRandomCalculation = useCallback((
         calculatorInputs: calculatorInputs, 
         sampleSize: Record<string, number> | null
@@ -59,19 +65,23 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
 
     const handleParameterSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        console.log(parseInt((e.target as HTMLFormElement).locations.value))
         setLocations(parseInt((e.target as HTMLFormElement).locations.value));
         setDays(parseInt((e.target as HTMLFormElement).days.value));
         setInterviews(parseInt((e.target as HTMLFormElement).interviews.value));
-        calculateTimeLocation();
     }
 
     const calculateTimeLocation = async () => {
         // call API
         const data = {
-            sample_size: simpleRandomSampleSize,
+            margin_of_error: calculatorInputs ? calculatorInputs['Margin of error'] : null,
+            confidence_level: calculatorInputs ? calculatorInputs['Confidence level'] : null,
+            non_response_rate: calculatorInputs ? calculatorInputs['Non-response rate'] : null,
+            households: calculatorInputs ? calculatorInputs['Households'] : null,
+            individuals: calculatorInputs ? calculatorInputs['Individuals'] : null,
             locations: locations,
             days: days,
-            interviews_per_session: interviews,
+            //interviews_per_session: interviews,
         }
 
         // const url = `${config.api}/time-location/`;
