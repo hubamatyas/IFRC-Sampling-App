@@ -83,6 +83,7 @@ const App: React.FC<ExportProps> = ({
                 calculatorInputs={calculatorInputs}
                 calculatorOutputs={calculatorOutputs}
                 subgroupSizes={subgroupSizes}
+                notes={hasNote?note:null}
               />
             </div>
           </Card>

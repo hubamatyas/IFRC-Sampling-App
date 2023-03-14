@@ -5,6 +5,7 @@ import { IoMdDownload } from 'react-icons/io';
 import MyDoc from '../ReportDocument';
 import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType} from "../../types/calculatorResponse";
 interface ExportProps {
+  notes?:string|null,
   questionCards: number[],
   calculatorInputs: calculatorInputs,
   calculatorOutputs: calculatorOutputs,
@@ -18,6 +19,7 @@ interface Option {
 }
 
 const App: React.FC<ExportProps> = ({
+  notes,
   questionCards,
   calculatorInputs,
   calculatorOutputs,
@@ -72,6 +74,7 @@ const App: React.FC<ExportProps> = ({
           calculatorInputs={calculatorInputs}
           calculatorOutputs={calculatorOutputs}
           subgroupSizes={subgroupSizes}
+          notes={notes}
         />
       ).toBlob();
       console.log("PDF generated.")

@@ -6,6 +6,7 @@ import {ImNotification} from 'react-icons/im';
 
 
 export interface DocProps {
+  notes?:string|null,
   questionNames:string[],
   answers:string[],
   calculatorInputs:calculatorInputs | null,
@@ -14,6 +15,7 @@ export interface DocProps {
 }
 
 const MyDoc: React.FC<DocProps> = ({
+  notes,
   questionNames,
   answers,
   calculatorInputs,
@@ -23,7 +25,7 @@ const MyDoc: React.FC<DocProps> = ({
 
 ) => {
     let today = new Date().toISOString().slice(0, 10);
-    let notes = "Some notes about this survey... "
+    //let notes = "Some notes about this survey... "
     // let copyRight = "© 2023 International Federation of Red Cross and Red Crescent Societies. All rights reserved."
 
     return (
@@ -37,10 +39,14 @@ const MyDoc: React.FC<DocProps> = ({
         <Text style={styles.date}>
           {today}
         </Text>
-  
+
+        {notes?
         <Text style={styles.notes}> 
-          {notes}{notes}{notes}{notes}{notes}{notes}
-         </Text>
+          {notes}
+        </Text>
+        :
+        <View></View>
+        } 
   
         {answers.map((answer,i) => (
           <Text style={{ fontSize: 14, margin : 10, marginLeft:"10%" }} key={i}>
