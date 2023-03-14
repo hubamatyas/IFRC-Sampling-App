@@ -1,23 +1,43 @@
 @import 'src/styles/variables';
 
 .menu {
-    background-color: white;
+    background-color: rgba($secondary-color, 0.9);
     height: 100%;
     width: 100%;
     position: fixed;
     overflow: hidden;
+    right: 0;
+    animation: slideIn 0.5s ease-in-out;
+}
+
+@keyframes slideIn {
+  0% {
+    right: -100%;
+  }
+  100% {
+    right: 0;
+  }
 }
 
 .link {
     display: flex;
     justify-content: center;
-    list-style-type: none;
     font-size: $font-size-heading;
-    color: $grey-coal;
+    font-weight: $base-font-bold;
+    color: $white;
     padding: $global-spacing-2 0;
-    border-bottom: 3px solid $grey-fog;
 }
 
 .link:hover {
-    color: $grey-silver;
+    color: $primary-color
+}
+
+.lang {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: $global-spacing-4;
+    position: absolute;
+    bottom: 0;
+    background-color: $white;
 }

@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "./styles.module.scss";
-import Button from "../../components/Button/index";
-import lang from "../../lang.js"
 import { useTranslation } from "react-i18next";
 
+import styles from "./styles.module.scss";
+
+import Button from "../../components/Button/index";
 
 function Home(){
     const { t } = useTranslation();
@@ -13,30 +13,30 @@ function Home(){
             <div className={styles.background}>
                 <div className={styles.intro}>
                     <h1> {t('headerAppName')} </h1>
-                    <p> {lang.aboutGoal} </p>
-                    <p> {lang.aboutRedCross} </p>
-                    <p> {lang.aboutDetail} </p>
+                    <p> {t('aboutGoal')} </p>
+                    <p> {t('aboutRedCross')} </p>
+                    <p> {t('aboutDetail')} </p>
                     <Button
-                        text={lang.buttonGetStarted}
+                        text={t('buttonGetStarted')}
                         link="/sampling"
                         style="default"
                     />
                 </div>
             </div>
             <div className={styles.features}>
-                <h1> {lang.headerFeatures} </h1>
-                <p> {lang.aboutFeatures} </p>
-                <h2> {lang.aboutFeaturesSubheader} </h2>
+                <h1> {t('headerFeatures')} </h1>
+                <p> {t('aboutFeatures')} </p>
+                <h2> {t('aboutFeaturesSubheader')} </h2>
                 <ul>
-                    <li> {lang.aboutFeature1} </li>
-                    <li> {lang.aboutFeature2} </li>
-                    <li> {lang.aboutFeature3} </li>
+                    <li> {t('aboutFeature1')} </li>
+                    <li> {t('aboutFeature2')} </li>
+                    <li> {t('aboutFeature3')} </li>
                 </ul>
             </div>
             <div className={styles.howto}>
-                <h1> {lang.headerHowTo} </h1>
+                <h1> {t('headerHowTo')} </h1>
                 <Button
-                        text={lang.buttonGetStarted}
+                        text={t('buttonGetStarted')}
                         link="/sampling"
                         style="inverse"
                 />

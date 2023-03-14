@@ -96,5 +96,35 @@ type Definition = {
         </p>
       </div>
     ),
+    "non-response rate": (
+      <div>
+        <p>
+          A probability sampling method where a random starting point is selected
+          and then every nth member is selected from the target population. This
+          method is useful when the target population is not easily accessible
+          and the surveyor must travel to each member of the target population.
+        </p>
+      </div>
+    ),
+    "households": (
+      <div>
+        <p>
+          A probability sampling method where a random starting point is selected
+          and then every nth member is selected from the target population. This
+          method is useful when the target population is not easily accessible
+          and the surveyor must travel to each member of the target population.
+        </p>
+      </div>
+    ),
+    "population": (
+      <div>
+        <p>
+          A probability sampling method where a random starting point is selected
+          and then every nth member is selected from the target population. This
+          method is useful when the target population is not easily accessible
+          and the surveyor must travel to each member of the target population.
+        </p>
+      </div>
+    ),
   };
   

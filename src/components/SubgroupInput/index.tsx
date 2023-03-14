@@ -1,7 +1,24 @@
 import React, { useState, useEffect, FormEvent } from "react";
-import styles from "./styles.module.scss";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+
+import styles from "./styles.module.scss";
+
 import Terminology from "../Terminology";
+
+/**
+* A component that renders a form for inputting subgroups and their sizes, and allows the user to add or remove subgroups.
+* @component
+* @typedef {Object} Subgroup
+* @property {string} name - The name of the subgroup.
+* @property {number} size - The size of the subgroup.
+* @typedef {Object} InputField
+* @property {number} id - The id of the input field.
+* @property {React.ReactNode} input - The input field component.
+* @typedef {Object} Props
+* @property {function} onSubmitSubgroups - A function that takes an array of Subgroup objects and a boolean value indicating whether the subgroups are ready to be submitted.
+* @param {Props} props - The component props.
+* @returns {JSX.Element} - The component UI.
+*/
 
 interface Subgroup {
     name: string;
@@ -15,17 +32,16 @@ interface InputField {
 
 interface Props {
     onSubmitSubgroups: (subgroups: Subgroup[] | null, isReady: boolean) => void;
-    //isSubgroupsReady: (isReady: boolean) => void;
 }
 
 let currentId = 0;
 
 const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
-    const [inputFields, setInputFields] = useState<InputField[]>([]);
-    const [inputs, setInputs] = useState<{ [key: string]: number }>({});
     const [sum, setSum] = useState<number>(0);
     const [isSumValid, setIsSumValid] = useState<boolean>(false);
     const [populationSize, setPopulationSize] = useState<number>(0);
+    const [inputFields, setInputFields] = useState<InputField[]>([]);
+    const [inputs, setInputs] = useState<{ [key: string]: number }>({});
 
     useEffect(() => {
         setInputFields([
@@ -47,7 +63,6 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
         }
     }, [inputs, populationSize]);
 
-    // create useEffect hook to detect any changes to the component's state
     useEffect(() => {
         onSubmitSubgroups(null, false);
     }, [inputFields, inputs, sum, isSumValid, populationSize]);
@@ -65,7 +80,6 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                 subgroups.push(community);
             }
         }
-        console.log(subgroups)
         onSubmitSubgroups(subgroups, true);
       };
 
@@ -82,20 +96,21 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                 <label htmlFor="name"></label>
                 <input
                     required
+                    id="name"
+                    name="name"
                     type="text"
                     className={styles.textInput}
                     placeholder="Subgroup name..."
-                    id="name"
-                    name="name"
                 />
                 <label htmlFor={"size" + currentId}></label>
                 <input
+                    required
                     type="number"
+                    placeholder="0"
                     id={`${currentId}`}
                     name={"size" + currentId}
-                    placeholder="0"
                     onChange={handleInputChange}
-                    required
+                    onWheel={event => event.currentTarget.blur()}
                 />
             </div>
         );
@@ -123,14 +138,15 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
             <div className={styles.population}>
                 <label htmlFor="population">
                     <h3 className={styles.subtitle}>
-                        <Terminology term="population" text="Total population" />
+                        <Terminology term="population" text="Target population" />
                     </h3>
                 </label>
                 <input
-                    type="number"
                     required
+                    type="number"
                     id="population"
                     name="population"
+                    onWheel={event => event.currentTarget.blur()}
                     onChange={(event) =>
                         setPopulationSize(parseInt(event.target.value))
                     }
@@ -142,7 +158,6 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                     <button className={styles.newRow} onClick={handleAddSubroup}>
                         <AiOutlinePlus />
                     </button>
-                    {/* Prevent first input box from being removed */}
                     {field.id !== 0 && (
                         <button
                             className={styles.newRow}
@@ -154,7 +169,12 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                 </div>
             ))}
             <div className={styles.calculate}>
-                <input type="submit" className={styles.btn} disabled={!isSumValid}/>
+                <input
+                    type="submit"
+                    value="Submit"
+                    className={styles.btn}
+                    disabled={!isSumValid}
+                />
             </div>
             {!isSumValid && (
                 <div className={styles.alert}>

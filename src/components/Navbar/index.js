@@ -1,13 +1,14 @@
 import React, { useState } from "react";
+import { FiMenu } from "react-icons/fi";
+import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 import styles from "./styles.module.scss";
+
 import logo from "../../assets/logo.svg";
 import globe from "../../assets/globe.svg";
-import { useTranslation } from "react-i18next";
 import MobileNavbar from "../MobileNavbar";
 import LanguageDropdown from "../LanguageDropdown";
-import lang from "../../lang.js";
-import { Link, useLocation } from "react-router-dom";
-import { FiMenu } from "react-icons/fi";
 
 function Navbar() {
     const { t } = useTranslation();
@@ -22,7 +23,7 @@ function Navbar() {
                     <div>
                         <Link to="/">
                             <li className={styles.logo}>
-                                <img src={logo} alt={lang.altLogo} />
+                                <img src={logo} alt={t('altLogo')} />
                             </li>
                         </Link>
                     </div>
@@ -31,16 +32,16 @@ function Navbar() {
                             <li className={styles.link}>{t('menuHome')}</li>
                         </Link>
                         <Link to="/sampling" className={location.pathname === '/sampling' ? styles.active : ''}>
-                            <li className={styles.link}>{lang.menuSampling}</li>
+                            <li className={styles.link}>{t('menuSampling')}</li>
                         </Link>
                         <Link to="/resources" className={location.pathname === '/resources' ? styles.active : ''}>
-                            <li className={styles.link}>{lang.menuResources}</li>
+                            <li className={styles.link}>{t('menuResources')}</li>
                         </Link>
                         <Link to="/about" className={location.pathname === '/about' ? styles.active : ''}>
-                            <li className={styles.link}>{lang.menuAbout}</li>
+                            <li className={styles.link}>{t('menuAbout')}</li>
                         </Link>
                         <li className={styles.link} onMouseOver={() => setIsLangOpen(true)}>
-                            <img src={globe} alt={lang.altGlobe} onMouseOut={() => setIsLangOpen(false)} />
+                            <img src={globe} alt={t('altGlobe')} onMouseOut={() => setIsLangOpen(false)} />
                             <div onClick={() => setIsLangOpen(false)} onMouseLeave={() => setIsLangOpen(false)}>
                                 {isLangOpen && <LanguageDropdown />}
                             </div>
