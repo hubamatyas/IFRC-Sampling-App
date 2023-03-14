@@ -6,6 +6,8 @@ import ExportButton from "../../components/ExportButton";
 import Terminology from "../../components/Terminology";
 import SimpleRandom from "../../components/SimpleRandom";
 import SubgroupInput from "../../components/SubgroupInput";
+import config from "../../util/config";
+import axios from "axios";
 
 interface TimeLocationProps extends WithTranslation {
     questionCards: number[];
@@ -38,6 +40,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
 
     const onSimpleRandomCalculation = useCallback((simpleRandomResponse: SimpleRandomResponse) => {
         setSimpleRandomResponse(simpleRandomResponse);
+        console.log('simple random')
         console.log(simpleRandomResponse)
         setSimpleRandomSampleSize(simpleRandomResponse.sampleSize);
     }, []);
@@ -50,7 +53,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
         calculateTimeLocation();
     }
 
-    const calculateTimeLocation = () => {
+    const calculateTimeLocation = async () => {
         // call API
         const data = {
             sample_size: simpleRandomSampleSize,
@@ -59,14 +62,30 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
             interviews_per_session: interviews,
         }
 
-        setTimeLocationResponse({
-            sampleSize: 200,
-        });
+        // const url = `${config.api}/time-location/`;
+        const url = `http://127.0.0.1:8000/api/time-location/`;
+
+        try {
+            const response = await axios.post(url, data, { 
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            if (response.status !== 200) {
+                const errorMessage = await response.data;
+                throw new Error(errorMessage);
+            }
+            setTimeLocationResponse(response.data);
+        } catch (error) {
+            console.log(error);
+            window.alert(error);
+        }
     }
 
     return (
         <>
             <SimpleRandom
+                subgroups={null}
                 hasSubgroups={false}
                 hasHouseholds={false}
                 hasIndividuals={true}
