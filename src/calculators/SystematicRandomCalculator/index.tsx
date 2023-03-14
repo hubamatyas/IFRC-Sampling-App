@@ -126,7 +126,7 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                             </div>
                         )}
                         <div className={styles.calculate}>
-                            <input type="submit" className={styles.btn} />
+                            <input type="submit" className={styles.btn} data-cy='submitCalculator-btn'/>
                         </div>
                     </form>
                 </Card>
@@ -138,7 +138,7 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                             <>
                                 {Object.keys(intervals).map((key: string) => (
                                     <div key={key}>
-                                        <h3>Interval for <u>{key}</u> is <u>{intervals[key]}</u></h3>
+                                        <h3 data-cy={"sampleSize"}>Interval for <u>{key}</u> is <u>{intervals[key]}</u></h3>
                                     </div>
                                 ))}
                                 <p className={styles.description}>
@@ -147,7 +147,7 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                             </>
                         ) : (
                             <>
-                                <h3>Interval: {Object.values(intervals)[0]}</h3>
+                                <h3 data-cy={"sampleSize"}>Interval: {Object.values(intervals)[0]}</h3>
                                 <p className={styles.description}>
                                     {t('aboutGoal')}
                                 </p>
