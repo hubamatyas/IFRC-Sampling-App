@@ -90,18 +90,39 @@ const MyDoc: React.FC<DocProps> = ({
         {/* render calculator result in a new page */}
 
         <View break>
+
+        <Text style={styles.title}>
+            Results
+        </Text>
+
         {/* @ts-ignore  */}
         { (() => {
           //simple random sampling
           if (calculatorOutputs?.sampleSize) {return(
             subgroupSizes? (
-              <Text style={{textAlign:"center", marginTop:"20px"}}>
-                  {Object.keys(calculatorOutputs?.sampleSize!).map((key: string) => (
-                    <Text>
-                      Sample size for {key} is {calculatorOutputs?.sampleSize![key]}{"\n"}
-                    </Text>
-                  ))}
-              </Text>
+
+              <View style={styles.table}> 
+              <View style={styles.tableRow}> 
+                <View style={styles.tableCol}> 
+                  <Text style={styles.tableHeader}>Subgroup Name</Text> 
+                </View> 
+                <View style={styles.tableCol}> 
+                  <Text style={styles.tableHeader}>Sample Size</Text> 
+                </View> 
+              </View> 
+
+              {Object.keys(calculatorOutputs?.sampleSize!).map((key: string) => (
+              <View style={styles.tableRow}> 
+                <View style={styles.tableCol}> 
+                  <Text style={styles.tableHeader}>{key}</Text> 
+                </View> 
+                <View style={styles.tableCol}> 
+                  <Text style={styles.tableHeader}>{calculatorOutputs?.sampleSize![key]}</Text> 
+                </View> 
+              </View> 
+              ))}
+            </View>
+
             ) : (
                 <Text style={{textAlign:"center", marginTop:"20px"}}>
                   Sample size: {Object.values(calculatorOutputs?.sampleSize!)[0]}
@@ -111,13 +132,29 @@ const MyDoc: React.FC<DocProps> = ({
           //systematic random sampling
           }else if (calculatorOutputs?.intervals) {return(
             subgroupSizes? (
-              <Text style={{textAlign:"center", marginTop:"20px"}}>
+
+                <View style={styles.table}> 
+                  <View style={styles.tableRow}> 
+                    <View style={styles.tableCol}> 
+                      <Text style={styles.tableHeader}>Subgroup Name</Text> 
+                    </View> 
+                    <View style={styles.tableCol}> 
+                      <Text style={styles.tableHeader}>Sampling Interval</Text> 
+                    </View> 
+                  </View> 
+
                   {Object.keys(calculatorOutputs?.intervals!).map((key: string) => (
-                    <Text>
-                      Sampling interval for {key} is {calculatorOutputs?.intervals![key]}{"\n"}
-                    </Text>
+                  <View style={styles.tableRow}> 
+                    <View style={styles.tableCol}> 
+                      <Text style={styles.tableHeader}>{key}</Text> 
+                    </View> 
+                    <View style={styles.tableCol}> 
+                      <Text style={styles.tableHeader}>{calculatorOutputs?.intervals![key]}</Text> 
+                    </View> 
+                  </View> 
                   ))}
-              </Text>
+                </View>
+
             ) : (
               <>
                 <Text style={{textAlign:"center", marginTop:"20px"}}>
@@ -134,7 +171,7 @@ const MyDoc: React.FC<DocProps> = ({
           </Text>
 
 
-        <View style={styles.table}> 
+        {/* <View style={styles.table}> 
           <View style={styles.tableRow}> 
             <View style={styles.tableCol}> 
               <Text style={styles.tableHeader}>Geographical unit</Text> 
@@ -170,7 +207,7 @@ const MyDoc: React.FC<DocProps> = ({
               <Text style={styles.tableCell}>5,RC,7,8</Text> 
             </View>
           </View> 
-        </View>
+        </View> */}
 
 
         <View style={{marginBottom:"auto",marginTop:"auto"}} break>
