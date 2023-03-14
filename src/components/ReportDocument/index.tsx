@@ -41,8 +41,9 @@ const MyDoc: React.FC<DocProps> = ({
         </Text>
 
         {notes?
-        <Text style={styles.notes}> 
-          {notes}
+        <Text style={{ fontSize: 14, margin : 10, marginLeft:"10%", marginBottom:"25px"}}> 
+          <Text style={{fontFamily: 'Helvetica-Bold', marginBottom:"10px"}}>Notes:</Text>
+          <Text>{"\n"+notes}</Text>
         </Text>
         :
         <View></View>

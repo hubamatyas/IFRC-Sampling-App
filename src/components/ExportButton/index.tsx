@@ -46,7 +46,7 @@ const App: React.FC<ExportProps> = ({
           <img src={ArrowSvg} className={styles.arrow}/>
           <Card hasArrow={false} >
             <div className={styles.noteCard}>
-              <h3>  Any notes to add to report? </h3>
+              <h3>  Any notes to add to the report? </h3>
               
               <div className={styles.radioBtns}>
                 <input 
