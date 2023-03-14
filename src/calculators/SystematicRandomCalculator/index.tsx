@@ -27,7 +27,8 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
     const [subgroups, setSubgroups] = useState<any[] | null>(null);
 
     useEffect(() => {
-        if (marginOfError && confidenceLevel && nonResponseRate && (households || individuals || subgroups)) {
+        console.log('here')
+        if (marginOfError && confidenceLevel && (households || individuals || subgroups)) {
             calculateSampleSize();
         }
     }, [marginOfError, confidenceLevel, nonResponseRate, households, individuals]);
