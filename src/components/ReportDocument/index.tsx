@@ -169,6 +169,20 @@ const MyDoc: React.FC<DocProps> = ({
                 </Text>
               </>)
           )
+          }else if (calculatorOutputs?.timeLocationResponse) {return(
+            <View style={styles.table}> 
+              {Object.keys(calculatorOutputs?.timeLocationResponse!).map((location,index) => (
+                  <View style={styles.tableRow}> 
+                    <View style={styles.tableCol}> 
+                      <Text style={styles.tableHeader}>{Object.keys(calculatorOutputs?.timeLocationResponse![index])[0]}</Text> 
+                    </View> 
+                    {/* <View style={styles.tableCol}> 
+                      <Text style={styles.tableHeader}>{calculatorOutputs?.intervals![key]}</Text> 
+                    </View>  */}
+                  </View> 
+                  ))}
+            </View>
+          )
           }
         })()}
         </View>

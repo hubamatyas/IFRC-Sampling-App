@@ -53,9 +53,9 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
         if (timeLocationResponse) {
             console.log('asdfasdfasdfasdf')
             for (let i = 0; i < timeLocationResponse.length; i++) {
-                console.log(timeLocationResponse[i]);
+                console.log(timeLocationResponse[i]); // dict for a location
                 const locations = timeLocationResponse[i];
-                const locationKey = Object.keys(locations)[0];
+                const locationKey = Object.keys(locations)[0]; // name of a location
                 console.log(locationKey)
                 const locationValue = Object.values(locations)[0];
                 for (let j = 0; j < locationValue.length; j++) {
@@ -81,7 +81,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
         sampleSize: Record<string, number> | null
     ) => {
         setCalculatorInputs(calculatorInputs);
-        setCalculatorOutputs({sampleSize:sampleSize, aboutGoal:t('aboutGoal')});
+        // setCalculatorOutputs({timeLocationResponse:timeLocationResponse, aboutGoal:t('aboutGoal')});
         setSimpleRandomSampleSize(sampleSize);
     }, []);
 
@@ -120,6 +120,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
                 throw new Error(errorMessage);
             }
             setTimeLocationResponse(response.data.units);
+            setCalculatorOutputs({timeLocationResponse:response.data.units, aboutGoal:t('aboutGoal')});
         } catch (error) {
             console.log(error);
             window.alert(error);
@@ -194,10 +195,12 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
                             {t('aboutGoal')}
                         </p>
                     </Card>
-                    {/* <ExportButton questionCards={questionCards} calculatorState={
-                        simpleRandomResponse
-                        // pass state of time location calculator
-                    } /> */}
+                    <ExportButton 
+                        questionCards={questionCards}
+                        calculatorOutputs={calculatorOutputs}
+                        calculatorInputs={calculatorInputs}
+                        subgroupSizes={null}
+                    />
                 </div>
             )}
         </>
