@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
+import document from "../../assets/document.svg"
 
 import Button from "../../components/Button/index";
 
@@ -26,12 +27,48 @@ function Home(){
             <div className={styles.features}>
                 <h1> {t('headerFeatures')} </h1>
                 <p> {t('aboutFeatures')} </p>
-                <h2> {t('aboutFeaturesSubheader')} </h2>
-                <ul>
-                    <li> {t('aboutFeature1')} </li>
-                    <li> {t('aboutFeature2')} </li>
-                    <li> {t('aboutFeature3')} </li>
-                </ul>
+                <div className={styles.cards}>
+                    <div className={styles.card}>
+                        <div className={styles.header}>
+                            <img className={styles.icon} src={document} width="50px"/>
+                            <h1 className={styles.title}>Feature One</h1>
+                        </div>
+                        <div className={styles.content}>
+                            <p> {t('aboutFeatures')} </p>
+                            <p className={styles.link}><a>Download a sample report</a></p>
+                        </div>
+                    </div>
+                    <div className={styles.card}>
+                        <div className={styles.header}>
+                            <img className={styles.icon} src={document} width="50px"/>
+                            <h1 className={styles.title}>Feature One</h1>
+                        </div>
+                        <div className={styles.content}>
+                            <p> {t('aboutFeatures')}{t('aboutFeatures')} </p>
+                            <p className={styles.link}><a>Download a sample report</a></p>
+                        </div>
+                    </div>
+                    <div className={styles.card}>
+                        <div className={styles.header}>
+                            <img className={styles.icon} src={document} width="50px"/>
+                            <h1 className={styles.title}>Feature One</h1>
+                        </div>
+                        <div className={styles.content}>
+                            <p> {t('aboutFeatures')} </p>
+                            <p className={styles.link}><a>Download a sample report</a></p>
+                        </div>
+                    </div>
+                    <div className={styles.card}>
+                        <div className={styles.header}>
+                            <img className={styles.icon} src={document} width="50px"/>
+                            <h1 className={styles.title}>Feature One</h1>
+                        </div>
+                        <div className={styles.content}>
+                            <p> {t('aboutFeatures')}{t('aboutFeatures')} </p>
+                            <p className={styles.link}><a>Download a sample report</a></p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className={styles.howto}>
                 <h1> {t('headerHowTo')} </h1>
