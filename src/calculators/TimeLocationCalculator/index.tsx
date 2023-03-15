@@ -97,8 +97,8 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
         // call API
         const data = {
             margin_of_error: calculatorInputs ? calculatorInputs['Margin of error'] : null,
-            confidence_level: calculatorInputs ? calculatorInputs['Confidence level'] : null,
-            non_response_rate: calculatorInputs ? calculatorInputs['Non-response rate'] : null,
+            confidence_level: calculatorInputs ? calculatorInputs['Confidence level(%)'] : null,
+            non_response_rate: calculatorInputs ? calculatorInputs['Non-response rate(%)'] : null,
             households: calculatorInputs ? calculatorInputs['Households'] : null,
             individuals: calculatorInputs ? calculatorInputs['Individuals'] : null,
             locations: locations,

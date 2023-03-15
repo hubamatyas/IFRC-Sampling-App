@@ -144,6 +144,11 @@ export const styles = StyleSheet.create({
       fontSize: 10,
       fontFamily: 'Helvetica-Bold',
     },
+    TLtableHeader: { 
+      margin: "auto", 
+      fontSize: 10,
+      fontFamily: 'Helvetica-Bold',
+    },
     tableCell: { 
       margin: "auto", 
       marginTop: 4, 

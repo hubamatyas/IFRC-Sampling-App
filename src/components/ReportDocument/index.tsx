@@ -177,7 +177,7 @@ const MyDoc: React.FC<DocProps> = ({
 
                   <View style={styles.tableRow}> 
                     <View style={styles.tableCol}> 
-                      <Text style={styles.tableHeader}>
+                      <Text style={styles.TLtableHeader}>
                         {Object.keys(locations)[0]}
                       </Text> 
                     </View> 
