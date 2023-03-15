@@ -1,120 +1,97 @@
-import {pdf} from '@react-pdf/renderer';
-import styles from "./styles.module.scss";
-import React, {useRef,useState} from "react";
-import { IoMdDownload } from 'react-icons/io';
-import MyDoc from '../ReportDocument';
+import ExportNowButton from './ExportNowButton';
 import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType} from "../../types/calculatorResponse";
-interface ExportProps {
-  questionCards: number[],
-  calculatorInputs: calculatorInputs,
-  calculatorOutputs: calculatorOutputs,
-  subgroupSizes: subgroupsType,
-}
+import styles from "./styles.module.scss";
+import React, {useRef,useState,useEffect} from "react";
+import { IoMdDownload } from 'react-icons/io';
+import Card from "../../components/Card";
+import ArrowSvg from "../../assets/arrow.svg";
 
-interface Option {
-  id: number;
-  name: string;
-  child_state: number;
-}
+interface ExportProps {
+    questionCards: number[],
+    calculatorInputs: calculatorInputs,
+    calculatorOutputs: calculatorOutputs,
+    subgroupSizes: subgroupsType,
+  }
 
 const App: React.FC<ExportProps> = ({
-  questionCards,
-  calculatorInputs,
-  calculatorOutputs,
-  subgroupSizes,
-  },
-
-) => {
-
-  const questionNames = useRef<string[]>([]);
-  const options = useRef<Option[]>([]);
-  const answers = useRef<string[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [fetchedNum, setFetchedNum] = useState<number>(0);
-
-  const fetchState = async(id:number) => {
-    let success = true
-    await fetch('https://ifrc-sampling.azurewebsites.net/api/decision-tree/'+id+'/')
-      .then(response => response.json())
-      .then(data =>{
-        questionNames.current.push(data.state.name);
-
-        if (options.current.length) {
-          answers.current.push (
-            options.current.find((opt)=>(opt.child_state === id))!.name
-          );
-        }
-
-        options.current = data.options;
-      })
-
-      .catch(e => {
-        console.error(e);
-        alert("Sorry we have a little problem fetching data. Export failed." );
-        success = false
-      });
-
-    return success;
-  }
-
-  const resetRefs = async() => {
-    questionNames.current=[];
-    options.current=[];
-    answers.current=[];
-  }
-
-  const generatePDFDocument = async () => {
-    try{
-      const blob = await pdf(
-        <MyDoc 
-          questionNames={questionNames.current} 
-          answers={answers.current} 
-          calculatorInputs={calculatorInputs}
-          calculatorOutputs={calculatorOutputs}
-          subgroupSizes={subgroupSizes}
-        />
-      ).toBlob();
-      console.log("PDF generated.")
-      return (URL.createObjectURL(blob));
-    }
-    
-    catch(err) {
-      alert("Sorry we have a little problem rendering PDF. Export failed." );
-      return null;
-    }
-  };
-
-  const handleClick = async() => {
-    setFetchedNum(0);
-    setLoading(true);
-    await resetRefs();
-    
-    for (const id of questionCards) {
-      if (! await fetchState(id)) {
-        setLoading(false);
-        return;
-      };
-      setFetchedNum((prev)=>prev+1);
-    }
-
-    var url = await generatePDFDocument();
-    if (url) {window.open(url);}
-    setLoading(false);
-  }
+    questionCards,
+    calculatorInputs,
+    calculatorOutputs,
+    subgroupSizes,
+    },
   
-  return (
-    <div>
-      <button className={styles.exportBtn} onClick={handleClick}>
-        <IoMdDownload />
-        {loading? 
-          (" Loading... "+ ~~(99*fetchedNum/(questionCards.length)) + "%") 
-          : 
-          " Export report"
-        }
-      </button>
-    </div>
-  );
-}
+  ) => {
 
+    const [clicked, setclicked] = useState<boolean>(false);
+    const [hasNote, setHasNote] = useState<boolean>(true);
+    const [note, setnote] = useState<string>("");
 
-export default App;
+    useEffect(() => {
+      setclicked(false);
+      setnote("");
+    }, [questionCards, calculatorInputs, calculatorOutputs, subgroupSizes]);
+
+    const handleNoteChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setnote(e.target.value);
+    }
+
+    return (
+
+      <div>
+        <button style={{display:clicked?"none":"inline"}} className={styles.exportBtn} onClick={()=>{setclicked(true)}}>
+          <IoMdDownload />Export report
+        </button>
+
+        <div style={{display:clicked?"inline":"none"}}>
+          <img src={ArrowSvg} className={styles.arrow}/>
+          <Card hasArrow={false} >
+            <div className={styles.noteCard}>
+              <h3>  Any notes to add to the report? </h3>
+              
+              <div className={styles.radioBtns}>
+                <input 
+                  type="radio" 
+                  name="haveNotes" 
+                  value="Yes" 
+                  className={styles.radioBtn}
+                  onChange={()=>{setHasNote(true)}}
+                  defaultChecked
+                />
+                <label style={{marginRight:"10px"}}>Yes</label>
+                <input 
+                  type="radio" 
+                  name="haveNotes" 
+                  value="No" 
+                  className={styles.radioBtn}
+                  onChange={()=>{setHasNote(false)}}
+                />
+                <label style={{marginRight:"10px"}}>No</label>
+              </div>
+
+              <textarea 
+                style={{display:hasNote?"inline":"none"}}
+                className={styles.noteArea}
+                maxLength={400}
+                placeholder="400 charactors maximum..." 
+                rows={4} 
+                cols={60} 
+                onChange={handleNoteChange} 
+              />
+              
+              <ExportNowButton
+                questionCards={questionCards}
+                calculatorInputs={calculatorInputs}
+                calculatorOutputs={calculatorOutputs}
+                subgroupSizes={subgroupSizes}
+                notes={hasNote?note:null}
+              />
+            </div>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  
+  
+  export default App;
