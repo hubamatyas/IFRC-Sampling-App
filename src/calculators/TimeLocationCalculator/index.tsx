@@ -25,8 +25,9 @@ interface SimpleRandomResponse {
 }
 
 interface TimeLocationResponse {
-    sampleSize: number | null;
-}
+    locations: { [key: string]: {
+        days: { [key: string]: [string]} };
+    } };
 
 const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
     t,
@@ -37,7 +38,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
     const [locations, setLocations] = useState<number | null>(null);
     const [days, setDays] = useState<number | null>(null);
     const [interviews, setInterviews] = useState<number | null>(null);
-    const [timeLocationResponse, setTimeLocationResponse] = useState<TimeLocationResponse | null>(null);
+    const [timeLocationResponse, setTimeLocationResponse] = useState<[TimeLocationResponse] | null>(null);
 
     const [calculatorInputs, setCalculatorInputs] = useState<calculatorInputs>(null);
     const [calculatorOutputs, setCalculatorOutputs] = useState<calculatorOutputs>(null);
@@ -47,6 +48,27 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
     //     console.log(simpleRandomResponse)
     //     setSimpleRandomSampleSize(simpleRandomResponse.sampleSize);
     // }, []);
+
+    useEffect(() => {
+        if (timeLocationResponse) {
+            console.log('asdfasdfasdfasdf')
+            for (let i = 0; i < timeLocationResponse.length; i++) {
+                console.log(timeLocationResponse[i]);
+                const locations = timeLocationResponse[i];
+                const locationKey = Object.keys(locations)[0];
+                console.log(locationKey)
+                const locationValue = Object.values(locations)[0];
+                for (let j = 0; j < locationValue.length; j++) {
+                    const dayKey = Object.keys(locationValue[j])[0];
+                    console.log(dayKey)
+                    const dayValue = Object.values(locationValue[j])[0] as [string];
+                    for (let k = 0; k < dayValue.length; k++) {
+                        console.log(dayValue[k])
+                    }
+                }
+            }
+        }
+    }, [timeLocationResponse]);
 
     useEffect(() => {
         if (calculatorInputs && simpleRandomSampleSize && locations && days && interviews) {
@@ -81,7 +103,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
             individuals: calculatorInputs ? calculatorInputs['Individuals'] : null,
             locations: locations,
             days: days,
-            //interviews_per_session: interviews,
+            interviews_per_session: interviews,
         }
 
         // const url = `${config.api}/time-location/`;
@@ -97,7 +119,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
                 const errorMessage = await response.data;
                 throw new Error(errorMessage);
             }
-            setTimeLocationResponse(response.data);
+            setTimeLocationResponse(response.data.units);
         } catch (error) {
             console.log(error);
             window.alert(error);
@@ -161,7 +183,9 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
             {timeLocationResponse && (
                 <div className={styles.result}>
                     <Card hasArrow={false}>
-                        <h2> Sample Size: {timeLocationResponse.sampleSize} </h2>
+                        <h2> Sample Size: </h2>
+                        <div>
+                        </div>
                         <p className={styles.description}>
                             {t('aboutGoal')}
                             {t('aboutGoal')}
