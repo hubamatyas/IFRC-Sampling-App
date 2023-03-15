@@ -171,7 +171,7 @@ const MyDoc: React.FC<DocProps> = ({
           )
           }else if (calculatorOutputs?.timeLocationResponse) {return(
             <View style={styles.table}> 
-              {calculatorOutputs?.timeLocationResponse!.map((locations,index) => (
+              {calculatorOutputs?.timeLocationResponse!.sort((a, b)=>( Number(Object.keys(a)[0].slice(8)) - Number(Object.keys(b)[0].slice(8)))).map((locations,index) => (
                   <View style={styles.tableRow}> 
                     <View style={styles.tableCol}> 
                       <Text style={styles.tableHeader}>
@@ -182,7 +182,7 @@ const MyDoc: React.FC<DocProps> = ({
                     <View style={styles.tableCol}> 
                       
                       {/* @ts-ignore  */}
-                      {Object.values(locations)[0].map((days,index) => (
+                      {Object.values(locations)[0].sort((a, b)=>( Number(Object.keys(a)[0].slice(3)) - Number(Object.keys(b)[0].slice(3)))).map((days,index) => (
                         <View style={styles.tableRow}>
                           <Text style={styles.tableCell}>
                             {Object.keys(days)[0]+ ": " +
