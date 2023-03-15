@@ -58,8 +58,8 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
         onSubmitSimpleRandom(
         {
             "Margin of error": marginOfError,
-            "Confidence level": confidenceLevel,
-            "Non-response rate": nonResponseRate,
+            "Confidence level(%)": confidenceLevel,
+            "Non-response rate(%)": nonResponseRate,
             "Households": households,
             "Individuals": individuals,
         },
