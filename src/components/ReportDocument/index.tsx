@@ -153,10 +153,10 @@ const MyDoc: React.FC<DocProps> = ({
                   {Object.keys(calculatorOutputs?.intervals!).map((key: string) => (
                   <View style={styles.tableRow}> 
                     <View style={styles.tableCol}> 
-                      <Text style={styles.tableHeader}>{key}</Text> 
+                      <Text style={styles.tableCell}>{key}</Text> 
                     </View> 
                     <View style={styles.tableCol}> 
-                      <Text style={styles.tableHeader}>{calculatorOutputs?.intervals![key]}</Text> 
+                      <Text style={styles.tableCell}>{calculatorOutputs?.intervals![key]}</Text> 
                     </View> 
                   </View> 
                   ))}
@@ -171,14 +171,28 @@ const MyDoc: React.FC<DocProps> = ({
           )
           }else if (calculatorOutputs?.timeLocationResponse) {return(
             <View style={styles.table}> 
-              {Object.keys(calculatorOutputs?.timeLocationResponse!).map((location,index) => (
+              {calculatorOutputs?.timeLocationResponse!.map((locations,index) => (
                   <View style={styles.tableRow}> 
                     <View style={styles.tableCol}> 
-                      <Text style={styles.tableHeader}>{Object.keys(calculatorOutputs?.timeLocationResponse![index])[0]}</Text> 
+                      <Text style={styles.tableHeader}>
+                        {Object.keys(locations)[0]}
+                      </Text> 
                     </View> 
-                    {/* <View style={styles.tableCol}> 
-                      <Text style={styles.tableHeader}>{calculatorOutputs?.intervals![key]}</Text> 
-                    </View>  */}
+
+                    <View style={styles.tableCol}> 
+                      
+                      {/* @ts-ignore  */}
+                      {Object.values(locations)[0].map((days,index) => (
+                        <View style={styles.tableRow}>
+                          <Text style={styles.tableCell}>
+                            {Object.keys(days)[0]+ ": " +
+                            // @ts-ignore
+                            Object.values(days)[0].join()}
+                          </Text>
+                        </View>
+                      ))}
+                      
+                    </View> 
                   </View> 
                   ))}
             </View>
@@ -191,44 +205,6 @@ const MyDoc: React.FC<DocProps> = ({
             {calculatorOutputs?.aboutGoal}
           </Text>
 
-
-        {/* <View style={styles.table}> 
-          <View style={styles.tableRow}> 
-            <View style={styles.tableCol}> 
-              <Text style={styles.tableHeader}>Geographical unit</Text> 
-            </View> 
-            <View style={styles.tableCol}> 
-              <Text style={styles.tableHeader}>Population size</Text> 
-            </View> 
-            <View style={styles.tableCol}> 
-              <Text style={styles.tableHeader}>Cluster</Text> 
-            </View> 
-          </View>
-
-          <View style={styles.tableRow}> 
-            <View style={styles.tableCol}> 
-              <Text style={styles.tableCell}>Location 1</Text> 
-            </View> 
-            <View style={styles.tableCol}> 
-              <Text style={styles.tableCell}>10000 </Text> 
-            </View> 
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>1,2,3,RC,4</Text> 
-            </View>
-          </View> 
-
-          <View style={styles.tableRow}> 
-            <View style={styles.tableCol}> 
-              <Text style={styles.tableCell}>Location 2</Text> 
-            </View> 
-            <View style={styles.tableCol}> 
-              <Text style={styles.tableCell}>7000 </Text> 
-            </View> 
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>5,RC,7,8</Text> 
-            </View>
-          </View> 
-        </View> */}
 
 
         <View style={{marginBottom:"auto",marginTop:"auto"}} break>

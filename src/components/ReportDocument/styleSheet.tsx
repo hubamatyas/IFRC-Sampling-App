@@ -110,8 +110,8 @@ export const styles = StyleSheet.create({
     }, 
     tableHeader: { 
       margin: "auto", 
-      marginTop: 4, 
-      marginBottom: 4,
+      // marginTop: 4, 
+      // marginBottom: 4,
       fontSize: 10,
       fontFamily: 'Helvetica-Bold',
     },
@@ -121,6 +121,7 @@ export const styles = StyleSheet.create({
       marginBottom: 4,
       fontSize: 10 
     },
+
     goalText:{
       fontSize: 14,
       marginLeft: '10%',
