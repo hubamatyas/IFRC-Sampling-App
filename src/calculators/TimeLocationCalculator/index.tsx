@@ -151,6 +151,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
                                 placeholder="Number of locations you will be visting"
                                 id="locations"
                                 name="locations"
+                                onWheel={event => event.currentTarget.blur()}
                             />
                         </div>
                         <div className={styles.field}>
@@ -162,6 +163,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
                                 placeholder="Number of working days you will be interviewing"
                                 id="days"
                                 name="days"
+                                onWheel={event => event.currentTarget.blur()}
                             />
                         </div>
                         <div className={styles.field}>
@@ -173,6 +175,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
                                 placeholder="Number of interviews in one session"
                                 id="interviews"
                                 name="interviews"
+                                onWheel={event => event.currentTarget.blur()}
                             />
                         </div>
                         <div className={styles.calculate}>
