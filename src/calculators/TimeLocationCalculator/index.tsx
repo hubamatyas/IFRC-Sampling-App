@@ -50,27 +50,6 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
     // }, []);
 
     useEffect(() => {
-        if (timeLocationResponse) {
-            console.log('asdfasdfasdfasdf')
-            for (let i = 0; i < timeLocationResponse.length; i++) {
-                console.log(timeLocationResponse[i]);
-                const locations = timeLocationResponse[i];
-                const locationKey = Object.keys(locations)[0];
-                console.log(locationKey)
-                const locationValue = Object.values(locations)[0];
-                for (let j = 0; j < locationValue.length; j++) {
-                    const dayKey = Object.keys(locationValue[j])[0];
-                    console.log(dayKey)
-                    const dayValue = Object.values(locationValue[j])[0] as [string];
-                    for (let k = 0; k < dayValue.length; k++) {
-                        console.log(dayValue[k])
-                    }
-                }
-            }
-        }
-    }, [timeLocationResponse]);
-
-    useEffect(() => {
         if (calculatorInputs && simpleRandomSampleSize && locations && days && interviews) {
             calculateTimeLocation();
         }
@@ -123,6 +102,57 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
         } catch (error) {
             console.log(error);
             window.alert(error);
+        }
+    }
+
+    
+    const renderResponseUnits = () => {
+        if (timeLocationResponse) {
+            const units = [];
+            console.log('asdfasdfasdfasdf')
+            for (let i = 0; i < timeLocationResponse.length; i++) {
+                console.log(timeLocationResponse[i]);
+                const locations = timeLocationResponse[i];
+                const locationKey = Object.keys(locations)[0];
+                console.log(locationKey)
+                const locationValue = Object.values(locations)[0];
+                for (let j = 0; j < locationValue.length; j++) {
+                    const dayKey = Object.keys(locationValue[j])[0];
+                    console.log(dayKey)
+                    const dayValue = Object.values(locationValue[j])[0] as [string];
+                    for (let k = 0; k < dayValue.length; k++) {
+                        console.log(dayValue[k])
+                    }
+                }
+                const unit = (
+                    <div>
+                        <h2>{locationKey}</h2>
+                        {
+                            locationValue.map((day: any) => {
+                                const dayKey = Object.keys(day)[0];
+                                const dayValue = Object.values(day)[0] as [string];
+                                return (
+                                    <div>
+                                        <h3>{dayKey}</h3>
+                                        {
+                                            dayValue.map((interview: string) => {
+                                                return (
+                                                    <div>
+                                                        <p>{interview}</p>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                )
+                            })
+
+                        }
+                    </div>
+                )
+                units.push(unit);
+            }
+            return units;
         }
     }
 
@@ -183,9 +213,15 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
             {timeLocationResponse && (
                 <div className={styles.result}>
                     <Card hasArrow={false}>
-                        <h2> Sample Size: </h2>
-                        <div>
-                        </div>
+                        {/* <div>
+                            {
+                                renderResponseUnits()?.map((unit) => {
+                                    return unit;
+                                })
+
+                            }
+                        </div> */}
+                        <h2>Time Location Calculator</h2>
                         <p className={styles.description}>
                             {t('aboutGoal')}
                             {t('aboutGoal')}
