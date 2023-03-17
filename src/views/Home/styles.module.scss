@@ -1,20 +1,44 @@
 @import "~/src/styles/variables";
 
 .background {
-    background: url('~/src/assets/homepage-bg.png') no-repeat;
-    background-size: cover;
+    background-color: $grey-mist;
 }
+
 .intro {
-    padding: $global-spacing-4 0;
+    padding: $global-spacing-3 0;
+    width: 60%;
+    margin: auto;
+    text-align: justify;
+}
+
+.abstract {
+    padding: $global-spacing-3 0;
+    background-color: $grey-coal;
     color: $white;
+}
+
+.features {
+    padding: $global-spacing-3 0;
     width: 60%;
     margin: auto;
 }
 
-.features {
-    padding: $global-spacing-5 0;
+.segment {
+    display: flex;
     width: 60%;
     margin: auto;
+    padding: $global-spacing 0;
+}
+
+.segmentTitle, .segmentText {
+    display: flex;
+    align-items: center;
+    text-align: justify;
+}
+
+.segmentText {
+    font-weight: $base-font-regular;
+    margin-left: $global-spacing-2;
 }
 
 .howto {
@@ -30,6 +54,12 @@
 
 .icon, .title {
     margin: 0;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    font-size: $font-size-xxl;
 }
 
 .icon {
@@ -55,6 +85,12 @@
     font-weight: $base-font-bold;
     cursor: pointer;
     text-decoration: underline;
+    color: $primary-color;
+}
+
+a {
+    text-decoration: none;
+    color: $primary-color;
 }
 
 .content {
@@ -85,5 +121,8 @@
     }
     .cards {
         grid-template-columns: 1fr;
+    }
+    .segment {
+        width: 80%;
     }
 }

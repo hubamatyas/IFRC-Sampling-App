@@ -10,7 +10,8 @@
 
     "buttonGetStarted": "Get Started",
 
-    "aboutGoal": "The tool is designed to be used by IFRC staff and partners to support the implementation of the IFRC Monitoring and Evaluation Framework.",
+    "aboutTool": "In a survey, we want to know certain characteristics of a large population, but we are almost never able to do a complete census of it. So we draw a sample—a subset of the population—and collect data on it. Then we generalize the results, with an allowance for sampling error (usually within 5% at 95% confidence level), to the entire population from which the sample was selected.",
+    "aboutGoal": " This tool supports your sampling design process, guiding you through a series of questions about the population you are working with to recommend a sampling method and size. It covers simple random, systematic random, time-location and cluster sampling methods, with plans to expand and improve in the future.",
     "aboutRedCross": "The Red Cross Red Crescent runs community surveys in nearly all their programming. It is critical for understanding the views of affected populations, and how effective programmes are.",
     "aboutDetail": "It is critical for understanding the views of affected populations, and how effective programmes are. Often times, country-level teams do not have technical expertise in sampling.",
     "aboutFeatures": "An intuitive tool that can guide as well as educate the IFRC volunteers via informational sections throughout the sampling process.",
@@ -19,14 +20,34 @@
     "aboutFeature2": "the ability to manage sampling plans;",
     "aboutFeature3": "the ability to generate sampling frames;",
 
+    "why": "Why",
+    "whyText": "If we interview people in a “convenience” sample—whoever easy to find—we cannot calculate the sampling error or quantify possible selection bias. This reduces the value of a survey to a qualitative study, where the results are limited to the respondents themselves, and therefore are only indicative and not representative of the target population.",
+    "who": "Who",
+    "whoText": "Staff of the Red Cross and Red Crescent who are planning surveys with community members, for needs assessments after disasters or surveys throughout a programme life cycle to benchmark progress across a population.",
+    "how": "How",
+    "howText": "Follow the questions to explore your recommended sampling plan. Input the requested figures about your population, and you will receive a recommended sample size with a PDF export with a summary of your responses and your plan.",
+
+    "featureSampling": "Generate Sampling Plans",
+    "featureSamplingText": "Follow the decision tree to learn the recommended sampling method for your project, and receive a sampling plan tailored to your specific population criteria.",
+    "featureSamplingTest": "Try the sampling tool",
+    "featureExport": "Export PDF Reports",
+    "featureExportText": "Export your sampling plan as a PDF report, which includes a record of inputs with a summary of decisions taken.",
+    "featureExportTest": "Download a sample report",
+    "featureApi": "Sampling API",
+    "featureApiText": "Integrate the tool's open API with your own application to further customise to your sampling needs. Call API and get your sampling approach on demand!",
+    "featureApiTest": "Explore the Sampling API",
+    "featureResources": "Educational Resources",
+    "featureResourcesText": "Browse terms and definitions to learn more about sampling, and find external resources to explore sampling further.",
+    "featureResourcesTest": "Browse resources",
+
     "resourcesTitle": "Browse terms and defintions to learn more about sampling",
     "resourcesText": "Find more information about sampling approaches, technical terms and external resources to explore sampling.",
-
     "altLogo": "IFRC and UCL logo",
     "altGlobe": "Select a language",
 
     "more": "Show more",
     "less": "Show less",
+
 
     "aboutGo": "About GO",
     "aboutGoText": "IFRC GO is a Red Cross Red Crescent platform to connect information on emergency needs with the right response.",

@@ -185,7 +185,7 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                                 <div className={styles.content}>
                                     {Object.keys(intervals).map((key: string) => (
                                         <div key={key}>
-                                            <h2 className={styles.title}>Interval for <b>{key}</b> is</h2>
+                                            <h2 className={styles.title}>Sampling interval for <b>{key}</b> is</h2>
                                             <h3 className={styles.number}>{intervals[key]}</h3>
                                         </div>
                                     ))}
@@ -196,7 +196,7 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                             </>
                         ) : (
                             <>
-                                <h1 className={styles.title}>Interval</h1>
+                                <h1 className={styles.title}>Sampling Interval</h1>
                                 <h2 className={styles.number}>{Object.values(intervals)[0]}</h2>
                                 <p className={styles.description}>
                                     {t('aboutGoal')}
