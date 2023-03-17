@@ -34,9 +34,8 @@ interface Props {
     onSubmitSubgroups: (subgroups: Subgroup[] | null, isReady: boolean) => void;
 }
 
-let currentId = 0;
-
 const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
+    const [currentId, setCurrentId] = useState<number>(0);
     const [sum, setSum] = useState<number>(0);
     const [isSumValid, setIsSumValid] = useState<boolean>(false);
     const [populationSize, setPopulationSize] = useState<number>(0);
@@ -117,11 +116,13 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
     };
 
     const handleAddSubroup = () => {
+        const newId = currentId + 1;
         if (inputFields.length < 10) {
             setInputFields([
                 ...inputFields,
-                { id: ++currentId, input: createInputField() },
+                { id: newId, input: createInputField() },
             ]);
+            setCurrentId(newId);
         }
     };
 
@@ -142,6 +143,8 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                     </h3>
                 </label>
                 <input
+                    min="1"
+                    step="1"
                     required
                     type="number"
                     id="population"
