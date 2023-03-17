@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { WithTranslation, withTranslation } from "react-i18next";
 import Alert from "react-bootstrap/Alert";
+import axios from "axios";
 
 import styles from "./styles.module.scss";
 
@@ -20,19 +21,19 @@ interface ClusterProps extends WithTranslation {
 }
 
 interface ClusterResponse {
-    sampleSize: number | null;
+    [key: string]: number[];
 }
 
 const TimeLocationCalculator: React.FC<ClusterProps> = ({
     t,
     questionCards,
 }) => {
-    const [clusterResponse, setClusterResponse] = useState<ClusterResponse | null>(null);
+    const [marginOfError, setMarginOfError] = useState<number>(0);
+    const [communities, setCommunities] = useState<Community[]>([]);
+    const [confidenceLevel, setConfidenceLevel] = useState<number>(0);
     const [inputFields, setInputFields] = useState<any[] | null>(null);
     const [numOfcommunities, setNumOfCommunities] = useState<number>(0);
-    const [marginOfError, setMarginOfError] = useState<number>(0);
-    const [confidenceLevel, setConfidenceLevel] = useState<number>(0);
-    const [communities, setCommunities] = useState<Community[]>([]);
+    const [clusterResponse, setClusterResponse] = useState<ClusterResponse | null>(null);
     
     useEffect(() => {
         if (numOfcommunities > 0) {
@@ -45,20 +46,11 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
     }, [numOfcommunities]);
 
     useEffect(() => {
-        if (communities.length > 0) {
+        if (communities && marginOfError && confidenceLevel) {
             calculateCluster();
             console.log(communities, marginOfError, confidenceLevel)
-
         }
     }, [communities, marginOfError, confidenceLevel]);
-
-    const showAlert = (message: string) => {
-        return (
-            <Alert key='danger' variant='danger'>
-                {message}
-            </Alert>
-        );
-    };
 
     const createInputField = (i: number): React.ReactNode => {
         i++;
@@ -111,17 +103,45 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
         setCommunities(communities);
     }
 
-    const calculateCluster = () => {
-        // call API
+    const calculateCluster = async () => {
         const data = {
             communities: communities,
             margin_of_error: marginOfError,
             confidence_level: confidenceLevel
         }
 
-        setClusterResponse({
-            sampleSize: 300,
-        });
+        // const url = `${config.api}/cluster/`;
+        // const url = `http://127.0.0.1:8000/api/cluster/`;
+
+        // try {
+        //     const response = await axios.post(url, data, { 
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //         },
+        //     });
+        //     if (response.status !== 200) {
+        //         const errorMessage = await response.data;
+        //         throw new Error(errorMessage);
+        //     }
+
+        //     const test: ClusterResponse = {
+        //         'A': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        //         'B': [13, 14, 15, 16, 17, 18, 19, 20],
+        //         'C': [21, 22, 23],
+        //         'D': [24, 25, 26, 27, 28, 29, 30]
+        //     }
+        //     setClusterResponse(test);
+        // } catch (error) {
+        //     console.log(error);
+        //     window.alert(error);
+        // }
+        const test: ClusterResponse = {
+            'East London': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            'Birmingham': [13, 14, 15, 16, 17, 18, 19, 20],
+            'Kecskemet': [21, 22, 23],
+            'Gyula': [24, 25, 26, 27, 28, 29, 30]
+        }
+        setClusterResponse(test);
     }
 
     return (
@@ -193,7 +213,17 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
             {clusterResponse && (
                 <div className={styles.result}>
                     <Card hasArrow={false}>
-                        <h2> Sample Size: {clusterResponse.sampleSize} </h2>
+                        <h2> Cluster Sampling Result </h2>
+                        {
+                            Object.keys(clusterResponse).map((key) => {
+                                return (
+                                    <div key={key} className={styles.unit}>
+                                        <h3 className={styles.name}> {key} </h3>
+                                        <h3 className={styles.clusters}> {clusterResponse[key].join(", ")} </h3>
+                                    </div>
+                                )
+                            })
+                        }
                         <p className={styles.description}>
                             {t('aboutGoal')}
                             {t('aboutGoal')}
