@@ -7,8 +7,37 @@
 
 .description {
     width: 80%;
+    margin: auto;
 }
 
+table{
+    //width: 80%;
+    //border-bottom: 2px solid black;
+    border-collapse: collapse;
+    width: $media-default;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+td, th {
+    border-bottom: 2px solid black;
+    text-align: center;
+
+}
+
+.redFigure{
+    color: $primary-color;
+    
+}
+
+.timeUnit{
+    font-weight: bold;
+}
+  
+.locationUnit{
+    font-size: $font-size-key-figure;
+    color: $primary-color;
+}
 .field {
     display: flex;
     flex-direction: column;

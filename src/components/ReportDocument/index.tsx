@@ -41,8 +41,8 @@ const MyDoc: React.FC<DocProps> = ({
         </Text>
 
         {notes?
-        <Text style={{ fontSize: 14, margin : 10, marginLeft:"10%", marginBottom:"25px"}}> 
-          <Text style={{fontFamily: 'Helvetica-Bold', marginBottom:"10px"}}>Notes:</Text>
+        <Text style={styles.notesSection}> 
+          <Text style={styles.notesTitle}>Notes:</Text>
           <Text>{"\n"+notes}</Text>
         </Text>
         :
@@ -50,7 +50,7 @@ const MyDoc: React.FC<DocProps> = ({
         } 
   
         {answers.map((answer,i) => (
-          <Text style={{ fontSize: 14, margin : 10, marginLeft:"10%" }} key={i}>
+          <Text style={styles.decisions} key={i}>
             {questionNames[i]}{"\n"}
             {"–– " + answer }      
           </Text>
@@ -60,33 +60,31 @@ const MyDoc: React.FC<DocProps> = ({
 
       {/* render subgroup names and sizes */}
 
-        <Text style={{ fontSize: 14, margin : 10, marginLeft:"10%" }}>
+        <Text style={styles.decisions}>
           Subgroups:{"\n"}
 
           {subgroupSizes ?
 
           subgroupSizes.map((subgroup, i) => (
-            <Text style={{ fontSize: 14, margin : 6, marginLeft:"10%" }} key={i}>
+            <Text style={styles.subgroupData} key={i}>
               {"–– Subgroup name: "}{subgroup.name}{"\n"}
               {"–– Size: "}{subgroup.size}{"\n\n"}
             </Text>
           ))
           :
-          <Text style={{ fontSize: 14, marginLeft:"10%" }}>
-              None{"\n"}
-          </Text>
+          <Text> None{"\n"} </Text>
           } 
         </Text>
 
 
         {/* render calculator input fields */}
 
-        <Text style={{ fontSize: 14, margin : 10, marginLeft:"10%" }}>
+        <Text style={styles.decisions}>
           Sample size calculator inputs:{"\n"}
           
           {Object.keys(calculatorInputs!).map((stateKey: string, i: number) =>(
             calculatorInputs![stateKey] ? 
-              <Text style={{ fontSize: 14, marginLeft:"10%" }} key={i}> 
+              <Text key={i}> 
                 –– {stateKey} :  {calculatorInputs![stateKey]} {"\n"}
               </Text>
             :
@@ -114,24 +112,24 @@ const MyDoc: React.FC<DocProps> = ({
                   <Text style={styles.tableHeader}>Subgroup Name</Text> 
                 </View> 
                 <View style={styles.tableCol}> 
-                  <Text style={styles.tableHeader}>Sample Size</Text> 
+                  <Text style={styles.tableHeader}>Population</Text> 
                 </View> 
               </View> 
 
               {Object.keys(calculatorOutputs?.sampleSize!).map((key: string) => (
               <View style={styles.tableRow}> 
                 <View style={styles.tableCol}> 
-                  <Text style={styles.tableHeader}>{key}</Text> 
+                  <Text style={styles.tableCell}>{key}</Text> 
                 </View> 
                 <View style={styles.tableCol}> 
-                  <Text style={styles.tableHeader}>{calculatorOutputs?.sampleSize![key]}</Text> 
+                  <Text style={styles.tableCell}>{calculatorOutputs?.sampleSize![key]}</Text> 
                 </View> 
               </View> 
               ))}
             </View>
 
             ) : (
-                <Text style={{textAlign:"center", marginTop:"20px"}}>
+                <Text style={styles.sampleSize}>
                   Sample size: {Object.values(calculatorOutputs?.sampleSize!)[0]}
                 </Text>
               ))
@@ -146,17 +144,17 @@ const MyDoc: React.FC<DocProps> = ({
                       <Text style={styles.tableHeader}>Subgroup Name</Text> 
                     </View> 
                     <View style={styles.tableCol}> 
-                      <Text style={styles.tableHeader}>Sampling Interval</Text> 
+                      <Text style={styles.tableHeader}>Population</Text> 
                     </View> 
                   </View> 
 
                   {Object.keys(calculatorOutputs?.intervals!).map((key: string) => (
                   <View style={styles.tableRow}> 
                     <View style={styles.tableCol}> 
-                      <Text style={styles.tableHeader}>{key}</Text> 
+                      <Text style={styles.tableCell}>{key}</Text> 
                     </View> 
                     <View style={styles.tableCol}> 
-                      <Text style={styles.tableHeader}>{calculatorOutputs?.intervals![key]}</Text> 
+                      <Text style={styles.tableCell}>{calculatorOutputs?.intervals![key]}</Text> 
                     </View> 
                   </View> 
                   ))}
@@ -164,10 +162,49 @@ const MyDoc: React.FC<DocProps> = ({
 
             ) : (
               <>
-                <Text style={{textAlign:"center", marginTop:"20px"}}>
+                <Text style={styles.sampleSize}>
                   Sampling interval: {Object.values(calculatorOutputs?.intervals!)[0]}
                 </Text>
               </>)
+          )
+
+          // time-location sampling table
+          }else if (calculatorOutputs?.timeLocationResponse) {return(
+            <View style={styles.table}> 
+              {calculatorOutputs?.timeLocationResponse!.sort(
+                (a, b)=>( 
+                  Number(Object.keys(a)[0].slice(8)) - Number(Object.keys(b)[0].slice(8))
+                )
+              ).map((locations,index) => (
+
+                  <View style={styles.tableRow}> 
+                    <View style={styles.tableCol}> 
+                      <Text style={styles.TLtableHeader}>
+                        {Object.keys(locations)[0]}
+                      </Text> 
+                    </View> 
+
+                    <View style={styles.tableCol}> 
+                      {Object.values(locations)[0].sort(
+                        // @ts-ignore
+                        (a, b)=>( 
+                          Number(Object.keys(a)[0].slice(3)) - Number(Object.keys(b)[0].slice(3))
+                        )
+                        // @ts-ignore
+                        ).map((days,index) => (
+                        <View style={styles.tableRow}>
+                          <Text style={styles.tableCell}>
+                            {Object.keys(days)[0]+ ": " +
+                            // @ts-ignore
+                            Object.values(days)[0].join()}
+                          </Text>
+                        </View>
+                      ))}
+                      
+                    </View> 
+                  </View> 
+                  ))}
+            </View>
           )
           }
         })()}
@@ -178,48 +215,10 @@ const MyDoc: React.FC<DocProps> = ({
           </Text>
 
 
-        {/* <View style={styles.table}> 
-          <View style={styles.tableRow}> 
-            <View style={styles.tableCol}> 
-              <Text style={styles.tableHeader}>Geographical unit</Text> 
-            </View> 
-            <View style={styles.tableCol}> 
-              <Text style={styles.tableHeader}>Population size</Text> 
-            </View> 
-            <View style={styles.tableCol}> 
-              <Text style={styles.tableHeader}>Cluster</Text> 
-            </View> 
-          </View>
-
-          <View style={styles.tableRow}> 
-            <View style={styles.tableCol}> 
-              <Text style={styles.tableCell}>Location 1</Text> 
-            </View> 
-            <View style={styles.tableCol}> 
-              <Text style={styles.tableCell}>10000 </Text> 
-            </View> 
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>1,2,3,RC,4</Text> 
-            </View>
-          </View> 
-
-          <View style={styles.tableRow}> 
-            <View style={styles.tableCol}> 
-              <Text style={styles.tableCell}>Location 2</Text> 
-            </View> 
-            <View style={styles.tableCol}> 
-              <Text style={styles.tableCell}>7000 </Text> 
-            </View> 
-            <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>5,RC,7,8</Text> 
-            </View>
-          </View> 
-        </View> */}
-
 
         <View style={{marginBottom:"auto",marginTop:"auto"}} break>
-        <Image src={require("../../assets/Damaged-Affected.png")} style={{alignSelf:"center", width:"25", height:"25", margin : 6}}/>
-          <Text style={{ fontSize: 14, margin : 6, marginLeft:"10%", marginRight:"10%" }}>
+        <Image src={require("../../assets/Damaged-Affected.png")} style={styles.disclaimerImg}/>
+          <Text style={styles.disclaimerText}>
             This tool was developed by IFRC staff and UCL INX students 
             with the intent of being shared and used by National Societies 
             of the Red Cross Red Crescent Movement, but also by the wider 
@@ -227,7 +226,7 @@ const MyDoc: React.FC<DocProps> = ({
             welcome and highly encouraged to make use of this tool for their 
             sampling work.
           </Text>
-          <Text style={{ fontSize: 14, margin : 6, marginLeft:"10%", marginRight:"10%" }}>
+          <Text style={styles.disclaimerText}>
             IFRC and UCL INX have made all reasonable efforts to ensure that 
             the information contained within this Sampling Tool is of a quality 
             and reliability consistent with its purpose. However, there is no 
@@ -251,9 +250,6 @@ const MyDoc: React.FC<DocProps> = ({
           IFRC Community
         </Link>
 
-        {/* <Text style={styles.copyRight} fixed>
-          {copyRight}
-        </Text> */}
         
     </Page>
    </Document> 

@@ -26,12 +26,41 @@ export const styles = StyleSheet.create({
       fontFamily: 'Helvetica-Oblique',
       textAlign:'center',
     },
-    notes:{
-      fontSize: 12,
-      marginLeft: '10%',
-      marginRight : '10%',
-      marginTop : 10,
-      marginBottom: 20,
+    notesSection:{
+      fontSize: 14, 
+      margin : 10, 
+      marginLeft:"10%", 
+      marginBottom:"25px"
+    },
+    notesTitle:{
+      fontFamily: 'Helvetica-Bold',
+      marginBottom:"10px"
+    },
+    decisions:{
+      fontSize: 14,
+      margin : 10,
+      marginLeft:"10%",
+    },
+    subgroupData:{ 
+      fontSize: 14, 
+      margin : 6, 
+      marginLeft:"10%" 
+    },
+    sampleSize:{
+      textAlign:"center", 
+      marginTop:"20px"
+    },
+    disclaimerImg:{
+      alignSelf:"center", 
+      width:"25", 
+      height:"25", 
+      margin : 6
+    },
+    disclaimerText:{ 
+      fontSize: 14, 
+      margin : 6, 
+      marginLeft:"10%", 
+      marginRight:"10%" 
     },
     pageBackground: {
       position: 'absolute',
@@ -115,12 +144,18 @@ export const styles = StyleSheet.create({
       fontSize: 10,
       fontFamily: 'Helvetica-Bold',
     },
+    TLtableHeader: { 
+      margin: "auto", 
+      fontSize: 10,
+      fontFamily: 'Helvetica-Bold',
+    },
     tableCell: { 
       margin: "auto", 
       marginTop: 4, 
       marginBottom: 4,
       fontSize: 10 
     },
+
     goalText:{
       fontSize: 14,
       marginLeft: '10%',

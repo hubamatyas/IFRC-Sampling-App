@@ -30,14 +30,17 @@ interface TimeLocationResponse {
         days: { [key: string]: [string]} };
     } };
 
-const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t}) => {
+const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) => {
     const [days, setDays] = useState<number | null>(null);
     const [locations, setLocations] = useState<number | null>(null);
     const [interviews, setInterviews] = useState<number | null>(null);
     const [calculatorInputs, setCalculatorInputs] = useState<calculatorInputs>(null);
     const [calculatorOutputs, setCalculatorOutputs] = useState<calculatorOutputs>(null);
+
+
     const [simpleRandomSampleSize, setSimpleRandomSampleSize] = useState<number | null>(null);
     const [timeLocationResponse, setTimeLocationResponse] = useState<[TimeLocationResponse] | null>(null);
+
 
     useEffect(() => {
         if (calculatorInputs && simpleRandomSampleSize && locations && days && interviews) {
@@ -50,8 +53,10 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t}) => {
         sampleSize: Record<string, number> | null
     ) => {
         setCalculatorInputs(calculatorInputs);
+
         setSimpleRandomSampleSize(sampleSize ? sampleSize['total'] : null);
         setCalculatorOutputs({sampleSize:sampleSize, aboutGoal:t('aboutGoal')});
+
     }, []);
 
     const handleParameterSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -69,8 +74,8 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t}) => {
             households: calculatorInputs ? calculatorInputs['Households'] : null,
             individuals: calculatorInputs ? calculatorInputs['Individuals'] : null,
             margin_of_error: calculatorInputs ? calculatorInputs['Margin of error'] : null,
-            confidence_level: calculatorInputs ? calculatorInputs['Confidence level'] : null,
-            non_response_rate: calculatorInputs ? calculatorInputs['Non-response rate'] : null,
+            confidence_level: calculatorInputs ? calculatorInputs['Confidence level(%)'] : null,
+            non_response_rate: calculatorInputs ? calculatorInputs['Non-response rate(%)'] : null,
         }
 
         // const url = `${config.api}/time-location/`;
@@ -87,6 +92,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t}) => {
                 throw new Error(errorMessage);
             }
             setTimeLocationResponse(response.data.units);
+            setCalculatorOutputs({timeLocationResponse:response.data.units, aboutGoal:t('aboutGoal')});
         } catch (error) {
             console.log(error);
             window.alert(error);
@@ -118,6 +124,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t}) => {
                                 type="number"
                                 id="locations"
                                 name="locations"
+                                onWheel={event => event.currentTarget.blur()}
                                 className={styles.textInput}
                             />
                         </div>
@@ -132,6 +139,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t}) => {
                                 name="days"
                                 type="number"
                                 className={styles.textInput}
+                                onWheel={event => event.currentTarget.blur()}
                             />
                         </div>
                         <div className={styles.field}>
@@ -143,6 +151,9 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t}) => {
                                 type="number"
                                 id="interviews"
                                 name="interviews"
+
+                                onWheel={event => event.currentTarget.blur()}
+
                                 className={styles.textInput}
                                 max={simpleRandomSampleSize}
                             />
@@ -157,6 +168,50 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t}) => {
                 <div className={styles.result}>
                     <Card hasArrow={false}>
                         <h2>Time Location Calculator</h2>
+                        <div>
+                            <table>
+
+                            {timeLocationResponse!.sort(
+                                (a, b)=>( 
+                                Number(Object.keys(a)[0].slice(8)) - Number(Object.keys(b)[0].slice(8))
+                                )
+                            ).map((locations,index) => (
+
+                                <tr> 
+                                    <th className={styles.locationUnit}> 
+                                        {Object.keys(locations)[0]}
+                                    </th>
+
+                                    <th className={styles.timeUnit}> 
+                                        {Object.values(locations)[0].sort(
+                                            // @ts-ignore
+                                            (a, b)=>( 
+                                            Number(Object.keys(a)[0].slice(3)) - Number(Object.keys(b)[0].slice(3))
+                                            )
+                                            // @ts-ignore
+                                            ).map((days,index) => (
+                                            <div>
+                                                {Object.keys(days)[0].slice(0,3)}
+                                                <b className={styles.redFigure}>
+                                                    {Object.keys(days)[0].slice(3)}
+                                                </b>
+                                                { ": " +
+                                                // @ts-ignore
+                                                Object.values(days)[0].join()}
+                                                <br>
+                                                </br>
+                                            </div>
+                                            )
+                                            
+                                            )
+                                        }
+                                    </th> 
+                                </tr> 
+                                ))}
+                                
+
+                            </table>
+                        </div>
                         <p className={styles.description}>
                             {t('aboutGoal')}
                             {t('aboutGoal')}
@@ -165,10 +220,12 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t}) => {
                             {t('aboutGoal')}
                         </p>
                     </Card>
-                    {/* <ExportButton questionCards={questionCards} calculatorState={
-                        simpleRandomResponse
-                        // pass state of time location calculator
-                    } /> */}
+                    <ExportButton 
+                        questionCards={questionCards}
+                        calculatorOutputs={calculatorOutputs}
+                        calculatorInputs={calculatorInputs}
+                        subgroupSizes={null}
+                    />
                 </div>
             )}
         </>
