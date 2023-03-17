@@ -9,6 +9,23 @@
     width: 80%;
 }
 
+table{
+    //width: 80%;
+    //border-bottom: 2px solid black;
+    border-collapse: collapse;
+    width: $media-default;
+    margin: auto;
+}
+
+td, th {
+    border-bottom: 2px solid black;
+    text-align: center;
+
+  }
+  
+.locations{
+    font-size: $font-size-key-figure;
+}
 .field {
     display: flex;
     flex-direction: column;

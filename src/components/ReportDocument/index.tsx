@@ -167,6 +167,8 @@ const MyDoc: React.FC<DocProps> = ({
                 </Text>
               </>)
           )
+
+          // time-location sampling table
           }else if (calculatorOutputs?.timeLocationResponse) {return(
             <View style={styles.table}> 
               {calculatorOutputs?.timeLocationResponse!.sort(

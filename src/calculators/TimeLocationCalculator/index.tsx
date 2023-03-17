@@ -189,6 +189,51 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
                     <Card hasArrow={false}>
                         <h2> Sample Size: </h2>
                         <div>
+                            <table>
+
+
+
+
+
+                            {timeLocationResponse!.sort(
+                                (a, b)=>( 
+                                Number(Object.keys(a)[0].slice(8)) - Number(Object.keys(b)[0].slice(8))
+                                )
+                            ).map((locations,index) => (
+
+                                <tr> 
+                                    <th className={styles.locations}> 
+                                        {Object.keys(locations)[0]}
+                                    </th>
+
+                                    <th> 
+                                        {Object.values(locations)[0].sort(
+                                            // @ts-ignore
+                                            (a, b)=>( 
+                                            Number(Object.keys(a)[0].slice(3)) - Number(Object.keys(b)[0].slice(3))
+                                            )
+                                            // @ts-ignore
+                                            ).map((days,index) => (
+                                            <div>
+                                                {Object.keys(days)[0]+ ": " +
+                                                // @ts-ignore
+                                                Object.values(days)[0].join()}
+                                                <br>
+                                                </br>
+                                            </div>
+                                            )
+                                            
+                                            )
+                                        }
+                                    
+                                    </th> 
+                                </tr> 
+                                ))}
+                                
+
+
+
+                            </table>
                         </div>
                         <p className={styles.description}>
                             {t('aboutGoal')}
