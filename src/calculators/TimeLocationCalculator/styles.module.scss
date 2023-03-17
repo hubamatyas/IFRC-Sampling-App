@@ -21,10 +21,20 @@ td, th {
     border-bottom: 2px solid black;
     text-align: center;
 
-  }
+}
+
+.redFigure{
+    color: $primary-color;
+    
+}
+
+.timeUnit{
+    font-weight: bold;
+}
   
-.locations{
+.locationUnit{
     font-size: $font-size-key-figure;
+    color: $primary-color;
 }
 .field {
     display: flex;

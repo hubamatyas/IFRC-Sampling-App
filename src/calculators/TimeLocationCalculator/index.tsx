@@ -202,11 +202,11 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
                             ).map((locations,index) => (
 
                                 <tr> 
-                                    <th className={styles.locations}> 
+                                    <th className={styles.locationUnit}> 
                                         {Object.keys(locations)[0]}
                                     </th>
 
-                                    <th> 
+                                    <th className={styles.timeUnit}> 
                                         {Object.values(locations)[0].sort(
                                             // @ts-ignore
                                             (a, b)=>( 
@@ -215,7 +215,11 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
                                             // @ts-ignore
                                             ).map((days,index) => (
                                             <div>
-                                                {Object.keys(days)[0]+ ": " +
+                                                {Object.keys(days)[0].slice(0,3)}
+                                                <b className={styles.redFigure}>
+                                                    {Object.keys(days)[0].slice(3)}
+                                                </b>
+                                                { ": " +
                                                 // @ts-ignore
                                                 Object.values(days)[0].join()}
                                                 <br>
