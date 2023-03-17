@@ -129,6 +129,9 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
                         <Terminology term="margin of error" text="Margin of error (%)" />
                     </label>
                     <input
+                        min="1"
+                        max="20"
+                        step="1"
                         required
                         id="margin"
                         type="number"
@@ -159,6 +162,9 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
                         <Terminology term="non-response rate" text="Non-response rate (%)" />
                     </label>
                     <input
+                        min="0"
+                        max="80"
+                        step="1"
                         type="number"
                         id="response"
                         name="response"
@@ -171,6 +177,8 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
                             <Terminology term="households" text="Number of households" />
                         </label>
                         <input
+                            min="1"
+                            step="1"
                             required
                             type="number"
                             id="households"
@@ -185,6 +193,8 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
                             <Terminology term="individuals" text="Number of individuals" />
                         </label>
                         <input
+                            min="1"
+                            step="1"
                             required
                             type="number"
                             id="individuals"

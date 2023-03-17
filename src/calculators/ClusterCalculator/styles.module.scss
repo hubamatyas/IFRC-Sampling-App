@@ -15,8 +15,9 @@
 }
 
 .textInput {
-    background-color: transparent;
     font-size: $font-size-lg;
+    border-bottom: 2px solid;
+    border-radius: $base-border-radius $base-border-radius 0 0;
 }
 
 .field {
@@ -37,7 +38,6 @@
     justify-content: center;
 }
 
-// extract into component
 .btn {
     background-color: $primary-color;
     border: none;

@@ -1,27 +1,28 @@
 import React, { useCallback, useEffect, useState } from "react";
-import styles from "./styles.module.scss";
 import { WithTranslation, withTranslation } from "react-i18next";
-import Card from "../../components/Card";
-import ExportButton from "../../components/ExportButton";
-import Terminology from "../../components/Terminology";
-import SimpleRandom from "../../components/SimpleRandom";
-import SubgroupInput from "../../components/SubgroupInput";
-import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType} from "../../types/calculatorResponse";
-import config from "../../util/config";
 import axios from "axios";
+
+import styles from "./styles.module.scss";
+
+import config from "../../util/config";
+import Card from "../../components/Card";
+import Terminology from "../../components/Terminology";
+import ExportButton from "../../components/ExportButton";
+import SimpleRandom from "../../components/SimpleRandom";
+import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType} from "../../types/calculatorResponse";
+
+/**
+@fileoverview The module exports a React component that provides a time-location calculator. 
+It allows users to specify parameters for the number of locations, working days, and 
+interviews per session. The component also incorporates a simple random sample size calculator, 
+which calculates the necessary sample size given parameters for individuals, margin of error, 
+confidence level, and non-response rate. Upon submission, it uses the axios library to make a
+POST request to an API to calculate the time-location units.
+@module TimeLocationCalculator
+*/
 
 interface TimeLocationProps extends WithTranslation {
     questionCards: number[];
-}
-
-interface SimpleRandomResponse {
-    sampleSize: {} | null;
-    marginOfError: number | null;
-    confidenceLevel: number | null;
-    nonResponseRate: number | null;
-    households: number | null;
-    individuals: number | null;
-    //subgroups: any[] | null;
 }
 
 interface TimeLocationResponse {
@@ -29,25 +30,14 @@ interface TimeLocationResponse {
         days: { [key: string]: [string]} };
     } };
 
-const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
-    t,
-    questionCards,
-}) => {
-    const [simpleRandomResponse, setSimpleRandomResponse] = useState<SimpleRandomResponse | null>(null);
-    const [simpleRandomSampleSize, setSimpleRandomSampleSize] = useState<{} | null>(null);
-    const [locations, setLocations] = useState<number | null>(null);
+const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t}) => {
     const [days, setDays] = useState<number | null>(null);
+    const [locations, setLocations] = useState<number | null>(null);
     const [interviews, setInterviews] = useState<number | null>(null);
-    const [timeLocationResponse, setTimeLocationResponse] = useState<[TimeLocationResponse] | null>(null);
-
     const [calculatorInputs, setCalculatorInputs] = useState<calculatorInputs>(null);
     const [calculatorOutputs, setCalculatorOutputs] = useState<calculatorOutputs>(null);
-
-    // const onSimpleRandomCalculation = useCallback((simpleRandomResponse: SimpleRandomResponse) => {
-    //     setSimpleRandomResponse(simpleRandomResponse);
-    //     console.log(simpleRandomResponse)
-    //     setSimpleRandomSampleSize(simpleRandomResponse.sampleSize);
-    // }, []);
+    const [simpleRandomSampleSize, setSimpleRandomSampleSize] = useState<number | null>(null);
+    const [timeLocationResponse, setTimeLocationResponse] = useState<[TimeLocationResponse] | null>(null);
 
     useEffect(() => {
         if (calculatorInputs && simpleRandomSampleSize && locations && days && interviews) {
@@ -60,29 +50,27 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
         sampleSize: Record<string, number> | null
     ) => {
         setCalculatorInputs(calculatorInputs);
+        setSimpleRandomSampleSize(sampleSize ? sampleSize['total'] : null);
         setCalculatorOutputs({sampleSize:sampleSize, aboutGoal:t('aboutGoal')});
-        setSimpleRandomSampleSize(sampleSize);
     }, []);
 
     const handleParameterSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(parseInt((e.target as HTMLFormElement).locations.value))
-        setLocations(parseInt((e.target as HTMLFormElement).locations.value));
         setDays(parseInt((e.target as HTMLFormElement).days.value));
+        setLocations(parseInt((e.target as HTMLFormElement).locations.value));
         setInterviews(parseInt((e.target as HTMLFormElement).interviews.value));
     }
 
     const calculateTimeLocation = async () => {
-        // call API
         const data = {
+            days: days,
+            locations: locations,
+            interviews_per_session: interviews,
+            households: calculatorInputs ? calculatorInputs['Households'] : null,
+            individuals: calculatorInputs ? calculatorInputs['Individuals'] : null,
             margin_of_error: calculatorInputs ? calculatorInputs['Margin of error'] : null,
             confidence_level: calculatorInputs ? calculatorInputs['Confidence level'] : null,
             non_response_rate: calculatorInputs ? calculatorInputs['Non-response rate'] : null,
-            households: calculatorInputs ? calculatorInputs['Households'] : null,
-            individuals: calculatorInputs ? calculatorInputs['Individuals'] : null,
-            locations: locations,
-            days: days,
-            interviews_per_session: interviews,
         }
 
         // const url = `${config.api}/time-location/`;
@@ -105,57 +93,6 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
         }
     }
 
-    
-    const renderResponseUnits = () => {
-        if (timeLocationResponse) {
-            const units = [];
-            console.log('asdfasdfasdfasdf')
-            for (let i = 0; i < timeLocationResponse.length; i++) {
-                console.log(timeLocationResponse[i]);
-                const locations = timeLocationResponse[i];
-                const locationKey = Object.keys(locations)[0];
-                console.log(locationKey)
-                const locationValue = Object.values(locations)[0];
-                for (let j = 0; j < locationValue.length; j++) {
-                    const dayKey = Object.keys(locationValue[j])[0];
-                    console.log(dayKey)
-                    const dayValue = Object.values(locationValue[j])[0] as [string];
-                    for (let k = 0; k < dayValue.length; k++) {
-                        console.log(dayValue[k])
-                    }
-                }
-                const unit = (
-                    <div>
-                        <h2>{locationKey}</h2>
-                        {
-                            locationValue.map((day: any) => {
-                                const dayKey = Object.keys(day)[0];
-                                const dayValue = Object.values(day)[0] as [string];
-                                return (
-                                    <div>
-                                        <h3>{dayKey}</h3>
-                                        {
-                                            dayValue.map((interview: string) => {
-                                                return (
-                                                    <div>
-                                                        <p>{interview}</p>
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                )
-                            })
-
-                        }
-                    </div>
-                )
-                units.push(unit);
-            }
-            return units;
-        }
-    }
-
     return (
         <>
             <SimpleRandom
@@ -174,38 +111,44 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
                         <div className={styles.field}>
                             <label htmlFor="locations">Locations</label>        
                             <input
+                                min="2"
+                                max="15"
+                                step="1"
                                 required
                                 type="number"
-                                className={styles.textInput}
-                                placeholder="Number of locations you will be visting"
                                 id="locations"
                                 name="locations"
+                                className={styles.textInput}
                             />
                         </div>
                         <div className={styles.field}>
                             <label htmlFor="days">Working days</label>
                             <input
+                                min="3"
+                                max="20"
+                                step="1"
+                                id="days"
                                 required
+                                name="days"
                                 type="number"
                                 className={styles.textInput}
-                                placeholder="Number of working days you will be interviewing"
-                                id="days"
-                                name="days"
                             />
                         </div>
                         <div className={styles.field}>
                             <label htmlFor="interviews">Interviews in one session</label>
                             <input
+                                min="10"
+                                step="1"
                                 required
                                 type="number"
-                                className={styles.textInput}
-                                placeholder="Number of interviews in one session"
                                 id="interviews"
                                 name="interviews"
+                                className={styles.textInput}
+                                max={simpleRandomSampleSize}
                             />
                         </div>
                         <div className={styles.calculate}>
-                            <input type="submit" className={styles.btn}/>
+                            <input type="submit" className={styles.btn} value="Submit"/>
                         </div>
                     </form>
                 </Card>
@@ -213,14 +156,6 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({
             {timeLocationResponse && (
                 <div className={styles.result}>
                     <Card hasArrow={false}>
-                        {/* <div>
-                            {
-                                renderResponseUnits()?.map((unit) => {
-                                    return unit;
-                                })
-
-                            }
-                        </div> */}
                         <h2>Time Location Calculator</h2>
                         <p className={styles.description}>
                             {t('aboutGoal')}

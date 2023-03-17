@@ -1,12 +1,25 @@
 import React, { useState, useEffect } from "react";
-import styles from "./styles.module.scss";
 import { WithTranslation, withTranslation } from "react-i18next";
-import Card from "../../components/Card";
-import ExportButton from "../../components/ExportButton";
-import Terminology from "../../components/Terminology";
-import SubgroupInput from "../../components/SubgroupInput";
 import axios from "axios";
+
+import styles from "./styles.module.scss";
+
+import Card from "../../components/Card";
+import Terminology from "../../components/Terminology";
+import ExportButton from "../../components/ExportButton";
+import SubgroupInput from "../../components/SubgroupInput";
 import { intervalsType } from "../../types/calculatorResponse";
+
+/**
+@fileoverview This module provides a Systematic Random Calculator 
+that calculates the required sample size to estimate population 
+parameters with a given margin of error, confidence level, and 
+non-response rate. It exports a React functional component that 
+renders a form with input fields for the user to enter the required 
+parameters. Upon submission, it uses the axios library to make a 
+POST request to an API to calculate the sample size.
+@module SystematicRandomCalculator
+*/
 
 interface SystematicRandomProps extends WithTranslation {
     hasSubgroups: boolean;
@@ -14,31 +27,29 @@ interface SystematicRandomProps extends WithTranslation {
 }
 
 const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
-    hasSubgroups,
     t,
+    hasSubgroups,
     questionCards,
 }) => {
+    const [subgroups, setSubgroups] = useState<any[] | null>(null);
+    const [intervals, setIntervals] = useState<intervalsType>(null);
+    const [households, setHouseholds] = useState<number | null>(null);
+    const [individuals, setIndividuals] = useState<number | null>(null);
     const [marginOfError, setMarginOfError] = useState<number | null>(null);
     const [confidenceLevel, setConfidenceLevel] = useState<number | null>(null);
     const [nonResponseRate, setNonResponseRate] = useState<number | null>(null);
-    const [households, setHouseholds] = useState<number | null>(null);
-    const [individuals, setIndividuals] = useState<number | null>(null);
-    const [intervals, setIntervals] = useState<intervalsType>(null);
-    const [subgroups, setSubgroups] = useState<any[] | null>(null);
 
     useEffect(() => {
-        console.log('here')
         if (marginOfError && confidenceLevel && (households || individuals || subgroups)) {
             calculateSampleSize();
         }
     }, [marginOfError, confidenceLevel, nonResponseRate, households, individuals]);
     
-
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setMarginOfError(Number(event.currentTarget.margin.value));
-        setConfidenceLevel(Number(event.currentTarget.confidence.value));
         setNonResponseRate(Number(event.currentTarget.response.value));
+        setConfidenceLevel(Number(event.currentTarget.confidence.value));
         setHouseholds(
             event.currentTarget.households
                 ? Number(event.currentTarget.households.value)
@@ -53,12 +64,12 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
 
     const calculateSampleSize = async () => {
         const data = {
-            margin_of_error: marginOfError,
-            confidence_level: confidenceLevel,
-            non_response_rate: nonResponseRate,
             subgroups: subgroups,
             households: households,
             individuals: individuals,
+            margin_of_error: marginOfError,
+            confidence_level: confidenceLevel,
+            non_response_rate: nonResponseRate,
         };
 
         const url = `https://ifrc-sampling.azurewebsites.net/api/systematic-random/`;
@@ -98,12 +109,31 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                     </h2>
                     <form className={styles.inputFields} onSubmit={handleSubmit}>
                         <div className={styles.field}>
-                            <label htmlFor="margin"> Margin of error (%)</label>
-                            <input type="number" id="margin" name="margin" placeholder="5" />
+                            <label htmlFor="margin">
+                                <Terminology term="margin of error" text="Margin of error (%)" />
+                            </label>
+                            <input
+                                min="1"
+                                max="20"
+                                step="1"
+                                required
+                                id="margin"
+                                type="number"
+                                name="margin"
+                                placeholder="5"
+                                onWheel={event => event.currentTarget.blur()}
+                            />
                         </div>
                         <div className={styles.field}>
-                            <label htmlFor="confidence"> Confidence level (%)</label>
-                            <select id="confidence" name="confidence">
+                            <label htmlFor="confidence">
+                                <Terminology term="confidence level" text="Confidence level (%)" />
+                            </label>
+                            <select
+                                required
+                                id="confidence"
+                                name="confidence"
+                                onWheel={event => event.currentTarget.blur()}
+                            >
                                 <option value="95">95</option>
                                 <option value="99">99</option>
                                 <option value="90">90</option>
@@ -112,23 +142,37 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                             </select>
                         </div>
                         <div className={styles.field}>
-                            <label htmlFor="response"> Non-response rate (%)</label>
-                            <input type="number" id="response" name="response" placeholder="0" />
+                            <label htmlFor="response">
+                                <Terminology term="non-response rate" text="Non-response rate (%)" />
+                            </label>
+                            <input
+                                min="0"
+                                max="80"
+                                step="1"
+                                type="number"
+                                id="response"
+                                name="response"
+                                onWheel={event => event.currentTarget.blur()}
+                            />
                         </div>
                         {!subgroups && (
                             <div className={styles.field}>
-                                <label htmlFor="households"> Number of households </label>
-                                <input type="number" id="households" name="households" placeholder="" />
-                            </div>
-                        )}
-                        {!subgroups && (
-                            <div className={styles.field}>
-                                <label htmlFor="individuals"> Number of individuals </label>
-                                <input type="number" id="individuals" name="individuals" placeholder="" />
+                                <label htmlFor="individuals">
+                                    <Terminology term="individuals" text="Number of individuals" />
+                                </label>
+                                <input
+                                    min="1"
+                                    step="1"
+                                    required
+                                    type="number"
+                                    id="individuals"
+                                    name="individuals"
+                                    onWheel={event => event.currentTarget.blur()}
+                                />
                             </div>
                         )}
                         <div className={styles.calculate}>
-                            <input type="submit" className={styles.btn} />
+                            <input type="submit" className={styles.btn} value="Submit"/>
                         </div>
                     </form>
                 </Card>

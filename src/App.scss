@@ -47,6 +47,14 @@ input, select {
   display: block;
 }
 
+input:focus, select:focus {
+  background-color: white;
+}
+
+input[type="submit"]:focus {
+  background-color: $primary-color;
+}
+
 label {
   font-weight: $base-font-bold;
 }

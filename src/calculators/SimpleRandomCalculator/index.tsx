@@ -1,12 +1,24 @@
 import React, { useCallback, useEffect, useState } from "react";
-import styles from "./styles.module.scss";
 import { WithTranslation, withTranslation } from "react-i18next";
+
+import styles from "./styles.module.scss";
+
 import Card from "../../components/Card";
-import ExportButton from "../../components/ExportButton";
 import Terminology from "../../components/Terminology";
-import SubgroupInput from "../../components/SubgroupInput";
 import SimpleRandom from "../../components/SimpleRandom";
+import ExportButton from "../../components/ExportButton";
+import SubgroupInput from "../../components/SubgroupInput";
 import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType} from "../../types/calculatorResponse";
+
+/**
+@fileoverview This module provides a Systematic Random Calculator that calculates
+the required sample size to estimate population parameters with a given margin of 
+error, confidence level, and non-response rate. It exports a React functional 
+component that renders a form with input fields for the user to enter the required 
+parameters. Upon submission, it uses the axios library to make a POST request to an
+API to calculate the sample size.
+@module SystematicRandomCalculator
+*/
 
 interface SimpleRandomCalculatorProps extends WithTranslation {
     hasSubgroups: boolean;
@@ -15,18 +27,16 @@ interface SimpleRandomCalculatorProps extends WithTranslation {
     questionCards: number[];
 }
 
-
 const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
+    t,
     hasSubgroups,
     hasHouseholds,
-    hasIndividuals,
-    t,
     questionCards,
+    hasIndividuals,
 }) => {
+    const [subgroups, setSubgroups] = useState<subgroupsType>(null);
     const [sampleSize, setSampleSize] = useState<sampleSizeType>(null);
     const [isSubgroupsReady, setIsSubgroupsReady] = useState<boolean>(false);
-    const [isSimpleRandomReady, setIsSimpleRandomReady] = useState<boolean>(false);
-    const [subgroups, setSubgroups] = useState<subgroupsType>(null);
     const [calculatorInputs, setCalculatorInputs] = useState<calculatorInputs>(null);
     const [calculatorOutputs, setCalculatorOutputs] = useState<calculatorOutputs>(null);
 
@@ -40,9 +50,9 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
         calculatorInputs: calculatorInputs, 
         sampleSize: Record<string, number> | null
     ) => {
+        setSampleSize(sampleSize);
         setCalculatorInputs(calculatorInputs);
         setCalculatorOutputs({sampleSize:sampleSize, aboutGoal:t('aboutGoal')});
-        setSampleSize(sampleSize);
     }, []);
 
     return (
@@ -68,7 +78,6 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
                     hasHouseholds={hasHouseholds}
                     hasIndividuals={hasIndividuals}
                     onSubmitSimpleRandom={onSimpleRandomCalculation}
-                    // onSubmitSimpleRandom={(calculatorInputs) => setSampleSize(calculatorInputs.sampleSize)}
                 />
             )}
             {sampleSize && (
@@ -99,10 +108,10 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
                         )}
                     </Card>
                     <ExportButton 
+                        subgroupSizes={subgroups}
                         questionCards={questionCards} 
                         calculatorInputs={calculatorInputs}
                         calculatorOutputs={calculatorOutputs}
-                        subgroupSizes={subgroups}
                     />
                 </div>
             )}
