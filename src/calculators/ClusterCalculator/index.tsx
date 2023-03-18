@@ -5,6 +5,7 @@ import axios from "axios";
 
 import styles from "./styles.module.scss";
 
+import config from "../../util/config";
 import Card from "../../components/Card";
 import Input from "../../components/Input";
 import Terminology from "../../components/Terminology";
@@ -111,8 +112,7 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
             confidence_level: confidenceLevel
         }
 
-        // const url = `${config.api}/cluster-random/`;
-        const url = `http://127.0.0.1:8000/api/cluster-random/`;
+        const url = `${config.api}/cluster-random/`;
 
         try {
             const response = await axios.post(url, data, { 

@@ -78,8 +78,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
             non_response_rate: calculatorInputs ? calculatorInputs['Non-response rate(%)'] : null,
         }
 
-        // const url = `${config.api}/time-location/`;
-        const url = `http://127.0.0.1:8000/api/time-location/`;
+        const url = `${config.api}/time-location/`;
 
         try {
             const response = await axios.post(url, data, { 
