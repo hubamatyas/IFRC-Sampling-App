@@ -176,8 +176,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                                 Number(Object.keys(a)[0].slice(8)) - Number(Object.keys(b)[0].slice(8))
                                 )
                             ).map((locations,index) => (
-
-                                <tr> 
+                                <tr className={styles.unit}> 
                                     <th className={styles.locationUnit}> 
                                         {Object.keys(locations)[0]}
                                     </th>
