@@ -63,7 +63,7 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                     name="name"
                     type="text"
                     className={styles.textInput}
-                    value={`Community ${i}`}
+                    placeholder={`Community name...`}
                     onWheel={event => event.currentTarget.blur()}
                 />
                 <label htmlFor={"size" + i}></label>
@@ -104,44 +104,33 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
     }
 
     const calculateCluster = async () => {
+        console.log(marginOfError, confidenceLevel, communities)
         const data = {
             communities: communities,
             margin_of_error: marginOfError,
             confidence_level: confidenceLevel
         }
 
-        // const url = `${config.api}/cluster/`;
-        // const url = `http://127.0.0.1:8000/api/cluster/`;
+        // const url = `${config.api}/cluster-random/`;
+        const url = `http://127.0.0.1:8000/api/cluster-random/`;
 
-        // try {
-        //     const response = await axios.post(url, data, { 
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //         },
-        //     });
-        //     if (response.status !== 200) {
-        //         const errorMessage = await response.data;
-        //         throw new Error(errorMessage);
-        //     }
+        try {
+            const response = await axios.post(url, data, { 
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            if (response.status !== 200) {
+                const errorMessage = await response.data;
+                throw new Error(errorMessage);
+            }
 
-        //     const test: ClusterResponse = {
-        //         'A': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-        //         'B': [13, 14, 15, 16, 17, 18, 19, 20],
-        //         'C': [21, 22, 23],
-        //         'D': [24, 25, 26, 27, 28, 29, 30]
-        //     }
-        //     setClusterResponse(test);
-        // } catch (error) {
-        //     console.log(error);
-        //     window.alert(error);
-        // }
-        const test: ClusterResponse = {
-            'East London': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-            'Birmingham': [13, 14, 15, 16, 17, 18, 19, 20],
-            'Kecskemet': [21, 22, 23],
-            'Gyula': [24, 25, 26, 27, 28, 29, 30]
+            const clusterResponse = await response.data.clusters;
+            setClusterResponse(clusterResponse);
+        } catch (error) {
+            console.log(error);
+            window.alert(error);
         }
-        setClusterResponse(test);
     }
 
     return (
