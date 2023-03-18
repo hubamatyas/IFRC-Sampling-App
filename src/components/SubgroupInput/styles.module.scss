@@ -29,8 +29,9 @@
 
 .textInput {
     background-color: transparent;
+    border-radius: 0;
     font-size: $font-size-lg;
-    border-bottom: 1px solid $primary-color;
+    border-bottom: 1px solid;
 }
 
 .subgroup {
@@ -51,7 +52,6 @@
     margin: $global-spacing 0 $global-spacing $global-spacing;
 }
 
-// extract into component
 .btn {
     background-color: $primary-color;
     border: none;

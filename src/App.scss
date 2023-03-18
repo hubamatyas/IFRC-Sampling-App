@@ -15,6 +15,10 @@ h2 {
   margin-bottom: $global-spacing-2;
 }
 
+a {
+  text-decoration: none;
+}
+
 // centre img
 img {
   display: block;
@@ -41,6 +45,14 @@ input, select {
   background-color: $grey-fog;
   width: 300px;
   display: block;
+}
+
+input:focus, select:focus {
+  background-color: white;
+}
+
+input[type="submit"]:focus {
+  background-color: $primary-color;
 }
 
 label {

@@ -22,13 +22,11 @@ const Terminology: React.FC<Props> = ({ term, text }: Props) => {
   return (
     <>
       {definition ? (
-        // add Offcanvas/Tooltip component when ready
         <>
           {parts.length > 1 ? (
             <span>
               {parts.map((part) =>
                 part.toLowerCase() === term?.toLowerCase() ? (
-                  //<u key={part}>{part}</u>
                   <OffCanvas terminology={part}/> 
                 ) : (
                   part

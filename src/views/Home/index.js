@@ -1,9 +1,13 @@
 import React from "react";
-import styles from "./styles.module.scss";
-import Button from "../../components/Button/index";
-import lang from "../../lang.js"
 import { useTranslation } from "react-i18next";
 
+import styles from "./styles.module.scss";
+import document from "../../assets/document.svg"
+import plan from "../../assets/plan.svg"
+import brain from "../../assets/brain.svg"
+import book from "../../assets/book.svg"
+
+import Button from "../../components/Button/index";
 
 function Home(){
     const { t } = useTranslation();
@@ -13,30 +17,89 @@ function Home(){
             <div className={styles.background}>
                 <div className={styles.intro}>
                     <h1> {t('headerAppName')} </h1>
-                    <p> {lang.aboutGoal} </p>
-                    <p> {lang.aboutRedCross} </p>
-                    <p> {lang.aboutDetail} </p>
+                    <p> {t('aboutTool')} </p>
+                    <p> {t('aboutDetail')} </p>
+                    <p> {t('aboutGoal')} </p>
+                    <br/>
                     <Button
-                        text={lang.buttonGetStarted}
+                        text={t('buttonGetStarted')}
                         link="/sampling"
-                        style="default"
+                        style="inverse"
                     />
                 </div>
             </div>
             <div className={styles.features}>
-                <h1> {lang.headerFeatures} </h1>
-                <p> {lang.aboutFeatures} </p>
-                <h2> {lang.aboutFeaturesSubheader} </h2>
-                <ul>
-                    <li> {lang.aboutFeature1} </li>
-                    <li> {lang.aboutFeature2} </li>
-                    <li> {lang.aboutFeature3} </li>
-                </ul>
+                <h1> {t('headerFeatures')} </h1>
+                <div className={styles.cards}>
+                    <div className={styles.card}>
+                        <div className={styles.header}>
+                            <img className={styles.icon} src={brain} width="50px"/>
+                            <h1 className={styles.title}>{t('featureApi')}</h1>
+                        </div>
+                        <div className={styles.content}>
+                            <p> {t('featureApiText')} </p>
+                            <p className={styles.link}><a
+                                href="https://ifrc-sampling.azurewebsites.net/api/"
+                            >{t('featureApiTest')}</a></p>
+                        </div>
+                    </div>
+                    <div className={styles.card}>
+                        <div className={styles.header}>
+                            <img className={styles.icon} src={plan} width="50px"/>
+                            <h1 className={styles.title}>{t('featureSampling')}</h1>
+                        </div>
+                        <div className={styles.content}>
+                            <p> {t('featureSamplingText')} </p>
+                            <p className={styles.link}><a
+                                href="/sampling"
+                            >{t('featureSamplingTest')}</a></p>
+                        </div>
+                    </div>
+                    <div className={styles.card}>
+                        <div className={styles.header}>
+                            <img className={styles.icon} src={document} width="50px"/>
+                            <h1 className={styles.title}>{t('featureExport')}</h1>
+                        </div>
+                        <div className={styles.content}>
+                            <p> {t('featureExportText')} </p>
+                            <p className={styles.link}><a
+                                href="logo.svg"
+                                download
+                            >{t('featureExportTest')}</a></p>
+                        </div>
+                    </div>
+                    <div className={styles.card}>
+                        <div className={styles.header}>
+                            <img className={styles.icon} src={book} width="50px"/>
+                            <h1 className={styles.title}>{t('featureResources')}</h1>
+                        </div>
+                        <div className={styles.content}>
+                            <p> {t('featureResourcesText')} </p>
+                            <p className={styles.link}><a
+                                href="/resources"
+                            >{t('featureResourcesTest')}</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className={styles.abstract}>
+                <div className={styles.segment}>
+                    <h1 className={styles.segmentTitle}> {t('why')} </h1>
+                    <p className={styles.segmentText}> {t('whyText')} </p>
+                </div>
+                <div className={styles.segment}>
+                    <h1 className={styles.segmentTitle}> {t('who')} </h1>
+                    <p className={styles.segmentText}> {t('whoText')} </p>
+                </div>
+                <div className={styles.segment}>
+                    <h1 className={styles.segmentTitle}> {t('how')} </h1>
+                    <p className={styles.segmentText}> {t('howText')} </p>
+                </div>
             </div>
             <div className={styles.howto}>
-                <h1> {lang.headerHowTo} </h1>
+                <h1> {t('headerHowTo')} </h1>
                 <Button
-                        text={lang.buttonGetStarted}
+                        text={t('buttonGetStarted')}
                         link="/sampling"
                         style="inverse"
                 />

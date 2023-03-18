@@ -5,13 +5,38 @@
     margin: auto;
 }
 
+.content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.title {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    font-weight: $base-font-regular;
+}
+
+.number {
+    text-align: center;
+    color: $primary-color;
+    font-size: 10vh;
+    margin: auto;
+    margin-bottom: $global-spacing-2;
+}
+
 .description {
     width: 80%;
+    margin: auto;
 }
 
 @media screen and (max-width: $media-medium) {
     .result {
         width: 90%;
+    }
+
+    .content {
+        grid-template-columns: 1fr 1fr;
     }
 }
 
@@ -22,5 +47,9 @@
 
     .result {
         width: 90%;
+    }
+
+    .content {
+        grid-template-columns: 1fr;
     }
 }

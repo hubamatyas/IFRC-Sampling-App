@@ -1,11 +1,24 @@
 import React, { useCallback, useEffect, useState } from "react";
-import styles from "./styles.module.scss";
 import { WithTranslation, withTranslation } from "react-i18next";
+
+import styles from "./styles.module.scss";
+
 import Card from "../../components/Card";
-import ExportButton from "../../components/ExportButton";
 import Terminology from "../../components/Terminology";
+import SimpleRandom from "../../components/SimpleRandom";
+import ExportButton from "../../components/ExportButton";
 import SubgroupInput from "../../components/SubgroupInput";
-import SimpleRandom from "src/components/SimpleRandom";
+import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType} from "../../types/calculatorResponse";
+
+/**
+@fileoverview This module provides a Systematic Random Calculator that calculates
+the required sample size to estimate population parameters with a given margin of 
+error, confidence level, and non-response rate. It exports a React functional 
+component that renders a form with input fields for the user to enter the required 
+parameters. Upon submission, it uses the axios library to make a POST request to an
+API to calculate the sample size.
+@module SystematicRandomCalculator
+*/
 
 interface SimpleRandomCalculatorProps extends WithTranslation {
     hasSubgroups: boolean;
@@ -14,28 +27,18 @@ interface SimpleRandomCalculatorProps extends WithTranslation {
     questionCards: number[];
 }
 
-interface SimpleRandomResponse {
-    sampleSize: { [key: string]: number } | null;
-    marginOfError: number | null;
-    confidenceLevel: number | null;
-    nonResponseRate: number | null;
-    households: number | null;
-    individuals: number | null;
-    //subgroups: any[] | null;
-}
-
 const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
+    t,
     hasSubgroups,
     hasHouseholds,
-    hasIndividuals,
-    t,
     questionCards,
+    hasIndividuals,
 }) => {
-    const [sampleSize, setSampleSize] = useState<{ [key: string]: number } | null>(null);
+    const [subgroups, setSubgroups] = useState<subgroupsType>(null);
+    const [sampleSize, setSampleSize] = useState<sampleSizeType>(null);
     const [isSubgroupsReady, setIsSubgroupsReady] = useState<boolean>(false);
-    const [isSimpleRandomReady, setIsSimpleRandomReady] = useState<boolean>(false);
-    const [subgroups, setSubgroups] = useState<any[] | null>(null);
-    const [simpleRandomResponse, setSimpleRandomResponse] = useState<SimpleRandomResponse | null>(null);
+    const [calculatorInputs, setCalculatorInputs] = useState<calculatorInputs>(null);
+    const [calculatorOutputs, setCalculatorOutputs] = useState<calculatorOutputs>(null);
 
     useEffect(() => {
         if (!isSubgroupsReady) {
@@ -43,9 +46,13 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
         }
     }, [isSubgroupsReady]);
 
-    const onSimpleRandomCalculation = useCallback((simpleRandomResponse: SimpleRandomResponse) => {
-        setSimpleRandomResponse(simpleRandomResponse);
-        setSampleSize(simpleRandomResponse.sampleSize);
+    const onSimpleRandomCalculation = useCallback((
+        calculatorInputs: calculatorInputs, 
+        sampleSize: Record<string, number> | null
+    ) => {
+        setSampleSize(sampleSize);
+        setCalculatorInputs(calculatorInputs);
+        setCalculatorOutputs({sampleSize:sampleSize, aboutGoal:t('aboutGoal')});
     }, []);
 
     return (
@@ -71,7 +78,6 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
                     hasHouseholds={hasHouseholds}
                     hasIndividuals={hasIndividuals}
                     onSubmitSimpleRandom={onSimpleRandomCalculation}
-                    // onSubmitSimpleRandom={(simpleRandomResponse) => setSampleSize(simpleRandomResponse.sampleSize)}
                 />
             )}
             {sampleSize && (
@@ -79,28 +85,34 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
                     <Card hasArrow={false}>
                         {subgroups ? (
                             <>
-                                {Object.keys(sampleSize).map((key: string) => (
-                                    <div key={key}>
-                                        <h3>Sample size for <u>{key}</u> is <u>{sampleSize[key]}</u></h3>
-                                    </div>
-                                ))}
+                                <div className={styles.content}>
+                                    {Object.keys(sampleSize).map((key: string) => (
+                                        <div key={key}>
+                                            <h2 className={styles.title} >Sample size for <b>{key}</b> is:</h2>
+                                            <h3 className={styles.number}>{sampleSize[key]}</h3>
+                                        </div>
+                                    ))}
+                                </div>
                                 <p className={styles.description}>
                                     {t('aboutGoal')}
                                 </p>
                             </>
                         ) : (
                             <>
-                                <h3>Sample size: {Object.values(sampleSize)[0]}</h3>
+                                <h1 className={styles.title}>Sample size:</h1>
+                                <h2 className={styles.number}>{Object.values(sampleSize)[0]}</h2>
                                 <p className={styles.description}>
                                     {t('aboutGoal')}
                                 </p>
                             </>
                         )}
                     </Card>
-                    <ExportButton questionCards={questionCards} calculatorState={
-                        simpleRandomResponse
-                        // add subgroups
-                    } />
+                    <ExportButton 
+                        subgroupSizes={subgroups}
+                        questionCards={questionCards} 
+                        calculatorInputs={calculatorInputs}
+                        calculatorOutputs={calculatorOutputs}
+                    />
                 </div>
             )}
         </>

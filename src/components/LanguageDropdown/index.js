@@ -1,9 +1,9 @@
 import React from "react";
-import styles from "./styles.module.scss";
-import { Link } from "react-router-dom";
 import i18nex from "i18next";
 import { _cs } from "@togglecorp/fujs";
+import { Link } from "react-router-dom";
 
+import styles from "./styles.module.scss";
 function LanguageDropdown() {
     const languages = [
         { name: "English", code: "en" },

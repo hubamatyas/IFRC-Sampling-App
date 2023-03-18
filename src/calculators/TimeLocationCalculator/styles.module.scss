@@ -7,6 +7,40 @@
 
 .description {
     width: 80%;
+    margin: auto;
+}
+
+table{
+    //width: 80%;
+    //border-bottom: 2px solid black;
+    border-collapse: collapse;
+    width: $media-default;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+td, th {
+    border-bottom: 2px solid black;
+    text-align: center;
+
+}
+
+.redFigure{
+    color: $primary-color;
+}
+
+table {
+    width: 100%;
+}
+
+.timeUnit{
+    font-weight: bold;
+    padding: $global-spacing-3;
+}
+  
+.locationUnit{
+    font-size: $font-size-key-figure;
+    color: $primary-color;
 }
 
 .field {
@@ -22,7 +56,6 @@
     justify-content: center;
 }
 
-// extract into component
 .btn {
     background-color: $primary-color;
     border: none;
@@ -35,6 +68,12 @@
     padding: 10px;
     width: 150px;
     text-align: center;
+}
+
+@media screen and (min-width: 1400px) {
+    table {
+        width: 60%;
+    }
 }
 
 @media screen and (max-width: $media-medium) {
