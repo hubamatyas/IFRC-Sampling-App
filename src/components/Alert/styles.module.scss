@@ -1,0 +1,51 @@
+@import 'src/styles/variables';
+
+.alert {
+    position: relative;
+    border-radius: $base-border-radius;
+    padding: $global-spacing ($global-spacing * 2.5) $global-spacing ($global-spacing * 1.75);
+    color: white;
+    overflow: hidden;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin: 10px 0 10px 0;
+}
+
+.warningAlert {
+    @extend .alert;
+    background-color: $warning-color;
+}
+
+.errorAlert {
+    @extend .alert;
+    background-color: $danger-color;
+}
+
+.successAlert {
+    @extend .alert;
+    background-color: $success-color;
+}
+
+.infoAlert {
+    @extend .alert;
+    background-color: $info-color;
+}
+.alertText{
+    margin:auto 10px auto 10px;
+}
+.closebtn {
+    margin:10px 10px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+.icon {
+    top: 4px;
+    position: relative;
+}

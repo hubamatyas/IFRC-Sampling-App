@@ -6,6 +6,7 @@ import config from 'src/util/config';
 import Card from "../../components/Card";
 import Terminology from "../../components/Terminology";
 import {calculatorInputs, sampleSizeType} from "../../types/calculatorResponse";
+import Alert from"../../components/Alert";
 
 /**
  * Describes the expected shape of the props object received by SimpleRandom.
@@ -52,6 +53,8 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
     const [households, setHouseholds] = useState<number | null>(null);
     const [individuals, setIndividuals] = useState<number | null>(null);
     const [sampleSize, setSampleSize] = useState<sampleSizeType>(null);
+    const [alertText, setAlertText] = useState<string>("");
+    const [showAlert, setShowAlert] = useState<boolean>(false);
 
     useEffect(() => {
         // return sample size to parent component
@@ -74,6 +77,7 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
     }, [marginOfError, confidenceLevel, nonResponseRate, households, individuals]);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        alertNonPositive();
         event.preventDefault();
         setMarginOfError(Number(event.currentTarget.margin.value));
         setConfidenceLevel(Number(event.currentTarget.confidence.value));
@@ -117,6 +121,26 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
             window.alert(error);
         }
     };
+
+    const alertNonPositive=()=>{
+        console.log("alertNonPositive")
+        // @ts-ignore
+        if(Number(document.getElementById("margin").value)<=0){
+            setAlertText("Margin of error must be larger than zero.")
+        // @ts-ignore
+        }else if (Number(document.getElementById("response").value)<0){
+            setAlertText("Non-response rate must be larger or equal to zero.")
+        // @ts-ignore
+        }else if (Number(document.getElementById("households").value)<=0){
+            setAlertText("Number of households must be larger than zero.")
+        // @ts-ignore
+        }else if (Number(document.getElementById("individuals").value)<=0){
+            setAlertText("Number of individuals must be larger than zero.")
+        }else{
+            setShowAlert(false);
+        }
+        setShowAlert(true);
+    }
 
     return (
         <Card>
@@ -204,9 +228,16 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
                     </div>
                 )}
                 <div className={styles.calculate}>
-                    <input type="submit" className={styles.btn} value="Submit"/>
+                    <input type="submit" className={styles.btn} value="Submit" onClick={alertNonPositive}/>
                 </div>
             </form>
+            {showAlert && 
+                <Alert
+                    onClose={() => setShowAlert(false)}
+                    text={alertText}
+                    type="error"
+                />
+            }
         </Card>
     )
 }
