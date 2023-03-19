@@ -77,7 +77,6 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
     }, [marginOfError, confidenceLevel, nonResponseRate, households, individuals]);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        alertNonPositive();
         event.preventDefault();
         setMarginOfError(Number(event.currentTarget.margin.value));
         setConfidenceLevel(Number(event.currentTarget.confidence.value));
