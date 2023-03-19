@@ -43,7 +43,10 @@
     line-height: 20px;
     cursor: pointer;
     transition: 0.3s;
-  }
+}
+.closebtn:hover {
+    color: black;
+}
 
 .icon {
     top: 4px;
