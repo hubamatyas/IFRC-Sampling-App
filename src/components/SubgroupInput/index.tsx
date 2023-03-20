@@ -44,10 +44,11 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
     const [showAlert, setShowAlert] = useState<boolean>(false);
     const [alertMessage, setAlertMessage] = useState<string>("");
 
+    // Add the first input field on mount
     useEffect(() => {
         setInputFields([
             ...inputFields,
-            { id: currentId, input: createInputField() },
+            { id: currentId, input: createInputField(0) },
         ]);
     }, []);
 
@@ -100,7 +101,8 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
         }else{
             const { id, value } = e.target;
             if (value && Number(value)<=0){
-                setAlertMessage("Subgroup size must be larger than zero.")
+                const nameElement = document.getElementById("name"+`${id}`) as HTMLInputElement
+                setAlertMessage("Size of subgroup '"+ nameElement.value +"' must be larger than zero.")
                 setShowAlert(true);
                 return;
             }
@@ -110,25 +112,25 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
 
 
         
-    const createInputField = (): React.ReactNode => {
+    const createInputField = (newId:number): React.ReactNode => {
         return (
             <div className={styles.field}>
                 <label htmlFor="name"></label>
                 <input
                     required
-                    id={"name"+`${currentId}`}
+                    id={"name"+`${newId}`}
                     name="name"
                     type="text"
                     className={styles.textInput}
                     placeholder="Subgroup name..."
                 />
-                <label htmlFor={"size" + currentId}></label>
+                <label htmlFor={"size" + newId}></label>
                 <input
                     required
                     type="number"
                     placeholder="0"
-                    id={`${currentId}`}
-                    name={"size" + currentId}
+                    id={`${newId}`}
+                    name={"size" + newId}
                     onChange={handleInputChange}
                     onWheel={event => event.currentTarget.blur()}
                     onBlur={alertIfNotPositive}
@@ -140,11 +142,12 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
     const handleAddSubroup = () => {
         const newId = currentId + 1;
         if (inputFields.length < 10) {
+            setCurrentId(newId);
             setInputFields([
                 ...inputFields,
-                { id: newId, input: createInputField() },
+                { id: newId, input: createInputField(newId) },
             ]);
-            setCurrentId(newId);
+            
         }
     };
 
