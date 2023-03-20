@@ -122,17 +122,18 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
     };
 
     const alertIfInvalid=()=>{
-        // @ts-ignore
-        if(document.getElementById("margin")?.value && Number(document.getElementById("margin")?.value)<=0){
+        const marginElement = (document.getElementById("margin") as HTMLInputElement)
+        const responseElement = (document.getElementById("response") as HTMLInputElement)
+        const householdsElement = (document.getElementById("households") as HTMLInputElement)
+        const individualsElement = (document.getElementById("individuals") as HTMLInputElement)
+
+        if(marginElement.value && Number(marginElement.value)<=0){
             setAlertMessage("Margin of error must be larger than zero.")
-        // @ts-ignore
-        }else if (document.getElementById("response")?.value && Number(document.getElementById("response")?.value)<0){
+        }else if (responseElement.value && Number(responseElement.value)<0){
             setAlertMessage("Non-response rate must be larger or equal to zero.")
-        // @ts-ignore
-        }else if (document.getElementById("households")?.value && Number(document.getElementById("households")?.value)<=0){
+        }else if (householdsElement.value && Number(householdsElement.value)<=0){
             setAlertMessage("Number of households must be larger than zero.")
-        // @ts-ignore
-        }else if (document.getElementById("individuals")?.value && Number(document.getElementById("individuals")?.value)<=0){
+        }else if (individualsElement.value && Number(individualsElement.value)<=0){
             setAlertMessage("Number of individuals must be larger than zero.")
         }else{
             setShowAlert(false);

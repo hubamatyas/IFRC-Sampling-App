@@ -10,6 +10,7 @@ import Terminology from "../../components/Terminology";
 import ExportButton from "../../components/ExportButton";
 import SimpleRandom from "../../components/SimpleRandom";
 import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType} from "../../types/calculatorResponse";
+import Alert from "../../components/Alert";
 
 /**
 @fileoverview The module exports a React component that provides a time-location calculator. 
@@ -36,7 +37,8 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
     const [interviews, setInterviews] = useState<number | null>(null);
     const [calculatorInputs, setCalculatorInputs] = useState<calculatorInputs>(null);
     const [calculatorOutputs, setCalculatorOutputs] = useState<calculatorOutputs>(null);
-
+    const [showAlert, setShowAlert] = useState<boolean>(false);
+    const [alertMessage, setAlertMessage] = useState<string>("");
 
     const [simpleRandomSampleSize, setSimpleRandomSampleSize] = useState<number | null>(null);
     const [timeLocationResponse, setTimeLocationResponse] = useState<[TimeLocationResponse] | null>(null);
@@ -98,6 +100,24 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
         }
     }
 
+    const alertIfNotValid = () => {
+        const locationsElement = (document.getElementById("locations") as HTMLInputElement)
+        const daysElement = (document.getElementById("days") as HTMLInputElement)
+        const interviewsElement = (document.getElementById("interviews") as HTMLInputElement)
+
+        if(locationsElement.value && Number(locationsElement.value)<=0){
+            setAlertMessage("Number of locations must be larger than zero.")
+        }else if (daysElement.value && Number(daysElement.value)<=0){
+            setAlertMessage("Number of working days must be larger than zero.")
+        }else if (interviewsElement.value && Number(interviewsElement.value)<=0){
+            setAlertMessage("Number of interviews must be larger than zero.")
+        }else{
+            setShowAlert(false);
+            return;
+        }
+        setShowAlert(true);
+    }
+
     return (
         <>
             <SimpleRandom
@@ -125,6 +145,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                                 name="locations"
                                 onWheel={event => event.currentTarget.blur()}
                                 className={styles.textInput}
+                                onBlur={alertIfNotValid}
                             />
                         </div>
                         <div className={styles.field}>
@@ -139,6 +160,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                                 type="number"
                                 className={styles.textInput}
                                 onWheel={event => event.currentTarget.blur()}
+                                onBlur={alertIfNotValid}
                             />
                         </div>
                         <div className={styles.field}>
@@ -150,13 +172,19 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                                 type="number"
                                 id="interviews"
                                 name="interviews"
-
                                 onWheel={event => event.currentTarget.blur()}
-
                                 className={styles.textInput}
                                 max={simpleRandomSampleSize}
+                                onBlur={alertIfNotValid}
                             />
                         </div>
+                        {showAlert && 
+                            <Alert
+                                onClose={() => setShowAlert(false)}
+                                text={alertMessage}
+                                type="warning"
+                            />
+                        }
                         <div className={styles.calculate}>
                             <input type="submit" className={styles.btn} value="Submit"/>
                         </div>
@@ -199,9 +227,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                                                 <br>
                                                 </br>
                                             </div>
-                                            )
-                                            
-                                            )
+                                            ))
                                         }
                                     </th> 
                                 </tr> 
