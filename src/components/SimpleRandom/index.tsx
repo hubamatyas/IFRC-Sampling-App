@@ -53,7 +53,7 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
     const [households, setHouseholds] = useState<number | null>(null);
     const [individuals, setIndividuals] = useState<number | null>(null);
     const [sampleSize, setSampleSize] = useState<sampleSizeType>(null);
-    const [alertText, setAlertText] = useState<string>("");
+    const [alertMessage, setAlertMessage] = useState<string>("");
     const [showAlert, setShowAlert] = useState<boolean>(false);
 
     useEffect(() => {
@@ -124,16 +124,16 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
     const alertIfInvalid=()=>{
         // @ts-ignore
         if(document.getElementById("margin")?.value && Number(document.getElementById("margin")?.value)<=0){
-            setAlertText("Margin of error must be larger than zero.")
+            setAlertMessage("Margin of error must be larger than zero.")
         // @ts-ignore
         }else if (document.getElementById("response")?.value && Number(document.getElementById("response")?.value)<0){
-            setAlertText("Non-response rate must be larger or equal to zero.")
+            setAlertMessage("Non-response rate must be larger or equal to zero.")
         // @ts-ignore
         }else if (document.getElementById("households")?.value && Number(document.getElementById("households")?.value)<=0){
-            setAlertText("Number of households must be larger than zero.")
+            setAlertMessage("Number of households must be larger than zero.")
         // @ts-ignore
         }else if (document.getElementById("individuals")?.value && Number(document.getElementById("individuals")?.value)<=0){
-            setAlertText("Number of individuals must be larger than zero.")
+            setAlertMessage("Number of individuals must be larger than zero.")
         }else{
             setShowAlert(false);
             return;
@@ -236,7 +236,7 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
                 {showAlert && 
                     <Alert
                         onClose={() => setShowAlert(false)}
-                        text={alertText}
+                        text={alertMessage}
                         type="warning"
                     />
                 }

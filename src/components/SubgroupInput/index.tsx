@@ -1,6 +1,6 @@
 import React, { useState, useEffect, FormEvent } from "react";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-
+import Alert from "../Alert";
 import styles from "./styles.module.scss";
 
 import Terminology from "../Terminology";
@@ -41,6 +41,8 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
     const [populationSize, setPopulationSize] = useState<number>(0);
     const [inputFields, setInputFields] = useState<InputField[]>([]);
     const [inputs, setInputs] = useState<{ [key: string]: number }>({});
+    const [showAlert, setShowAlert] = useState<boolean>(false);
+    const [alertMessage, setAlertMessage] = useState<string>("");
 
     useEffect(() => {
         setInputFields([
@@ -89,13 +91,32 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
         });
     };
 
+    const alertIfNotPositive = (e:React.ChangeEvent<HTMLInputElement>) => {
+        const populationElement = (document.getElementById("population") as HTMLInputElement)
+        if(populationElement.value && Number(populationElement.value)<=0){
+            setAlertMessage("Target population must be larger than zero.")
+            setShowAlert(true);
+            return;
+        }else{
+            const { id, value } = e.target;
+            if (value && Number(value)<=0){
+                setAlertMessage("Subgroup size must be larger than zero.")
+                setShowAlert(true);
+                return;
+            }
+        }
+        setShowAlert(false);
+    }
+
+
+        
     const createInputField = (): React.ReactNode => {
         return (
             <div className={styles.field}>
                 <label htmlFor="name"></label>
                 <input
                     required
-                    id="name"
+                    id={"name"+`${currentId}`}
                     name="name"
                     type="text"
                     className={styles.textInput}
@@ -110,6 +131,7 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                     name={"size" + currentId}
                     onChange={handleInputChange}
                     onWheel={event => event.currentTarget.blur()}
+                    onBlur={alertIfNotPositive}
                 />
             </div>
         );
@@ -153,6 +175,7 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                     onChange={(event) =>
                         setPopulationSize(parseInt(event.target.value))
                     }
+                    onBlur={alertIfNotPositive}
                 />
             </div>
             {inputFields.map((field) => (
@@ -171,6 +194,16 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                     )}
                 </div>
             ))}
+
+            {showAlert && (
+                <Alert
+                    onClose={() => setShowAlert(false)}
+                    text={alertMessage}
+                    type="warning"
+                />
+                )
+            }
+
             <div className={styles.calculate}>
                 <input
                     type="submit"
