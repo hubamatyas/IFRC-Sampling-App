@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { WithTranslation, withTranslation } from "react-i18next";
-import Alert from "react-bootstrap/Alert";
+//import Alert from "react-bootstrap/Alert";
+import Alert from "../../components/Alert";
 import axios from "axios";
 
 import styles from "./styles.module.scss";
@@ -35,6 +36,9 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
     const [inputFields, setInputFields] = useState<any[] | null>(null);
     const [numOfcommunities, setNumOfCommunities] = useState<number>(0);
     const [clusterResponse, setClusterResponse] = useState<ClusterResponse | null>(null);
+    const [showAlert, setShowAlert] = useState<boolean>(false);
+    const [alertMessage, setAlertMessage] = useState<string>("");
+    const minimumComunitySize = 1000;
     
     useEffect(() => {
         if (numOfcommunities > 0) {
@@ -60,7 +64,7 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                 <label htmlFor="name"></label>
                 <input
                     required
-                    id={`${i}`}
+                    id={"name"+`${i}`}
                     name="name"
                     type="text"
                     className={styles.textInput}
@@ -69,14 +73,15 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                 />
                 <label htmlFor={"size" + i}></label>
                 <input
-                    min="1000"
+                    min={minimumComunitySize.toString()}
                     step="1"
                     required
                     id={`${i}`}
                     name="size"
                     type="number"
                     placeholder="0"
-                    onWheel={event => event.currentTarget.blur()}                    
+                    onWheel={event => event.currentTarget.blur()}   
+                    onBlur={alertIfCommunityInvalid}                 
                 />
             </div>
         );
@@ -133,6 +138,38 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
         }
     }
 
+
+    const alertIfCommunityInvalid = (e:React.ChangeEvent<HTMLInputElement>) => {
+        const { id, value } = e.target;
+        console.log(id, value)
+        if (value && Number(value) < minimumComunitySize){
+            const nameElement = document.getElementById("name"+`${id}`) as HTMLInputElement
+            const communityName = nameElement?.value || "unnamed";
+            setAlertMessage("Size of community '"+ communityName + "' must be at least "+ minimumComunitySize +".")
+            setShowAlert(true);
+            return;
+        }
+        setShowAlert(false);   
+        alertIfParametersInvalid();
+    }
+
+
+
+    const alertIfParametersInvalid = () => {
+        const communitiesElement = (document.getElementById("communities") as HTMLInputElement)
+        const marginElement = (document.getElementById("margin") as HTMLInputElement)
+
+        if(communitiesElement?.value && Number(communitiesElement?.value)<=0){
+            setAlertMessage("Number of communities must be larger than zero.")
+        }else if (marginElement?.value && Number(marginElement?.value)<0){
+            setAlertMessage("Margin of error must be larger or equal to zero.")
+        }else{
+            setShowAlert(false);
+            return;
+        }
+        setShowAlert(true);
+    }
+
     return (
         <>
             <Card>
@@ -153,6 +190,7 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                                 name="communities"
                                 onWheel={event => event.currentTarget.blur()}
                                 onChange={(e) => setNumOfCommunities(parseInt(e.target.value))}
+                                onBlur={alertIfParametersInvalid}
                             />
                         </div>
                         <div className={styles.field}>
@@ -169,6 +207,7 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                                 name="margin"
                                 placeholder="5"
                                 onWheel={event => event.currentTarget.blur()}
+                                onBlur={alertIfParametersInvalid}
                             />
                         </div>
                         <div className={styles.field}>
@@ -194,6 +233,15 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                             {inputFields.map((field) => field)}
                         </div>
                     }
+
+                    {showAlert && 
+                        <Alert
+                            onClose={() => setShowAlert(false)}
+                            text={alertMessage}
+                            type="warning"
+                        />
+                    }
+                        
                     <div className={styles.calculate}>
                         <input type="submit" className={styles.btn} value="Submit"/>
                     </div>

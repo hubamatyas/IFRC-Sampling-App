@@ -75,24 +75,12 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
         for (let i = 0; i < e.currentTarget.length; i++) {
             const element = e.currentTarget[i] as HTMLInputElement;
             if (element.name === "name") {
-
-                const subSize = parseInt((e.currentTarget[++i] as HTMLInputElement).value);
-                console.log(subSize)
-                if (subSize <= 0) {
-                    setAlertMessage(
-                        "Submission unsuccessful. Size of subgroup '"+ element.value +"' must be larger than zero."
-                    )
-                    setShowAlert(true);
-                    return;
-                }
-
                 const community = {
                     name: element.value,
-                    size: subSize
+                    size: parseInt((e.currentTarget[++i] as HTMLInputElement).value)
                 }
                 subgroups.push(community);
             }
-
         }
         onSubmitSubgroups(subgroups, true);
       };
@@ -139,6 +127,7 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                 <label htmlFor={"size" + newId}></label>
                 <input
                     required
+                    min="1"
                     type="number"
                     placeholder="0"
                     id={`${newId}`}
