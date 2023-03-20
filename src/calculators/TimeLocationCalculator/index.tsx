@@ -42,7 +42,11 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
 
     const [simpleRandomSampleSize, setSimpleRandomSampleSize] = useState<number | null>(null);
     const [timeLocationResponse, setTimeLocationResponse] = useState<[TimeLocationResponse] | null>(null);
-
+    const minInterviews = 10;
+    const minDays = 3;
+    const minLocations = 2;
+    const maxLocations = 15;
+    const maxDays = 20;
 
     useEffect(() => {
         if (calculatorInputs && simpleRandomSampleSize && locations && days && interviews) {
@@ -105,12 +109,16 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
         const daysElement = (document.getElementById("days") as HTMLInputElement)
         const interviewsElement = (document.getElementById("interviews") as HTMLInputElement)
 
-        if(locationsElement.value && Number(locationsElement.value)<=0){
-            setAlertMessage("Number of locations must be larger than zero.")
-        }else if (daysElement.value && Number(daysElement.value)<=0){
-            setAlertMessage("Number of working days must be larger than zero.")
-        }else if (interviewsElement.value && Number(interviewsElement.value)<=0){
-            setAlertMessage("Number of interviews must be larger than zero.")
+        if(locationsElement.value && Number(locationsElement.value) < minLocations){
+            setAlertMessage("Number of locations should be at least 2.")
+        }else if (locationsElement.value && Number(locationsElement.value) > maxLocations){
+            setAlertMessage("Number of working days should be at most "+ maxLocations +".")
+        }else if (daysElement.value && Number(daysElement.value) < minDays){
+            setAlertMessage("Number of working days should be at least "+ minDays +".")
+        }else if (daysElement.value && Number(daysElement.value) > maxDays){
+            setAlertMessage("Number of working days should be at most "+ maxDays +".")
+        }else if (interviewsElement.value && Number(interviewsElement.value) < minInterviews){
+            setAlertMessage("Number of interviews should be at least "+ minInterviews +".")
         }else{
             setShowAlert(false);
             return;
@@ -136,8 +144,8 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                         <div className={styles.field}>
                             <label htmlFor="locations">Locations</label>        
                             <input
-                                min="2"
-                                max="15"
+                                min={minLocations+''}
+                                max={maxLocations+''}
                                 step="1"
                                 required
                                 type="number"
@@ -151,8 +159,8 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                         <div className={styles.field}>
                             <label htmlFor="days">Working days</label>
                             <input
-                                min="3"
-                                max="20"
+                                min={minDays+''}
+                                max={maxDays+''}
                                 step="1"
                                 id="days"
                                 required
@@ -166,7 +174,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                         <div className={styles.field}>
                             <label htmlFor="interviews">Interviews in one session</label>
                             <input
-                                min="10"
+                                min={minInterviews+''}
                                 step="1"
                                 required
                                 type="number"
