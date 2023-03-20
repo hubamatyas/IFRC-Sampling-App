@@ -1,7 +1,6 @@
 @import 'src/styles/variables';
 
 .alert {
-    position: relative;
     border-radius: $base-border-radius;
     padding: $global-spacing ($global-spacing * 2.5) $global-spacing ($global-spacing * 1.75);
     color: white;
