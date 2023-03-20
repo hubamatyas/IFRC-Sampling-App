@@ -243,10 +243,10 @@ const MyDoc: React.FC<DocProps> = ({
             `${pageNumber} / ${totalPages}`
         )} fixed />
   
-        <Link src="https://www.ifrc.org/en/" style={styles.linkLeft} fixed >
+        <Link src="https://ifrc-sampling.vercel.app/" style={styles.linkLeft} fixed >
           IFRC Community Sampling Tool
         </Link>
-        <Link src="https://www.ifrc.org/en/" style={styles.linkRight} fixed >
+        <Link src="https://go.ifrc.org" style={styles.linkRight} fixed >
           IFRC Community
         </Link>
 
