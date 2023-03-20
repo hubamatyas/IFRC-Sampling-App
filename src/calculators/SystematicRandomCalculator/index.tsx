@@ -8,6 +8,7 @@ import Card from "../../components/Card";
 import Terminology from "../../components/Terminology";
 import ExportButton from "../../components/ExportButton";
 import SubgroupInput from "../../components/SubgroupInput";
+import Alert from "../../components/Alert";
 import { intervalsType } from "../../types/calculatorResponse";
 
 /**
@@ -38,6 +39,8 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
     const [marginOfError, setMarginOfError] = useState<number | null>(null);
     const [confidenceLevel, setConfidenceLevel] = useState<number | null>(null);
     const [nonResponseRate, setNonResponseRate] = useState<number | null>(null);
+    const [alertMessage, setAlertMessage] = useState<string>("");
+    const [showAlert, setShowAlert] = useState<boolean>(false);
 
     useEffect(() => {
         if (marginOfError && confidenceLevel && (households || individuals || subgroups)) {
@@ -92,6 +95,28 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
         }
     };
 
+
+    const alertIfInvalid=()=>{
+        const marginElement = (document.getElementById("margin") as HTMLInputElement)
+        const responseElement = (document.getElementById("response") as HTMLInputElement)
+        const householdsElement = (document.getElementById("households") as HTMLInputElement)
+        const individualsElement = (document.getElementById("individuals") as HTMLInputElement)
+
+        if(marginElement?.value && Number(marginElement?.value)<=0){
+            setAlertMessage("Margin of error must be larger than zero.")
+        }else if (responseElement?.value && Number(responseElement?.value)<0){
+            setAlertMessage("Non-response rate must be larger or equal to zero.")
+        }else if (householdsElement?.value && Number(householdsElement?.value)<=0){
+            setAlertMessage("Number of households must be larger than zero.")
+        }else if (individualsElement?.value && Number(individualsElement?.value)<=0){
+            setAlertMessage("Number of individuals must be larger than zero.")
+        }else{
+            setShowAlert(false);
+            return;
+        }
+        setShowAlert(true);
+    }
+
     return (
         <>
             {hasSubgroups && (
@@ -123,6 +148,7 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                                     name="margin"
                                     placeholder="5"
                                     onWheel={event => event.currentTarget.blur()}
+                                    onBlur={alertIfInvalid}
                                 />
                             </div>
                             <div className={styles.field}>
@@ -154,6 +180,7 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                                     id="response"
                                     name="response"
                                     onWheel={event => event.currentTarget.blur()}
+                                    onBlur={alertIfInvalid}
                                 />
                             </div>
                             {!subgroups && (
@@ -169,10 +196,20 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                                         id="individuals"
                                         name="individuals"
                                         onWheel={event => event.currentTarget.blur()}
+                                        onBlur={alertIfInvalid}
                                     />
                                 </div>
                             )}
                         </div>
+
+                        {showAlert && 
+                            <Alert
+                                onClose={() => setShowAlert(false)}
+                                text={alertMessage}
+                                type="warning"
+                            />
+                        }
+
                         <div className={styles.calculate}>
                             <input type="submit" className={styles.btn} value="Submit"/>
                         </div>
