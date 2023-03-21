@@ -2,8 +2,11 @@ export const simpleRandom = 5;
 export const timeLocation = 8;
 export const cluster = 9;
 export const systematicRandom = 10;
-export const api = ''
+export const api = 'https://ifrc-sampling.azurewebsites.net/api'
 export const startId = 1;
+export const household = 'Households';
+export const subgroup = 'sub-population groups';
+export const isSubgroup = 'Yes';
 
 export const config = {
     simpleRandom,
@@ -11,7 +14,10 @@ export const config = {
     cluster,
     systematicRandom,
     api,
-    startId
+    startId,
+    household,
+    subgroup,
+    isSubgroup
 };
 
 export default config

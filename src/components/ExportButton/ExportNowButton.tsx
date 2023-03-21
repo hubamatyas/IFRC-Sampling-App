@@ -1,18 +1,43 @@
 import {pdf} from '@react-pdf/renderer';
 import styles from "./styles.module.scss";
-import React from "react";
+import React, {useRef,useState} from "react";
 import { IoMdDownload } from 'react-icons/io';
 import MyDoc from '../ReportDocument';
+import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType} from "../../types/calculatorResponse";
+import Alert from "../Alert";
 
-const App = ({questionCards, calculatorState}) => {
+interface ExportProps {
+  notes?:string|null,
+  questionCards: number[],
+  calculatorInputs: calculatorInputs,
+  calculatorOutputs: calculatorOutputs,
+  subgroupSizes: subgroupsType,
+}
 
-  const questionNames = React.useRef([]);
-  const options = React.useRef([]);
-  const answers = React.useRef([]);
-  const [loading, setLoading] = React.useState(false);
-  const [fetchedNum, setFetchedNum] = React.useState(0);
-  
-  const fetchState = async(id) => {
+interface Option {
+  id: number;
+  name: string;
+  child_state: number;
+}
+
+const App: React.FC<ExportProps> = ({
+  notes,
+  questionCards,
+  calculatorInputs,
+  calculatorOutputs,
+  subgroupSizes,
+  },
+
+) => {
+
+  const questionNames = useRef<string[]>([]);
+  const options = useRef<Option[]>([]);
+  const answers = useRef<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [fetchedNum, setFetchedNum] = useState<number>(0);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+
+  const fetchState = async(id:number) => {
     let success = true
     await fetch('https://ifrc-sampling.azurewebsites.net/api/decision-tree/'+id+'/')
       .then(response => response.json())
@@ -21,7 +46,7 @@ const App = ({questionCards, calculatorState}) => {
 
         if (options.current.length) {
           answers.current.push (
-            options.current.find((opt)=>(opt.child_state === id)).name
+            options.current.find((opt)=>(opt.child_state === id))!.name
           );
         }
 
@@ -49,20 +74,25 @@ const App = ({questionCards, calculatorState}) => {
         <MyDoc 
           questionNames={questionNames.current} 
           answers={answers.current} 
-          calculatorState={calculatorState}
+          calculatorInputs={calculatorInputs}
+          calculatorOutputs={calculatorOutputs}
+          subgroupSizes={subgroupSizes}
+          notes={notes}
         />
       ).toBlob();
+      console.log("PDF generated.")
       return (URL.createObjectURL(blob));
     }
     
     catch(err) {
-      console.log(err.message);
-      alert("Sorry we have a little problem rendering PDF. Export failed." );
+      setShowAlert(true);
       return null;
     }
+
   };
 
   const handleClick = async() => {
+    setShowAlert(false);
     setFetchedNum(0);
     setLoading(true);
     await resetRefs();
@@ -87,9 +117,17 @@ const App = ({questionCards, calculatorState}) => {
         {loading? 
           (" Loading... "+ ~~(99*fetchedNum/(questionCards.length)) + "%") 
           : 
-          " Export report"
+          " Export now!"
         }
       </button>
+
+      {showAlert && 
+      <Alert 
+        onClose={()=>setShowAlert(false)} 
+        text="Export failed." 
+        type="error"/>
+      }
+
     </div>
   );
 }

@@ -1,8 +1,15 @@
 import React,{ useState } from "react";
-import styles from "./styles.module.scss";
-import { definitions } from "../Definitions";
-// import an fa icon that has a question mark
 
+import styles from "./styles.module.scss";
+
+import { definitions } from "../Definitions";
+
+/**
+ * Renders an OffCanvas component displaying the definition of a given terminology
+ * @param {Object} props - The component props
+ * @param {string} props.terminology - The terminology to display the definition of
+ * @returns {JSX.Element} - The rendered OffCanvas component
+*/
 
 function OffCanvas({terminology}) {
     const [isActive, setIsActive] = useState(false);
@@ -13,7 +20,6 @@ function OffCanvas({terminology}) {
         setIsActive(false);
     }
     
-    // catch the error if the terminology is not found in the definitions
     const content = definitions[terminology.toLowerCase()].props.children;
     
     return (

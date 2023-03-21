@@ -1,7 +1,7 @@
 @import "~/src/styles/variables";
 
 .intro {
-    padding-top: $global-spacing-4;
+    padding-top: $global-spacing-3;
     padding-bottom: $global-spacing-2;
     background-color: $grey-mist;
 }
@@ -20,6 +20,8 @@
 @media (max-width: $media-small) {
     .title {
         width: 80%;
+        margin: auto;
+        padding-bottom: $global-spacing;
     }
 
     .introText {

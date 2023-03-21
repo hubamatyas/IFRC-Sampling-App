@@ -1,14 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import Card from '../Card';
-import styles from './styles.module.scss';
 import { _cs } from '@togglecorp/fujs';
-import Terminology from '../Terminology';
+import axios from 'axios';
+
+import styles from './styles.module.scss';
+
+import config from 'src/util/config';
+import Card from '../Card';
 import Loader from '../Loader';
+import Terminology from '../Terminology';
+
+/**
+ * A component that renders a question card with options for user selection
+ * @component
+ * @param {Object} props - Props object
+ * @param {number} props.id - The ID of the current question card
+ * @param {Function} props.onSelectOption - A function to be called when an option is selected
+ * @param {number} props.onSelectOption.answer - The ID of the selected option
+ * @param {number} props.onSelectOption.id - The ID of the current question card
+ * @param {boolean} props.onSelectOption.isHouseholds - A boolean value indicating whether the selected option represents a household
+ * @param {boolean} props.onSelectOption.isSubgroup - A boolean value indicating whether the selected option represents a subgroup
+ * @return {JSX.Element} - The QuestionCard component
+*/
 
 interface Option {
-    child_state: number;
-    name: string;
     id: number;
+    name: string;
+    child_state: number;
 }
 
 interface QuestionCardProps {
@@ -32,9 +49,16 @@ function QuestionCard({ id, onSelectOption }: QuestionCardProps): JSX.Element {
 
     useEffect(() => {
         const fetchState = async () => {
+            const url = `${config.api}/decision-tree/${id}/`;
             try {
-                const response = await fetch(`https://ifrc-sampling.azurewebsites.net/api/decision-tree/${id}/`);
-                const data = await response.json();
+                const response = await axios.get(url);
+
+                if (response.status !== 200) {
+                    const errorMessage = await response.data;
+                    throw new Error(errorMessage);
+                }
+
+                const data = response.data;
                 setParentId(data.state.parent_state);
                 setQuestion(data.state.name);
                 setOptions(data.options);
@@ -49,14 +73,19 @@ function QuestionCard({ id, onSelectOption }: QuestionCardProps): JSX.Element {
         fetchState();
     }, []);
 
+    /**
+     * Updates the answer state variable and calls the onSelectOption function when an option is clicked to update parent component.
+     * @param {string | null} term - The term associated with the current question.
+     * @param {Option} option - The selected option.
+    */
     const handleOptionClick = (term: string | null, option: Option) => {
         setAnswerKey(option.child_state + option.name);
         setAnswer(option.child_state);
         onSelectOption({
             id: id,
             answer: option.child_state,
-            isHouseholds: option.name === 'Households' ? true : false,
-            isSubgroup: term === 'sub-population groups' && option.name === 'Yes' ? true : false,
+            isHouseholds: option.name === config.household ? true : false,
+            isSubgroup: term === config.subgroup && option.name === config.isSubgroup ? true : false,
         });
     };
 

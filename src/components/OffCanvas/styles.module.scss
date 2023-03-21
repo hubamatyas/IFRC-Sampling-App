@@ -25,12 +25,13 @@ sup {
 .open {
   top: $navbar-height;
   position: fixed;
-  width: 40%;
+  width: 30%;
   height: 100%;
   background-color: rgba($secondary-color, 0.9);
   left: 0;
   padding: 0 $global-spacing-2;
   animation: slideIn 0.5s ease-in-out;
+  text-align: left;
 }
 
 @keyframes slideIn {
@@ -49,27 +50,32 @@ sup {
   cursor: pointer;
   color: $white;
 }
+.closeBtn:hover{
+  color: black;
+}
 
 .title {
   color: $white;
+  font-weight: $base-font-bold;
+  font-size: $font-size-heading-widget;
 }
 
 .content {
   text-align: left;
   color: $white;
-  font-size: $font-size-md;
+  font-size: $font-size-lg;
   font-weight: $base-font-style;
 }
 
 @media screen and (max-width: $media-medium) {
   .open {
-    width: 60%;
+    width: 40%;
   }
 }
 
 @media screen and (max-width: $media-small) {
   .open {
-    width: 100%;
+    width: 60%;
     padding: 0;
   }
 }

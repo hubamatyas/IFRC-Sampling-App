@@ -1,11 +1,9 @@
 import React from "react";
-import styles from "./styles.module.scss";
-import Button from "../../components/Button/index";
-import lang from "../../lang.js"
 import { useTranslation } from "react-i18next";
-import QuestionCard from "../../components/QuestionCard/index";
-import DecisionTree from "src/components/DecisionTree";
 
+import styles from "./styles.module.scss";
+
+import DecisionTree from "src/components/DecisionTree";
 
 function Sampling(){
     const { t } = useTranslation();
@@ -15,7 +13,7 @@ function Sampling(){
                 <DecisionTree />
             </div>
             <div className={styles.howto}>
-                <h1> {lang.headerHowTo} </h1>
+                <h1>{t('headerHowTo')}</h1>
             </div>
         </>
     );

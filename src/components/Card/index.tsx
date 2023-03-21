@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import styles from "./styles.module.scss";
-import ArrowSvg from "../../assets/arrow.svg";
 import { _cs } from "@togglecorp/fujs";
+
+import styles from "./styles.module.scss";
+
+import ArrowSvg from "../../assets/arrow.svg";
 
 type Props = {
   hasArrow?: boolean,
@@ -28,7 +30,7 @@ function Card({ hasArrow = true, hasPulse, ...props }: Props): JSX.Element {
                     </div>
                 ))}
             </section>
-            {arrow && <img src={ArrowSvg} className={styles.arrow} alt="arrow" />}
+            {arrow && <img src={ArrowSvg} className={styles.arrow}/>}
         </>
     )
 }

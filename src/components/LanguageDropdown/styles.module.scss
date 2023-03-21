@@ -10,11 +10,8 @@
 }
 
 .langList {
-    // remove default list styling
     list-style-type: none;
-    padding: 0;
-    margin: 0;
-    
+    padding-left: 0;
 }
 
 .lang {
@@ -24,6 +21,8 @@
     font-size: $font-size-sm;
     color: $grey-coal;
     padding: $global-spacing $global-spacing-2;
+    text-decoration: none;
+    text-decoration-line: none;
 }
 
 .lang:hover {
@@ -39,7 +38,13 @@
     color: black;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: $media-medium) {
+    .selection {
+        right: $global-spacing;
+    }
+}
+
+@media screen and (max-width: $media-small) {
 
     .selection {
         display: flex;

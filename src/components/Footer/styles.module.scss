@@ -22,6 +22,7 @@
   font-family: $base-font-family;
   color: $white;
   padding: 1rem;
+  justify-items: center;
 }
 
 .list {
@@ -30,16 +31,24 @@
   margin: 0;
 }
 
-@media screen and (max-width: 768px) {
+.link {
+  text-decoration: underline;
+  color: $white;
+}
+
+@media screen and (max-width: $media-medium) {
+  .bar {
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 90%;
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: $media-small) {
   .bar {
     grid-template-columns: 1fr 1fr;
   }
   .column {
     padding: $global-spacing 0;
   }
-}
-
-.link {
-  text-decoration: underline;
-  color: $white;
 }

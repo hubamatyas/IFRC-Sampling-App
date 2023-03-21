@@ -1,7 +1,24 @@
 import React, { useState, useEffect, FormEvent } from "react";
-import styles from "./styles.module.scss";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import Alert from "../Alert";
+import styles from "./styles.module.scss";
+
 import Terminology from "../Terminology";
+
+/**
+* A component that renders a form for inputting subgroups and their sizes, and allows the user to add or remove subgroups.
+* @component
+* @typedef {Object} Subgroup
+* @property {string} name - The name of the subgroup.
+* @property {number} size - The size of the subgroup.
+* @typedef {Object} InputField
+* @property {number} id - The id of the input field.
+* @property {React.ReactNode} input - The input field component.
+* @typedef {Object} Props
+* @property {function} onSubmitSubgroups - A function that takes an array of Subgroup objects and a boolean value indicating whether the subgroups are ready to be submitted.
+* @param {Props} props - The component props.
+* @returns {JSX.Element} - The component UI.
+*/
 
 interface Subgroup {
     name: string;
@@ -15,42 +32,37 @@ interface InputField {
 
 interface Props {
     onSubmitSubgroups: (subgroups: Subgroup[] | null, isReady: boolean) => void;
-    //isSubgroupsReady: (isReady: boolean) => void;
 }
 
-let currentId = 0;
-
 const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
+    const [currentId, setCurrentId] = useState<number>(0);
+    const [sum, setSum] = useState<number>(0);
+    const [populationSize, setPopulationSize] = useState<number>(0);
     const [inputFields, setInputFields] = useState<InputField[]>([]);
     const [inputs, setInputs] = useState<{ [key: string]: number }>({});
-    const [sum, setSum] = useState<number>(0);
-    const [isSumValid, setIsSumValid] = useState<boolean>(false);
-    const [populationSize, setPopulationSize] = useState<number>(0);
+    const [showAlert, setShowAlert] = useState<boolean>(false);
+    const [alertMessage, setAlertMessage] = useState<string>("");
 
+    // Add the first input field on mount
     useEffect(() => {
         setInputFields([
             ...inputFields,
-            { id: currentId, input: createInputField() },
+            { id: currentId, input: createInputField(0) },
         ]);
     }, []);
 
     useEffect(() => {
         let sum = 0;
         for (const key in inputs) {
-            sum += inputs[key];
+            if(!isNaN(inputs[key]))
+            {sum += inputs[key];}
         }
         setSum(sum);
-        if (sum === populationSize && sum > 0 && populationSize > 0) {
-            setIsSumValid(true);
-        } else {
-            setIsSumValid(false);
-        }
     }, [inputs, populationSize]);
 
-    // create useEffect hook to detect any changes to the component's state
     useEffect(() => {
         onSubmitSubgroups(null, false);
-    }, [inputFields, inputs, sum, isSumValid, populationSize]);
+    }, [inputFields, inputs, sum, populationSize]);
 
     const handleSubgroupSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -65,7 +77,6 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                 subgroups.push(community);
             }
         }
-        console.log(subgroups)
         onSubmitSubgroups(subgroups, true);
       };
 
@@ -76,27 +87,45 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
         });
     };
 
-    const createInputField = (): React.ReactNode => {
+    const alertIfNotPositive = (e:React.ChangeEvent<HTMLInputElement>) => {
+            const { id, value } = e.target;
+            if (value && Number(value)<=0){
+                const nameElement = document.getElementById("name"+`${id}`) as HTMLInputElement
+                setAlertMessage("Size of subgroup '"
+                                + (nameElement.value ||"unnamed")
+                                + "' must be larger than zero."
+                                )
+                setShowAlert(true);
+                return;
+            }
+        setShowAlert(false);
+    }
+
+        
+    const createInputField = (newId:number): React.ReactNode => {
         return (
             <div className={styles.field}>
                 <label htmlFor="name"></label>
                 <input
                     required
+                    id={"name"+`${newId}`}
+                    name="name"
                     type="text"
                     className={styles.textInput}
                     placeholder="Subgroup name..."
-                    id="name"
-                    name="name"
                     data-cy={"subgroup-name"}
                 />
-                <label htmlFor={"size" + currentId}></label>
+                <label htmlFor={"size" + newId}></label>
                 <input
-                    type="number"
-                    id={`${currentId}`}
-                    name={"size" + currentId}
-                    placeholder="0"
-                    onChange={handleInputChange}
                     required
+                    min="1"
+                    type="number"
+                    placeholder="0"
+                    id={`${newId}`}
+                    name={"size" + newId}
+                    onChange={handleInputChange}
+                    onWheel={event => event.currentTarget.blur()}
+                    onBlur={alertIfNotPositive}
                     data-cy={"subgroup-size"}
                 />
             </div>
@@ -104,11 +133,14 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
     };
 
     const handleAddSubroup = () => {
+        const newId = currentId + 1;
         if (inputFields.length < 10) {
+            setCurrentId(newId);
             setInputFields([
                 ...inputFields,
-                { id: ++currentId, input: createInputField() },
+                { id: newId, input: createInputField(newId) },
             ]);
+            
         }
     };
 
@@ -122,22 +154,6 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
 
     return (
         <form onSubmit={handleSubgroupSubmit}>
-            <div className={styles.population}>
-                <label htmlFor="population">
-                    <h3 className={styles.subtitle}>
-                        <Terminology term="population" text="Total population" />
-                    </h3>
-                </label>
-                <input
-                    type="number"
-                    required
-                    id="population"
-                    name="population"
-                    onChange={(event) =>
-                        setPopulationSize(parseInt(event.target.value))
-                    }
-                />
-            </div>
             {inputFields.map((field) => (
                 <div key={field.id} className={styles.subgroup} data-cy={"group-inputs"+field.id}>
                     {field.input}
@@ -148,7 +164,6 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                     >
                         <AiOutlinePlus />
                     </button>
-                    {/* Prevent first input box from being removed */}
                     {field.id !== 0 && (
                         <button
                             className={styles.newRow}
@@ -159,14 +174,30 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                     )}
                 </div>
             ))}
+
+            {showAlert && (
+                <Alert
+                    onClose={() => setShowAlert(false)}
+                    text={alertMessage}
+                    type="warning"
+                />
+                )
+            }
+
+            <h3 className={styles.totalPopulation}>
+                Total target population:&emsp;
+                <span className={styles.sum}>{sum}</span>
+            </h3>
+
             <div className={styles.calculate}>
-                <input type="submit" className={styles.btn} disabled={!isSumValid} data-cy={"submitgroups-btn"}/>
+
+                <input
+                    type="submit"
+                    value="Submit"
+                    className={styles.btn}
+                    data-cy={"submitgroups-btn"}
+                />
             </div>
-            {!isSumValid && (
-                <div className={styles.alert}>
-                    <p className={styles.alertText}>Sum of subgroups must equal to total population.</p>
-                </div>
-            )}
         </form>
     );
 };

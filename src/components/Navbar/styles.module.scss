@@ -61,6 +61,12 @@ img:hover {
     opacity: 0.8;
 }
 
+@media screen and (max-width: $media-medium) {
+    .bar {
+        width: 90%;
+    }
+}
+
 @media screen and (max-width: $media-small) {
     .bar {
         width: 100%;

@@ -1,10 +1,13 @@
 import React from 'react';
-import styles from './styles.module.scss';
 import { _cs } from '@togglecorp/fujs';
+import { useTranslation } from "react-i18next";
+
+import styles from './styles.module.scss';
 
 const Footer = () => {
     const date = new Date();
     const year = date.getFullYear();
+    const { t } = useTranslation();
 
     return (
         <div className={styles.footer} >
@@ -14,9 +17,9 @@ const Footer = () => {
                         styles.row,
                         styles.title,
                     )}>
-                        About GO
+                        {t('aboutGo')}
                     </div>
-                    <div className={styles.row}>IFRC GO is a Red Cross Red Crescent platform to connect information on emergency needs with the right response.</div>
+                    <div className={styles.row}>{t('aboutGoText')}</div>
                     <div className={styles.row}>@{year}</div>
                 </div>
                 <div className={styles.column}>
@@ -24,13 +27,13 @@ const Footer = () => {
                         styles.row,
                         styles.title,
                     )}>
-                        Developers
+                        {t('developers')}
                     </div>
                     <div className={styles.row}>
                         <ul className={styles.list}>
-                            <li><a href="" className={styles.link}>API Documentation</a></li>
-                            <li><a href="" className={styles.link}>Terms of Use</a></li>
-                            <li><a href="" className={styles.link}>Privacy Policy</a></li>
+                            <li><a href="" className={styles.link}>{t('apiDocs')}</a></li>
+                            <li><a href="" className={styles.link}>{t('terms')}</a></li>
+                            <li><a href="" className={styles.link}>{t('privacy')}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -38,8 +41,10 @@ const Footer = () => {
                     <div className={_cs(
                         styles.row,
                         styles.title,
-                    )}>UCL INX</div>
-                    <div className={styles.row}>UCL Computer Science. Project developed as part of the Systems Engineering module.</div>
+                    )}>
+                        {t('inx')}
+                    </div>
+                    <div className={styles.row}>{t('inxText')}</div>
                 </div>
             </div>
         </div>

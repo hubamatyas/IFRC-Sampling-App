@@ -1,17 +1,25 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import styles from './styles.module.scss';
-import QuestionCard from '../QuestionCard';
-import SimpleRandomCalculator from '../../calculators/SimpleRandomCalculator';
-import SystematicRandomCalculator from '../../calculators/SystematicRandomCalculator';
-import TimeLocationCalculator from '../../calculators/TimeLocationCalculator';
-import ClusterCalculator from '../../calculators/ClusterCalculator';
+
 import config from 'src/util/config';
+import QuestionCard from '../QuestionCard';
+import ClusterCalculator from '../../calculators/ClusterCalculator';
+import SimpleRandomCalculator from '../../calculators/SimpleRandomCalculator';
+import TimeLocationCalculator from '../../calculators/TimeLocationCalculator';
+import SystematicRandomCalculator from '../../calculators/SystematicRandomCalculator';
+
+/**
+ * DecisionTree is a React component that renders a decision tree for a survey. It takes no props.
+ * @component
+ * @returns {JSX.Element} - Returns a JSX element that contains the question cards and calculators for the survey.
+ * @example
+ * <DecisionTree />
+*/
 
 interface OptionProps {
-    answer: number;
     id: number;
-    isHouseholds: boolean;
+    answer: number;
     isSubgroup: boolean;
+    isHouseholds: boolean;
 }
 
 const DecisionTree = (): JSX.Element => {
@@ -20,12 +28,24 @@ const DecisionTree = (): JSX.Element => {
     const [hasHouseholds, setHasHouseholds] = useState<boolean>(false);
     const [hasIndividuals, setHasIndividuals] = useState<boolean>(true);
 
+    /**
+     * backwardsStateUpdate is a function that updates the state when the user goes back to the previous question card.
+     * @function
+     * @param {boolean} isHouseholds - Whether the selected option is a household.
+     * @param {boolean} isSubgroup - Whether the selected option is a subgroup.
+     */
     const backwardsStateUpdate = useCallback((isHouseholds: boolean, isSubgroup: boolean): void => {
+        setHasSubgroups(isSubgroup);
         setHasHouseholds(isHouseholds);
         setHasIndividuals(!isHouseholds);
-        setHasSubgroups(isSubgroup);
     }, []);
 
+    /**
+     * forwardsStateUpdate is a function that updates the state when the user goes to the next question card.
+     * @function
+     * @param {boolean} isHouseholds - Whether the selected option is a household.
+     * @param {boolean} isSubgroup - Whether the selected option is a subgroup.
+     */
     const forwardsStateUpdate = useCallback((isHouseholds: boolean, isSubgroup: boolean): void => {
         setHasSubgroups(isSubgroup ? true : hasSubgroups);
         setHasHouseholds(isHouseholds ? true : hasHouseholds);
@@ -51,9 +71,6 @@ const DecisionTree = (): JSX.Element => {
     }, [questionCards, backwardsStateUpdate, forwardsStateUpdate]);
 
     const renderElement = useCallback((questionCard: number): JSX.Element => {
-        // refactor this to use a switch statement and name of the
-        // calculators as the case, not the id. default of switch
-        // should be QuestionCard
         switch (questionCard) {
             case config.cluster:
                 return (
@@ -64,7 +81,6 @@ const DecisionTree = (): JSX.Element => {
             case config.timeLocation:
                 return (
                     <TimeLocationCalculator
-                        // re-render TimeLocation whenever hasSubroups or hasHouseholds changes
                         key={`${hasSubgroups}${hasHouseholds}`}
                         questionCards={questionCards}
                     />
@@ -72,7 +88,6 @@ const DecisionTree = (): JSX.Element => {
             case config.systematicRandom:
                 return (
                     <SystematicRandomCalculator
-                        // re-render SystematicRandom whenever hasSubroups or hasHouseholds changes
                         key={`${hasSubgroups}`}
                         hasSubgroups={hasSubgroups}
                         questionCards={questionCards}
@@ -81,7 +96,6 @@ const DecisionTree = (): JSX.Element => {
             case config.simpleRandom:
                 return (
                     <SimpleRandomCalculator
-                        // re-render SimpleRandom whenever hasSubroups or hasHouseholds changes
                         key={`${hasSubgroups}${hasHouseholds}`}
                         hasSubgroups={hasSubgroups}
                         questionCards={questionCards}
