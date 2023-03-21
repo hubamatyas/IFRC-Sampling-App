@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { WithTranslation, withTranslation } from "react-i18next";
+import { _cs } from "@togglecorp/fujs";
 
 import styles from "./styles.module.scss";
 
@@ -88,24 +89,27 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
                                 <div className={styles.content} data-cy={"sampleSize"}>
                                     {Object.keys(sampleSize).map((key: string) => (
                                         <div key={key}>
-                                            <h2 className={styles.title} >Sample size for <b>{key}</b> is:</h2>
+                                            <h2 className={styles.title}>Sample size for <b>{key}</b> is:</h2>
                                             <h3 className={styles.number}>{sampleSize[key]}</h3>
                                         </div>
                                     ))}
                                 </div>
-                                <p className={styles.description}>
-                                    {t('aboutGoal')}
-                                </p>
+                                <p className={styles.description}>{t('definitionsSimpleResult1')}</p>
+                                <p className={styles.description}>{t('definitionsSimpleResult2')}</p>
                             </>
                         ) : (
                             <div data-cy={"sampleSize"}>
                                 <h1 className={styles.title}>Sample size:</h1>
                                 <h2 className={styles.number}>{Object.values(sampleSize)[0]}</h2>
-                                <p className={styles.description}>
-                                    {t('aboutGoal')}
-                                </p>
+                                <p className={styles.description}>{t('definitionsSimpleResult1')}</p>
+                                <p className={styles.description}>{t('definitionsSimpleResult2')}</p>                                
                             </div>
                         )}
+                        <p className={_cs(styles.description, styles.info)}>
+                            <span>{t('result1')}</span>
+                            <span><a href="/Resources">{t('result2')}</a></span>
+                            <span>{t('result3')}</span>
+                        </p>
                     </Card>
                     <div className={styles.exportBtn}>
                         <ExportButton 

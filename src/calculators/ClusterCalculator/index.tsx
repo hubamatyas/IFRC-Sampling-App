@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { WithTranslation, withTranslation } from "react-i18next";
 //import Alert from "react-bootstrap/Alert";
+import { _cs } from "@togglecorp/fujs";
 import Alert from "../../components/Alert";
 import axios from "axios";
 
@@ -139,7 +140,6 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
         }
     }
 
-
     const alertIfCommunityInvalid = (e:React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
         console.log(id, value)
@@ -157,8 +157,6 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
         setShowAlert(false);   
         alertIfParametersInvalid();
     }
-
-
 
     const alertIfParametersInvalid = () => {
         const communitiesElement = (document.getElementById("communities") as HTMLInputElement)
@@ -238,7 +236,6 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                             {inputFields.map((field) => field)}
                         </div>
                     }
-
                     {showAlert && 
                         <Alert
                             onClose={() => setShowAlert(false)}
@@ -246,7 +243,6 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                             type="warning"
                         />
                     }
-                        
                     <div className={styles.calculate}>
                         <input 
                             type="submit" 
@@ -272,13 +268,12 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                                     )
                                 })
                             }
-                            <p className={styles.description}>
-                                {t('aboutGoal')}
-                                {t('aboutGoal')}
-                                {t('aboutGoal')}
-                                {t('aboutGoal')}
-                                {t('aboutGoal')}
-                            </p>
+                            <p className={styles.description}>{t('definitionsClusterResult1')}</p>
+                            <p className={_cs(styles.description, styles.info)}>
+                            <span>{t('result1')}</span>
+                            <span><a href="/Resources">{t('result2')}</a></span>
+                            <span>{t('result3')}</span>
+                        </p>
                         </div>
                     </Card>
                     <div className={styles.exportBtn}>

@@ -8,13 +8,14 @@
 .description {
     width: 80%;
     margin: auto;
+    padding-bottom: 20px;
 }
+
 
 .table{
     width: 80%;
     //border-bottom: 2px solid black;
     border-collapse: collapse;
-
     margin: auto;
     margin-bottom: 3em;
 }
@@ -57,6 +58,10 @@ table {
     grid-column-start: 1;
     display: flex;
     justify-content: center;
+}
+
+.info {
+    font-weight: $base-font-bold;
 }
 
 .btn {

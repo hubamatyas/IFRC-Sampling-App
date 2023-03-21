@@ -9,6 +9,12 @@ function Sampling(){
     const { t } = useTranslation();
     return (
         <>
+            <div className={styles.segment}>
+                <div className={styles.intro}>
+                    <h1>{t('samplingTitle')}</h1>
+                    <p>{t('samplingText')}</p>
+                </div>
+            </div>
             <div className={styles.tool}>
                 <DecisionTree />
             </div>

@@ -8,6 +8,7 @@
 .description {
     width: 80%;
     margin: auto;
+    padding-bottom: 20px;
 }
 
 .content {
@@ -19,7 +20,10 @@
     width: 80%;
     margin: auto;
     text-align: center;
-    font-weight: $base-font-regular;
+}
+
+.info {
+    font-weight: $base-font-bold;
 }
 
 .number {

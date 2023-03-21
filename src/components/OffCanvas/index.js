@@ -2,7 +2,7 @@ import React,{ useState } from "react";
 
 import styles from "./styles.module.scss";
 
-import { definitions } from "../Definitions";
+import Definitions from "../Definitions";
 
 /**
  * Renders an OffCanvas component displaying the definition of a given terminology
@@ -20,6 +20,7 @@ function OffCanvas({terminology}) {
         setIsActive(false);
     }
     
+    const definitions = Definitions();
     const content = definitions[terminology.toLowerCase()].props.children;
     
     return (
