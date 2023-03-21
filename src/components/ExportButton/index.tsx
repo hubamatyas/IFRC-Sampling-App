@@ -10,14 +10,16 @@ interface ExportProps {
     questionCards: number[],
     calculatorInputs: calculatorInputs,
     calculatorOutputs: calculatorOutputs,
-    subgroupSizes: subgroupsType,
+    subgroupSizes?: subgroupsType,
+    communitiesSizes?: subgroupsType,
   }
 
 const App: React.FC<ExportProps> = ({
     questionCards,
     calculatorInputs,
     calculatorOutputs,
-    subgroupSizes,
+    subgroupSizes=null,
+    communitiesSizes=null,
     },
   
   ) => {

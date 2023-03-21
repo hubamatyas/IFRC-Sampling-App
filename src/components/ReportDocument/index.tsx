@@ -180,7 +180,7 @@ const MyDoc: React.FC<DocProps> = ({
 
                   <View style={styles.tableRow}> 
                     <View style={styles.tableCol}> 
-                      <Text style={styles.TLtableHeader}>
+                      <Text style={styles.tableHeader}>
                         {Object.keys(locations)[0]}
                       </Text> 
                     </View> 
@@ -207,7 +207,36 @@ const MyDoc: React.FC<DocProps> = ({
                   ))}
             </View>
           )
+
+          }else if(calculatorOutputs?.clusterResponse){return(
+            <View style={styles.table}> 
+                    <View style={styles.tableRow}> 
+                      <View style={styles.tableCol}> 
+                        <Text style={styles.tableHeader}>Geographical unit</Text> 
+                      </View> 
+                      <View style={styles.tableCol}> 
+                        <Text style={styles.tableHeader}>Cluster</Text> 
+                      </View> 
+                    </View> 
+
+                    {Object.keys(calculatorOutputs?.clusterResponse).map(
+                      (community, index) => {
+                        return (
+                          <View style={styles.tableRow}> 
+                            <View style={styles.tableCol}> 
+                              <Text style={styles.tableHeader}>{community}</Text> 
+                            </View> 
+                            <View style={styles.tableCol}> 
+                              <Text style={styles.tableCell}>{calculatorOutputs?.clusterResponse![community].join(", ")}</Text> 
+                            </View> 
+                          </View> 
+                        )
+                      }
+                    )}
+            </View> 
+          )
           }
+
         })()}
         </View>
 

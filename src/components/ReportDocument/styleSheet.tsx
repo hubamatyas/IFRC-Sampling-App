@@ -118,7 +118,7 @@ export const styles = StyleSheet.create({
     table: { 
       // @ts-ignore 
       display: "table",
-      width: "auto",
+      width: "70%",
       marginHorizontal: "auto",
       marginVertical: 10,
       borderStyle: "solid", 
@@ -131,29 +131,26 @@ export const styles = StyleSheet.create({
       flexDirection: "row" 
     }, 
     tableCol: { 
-      width: "25%", 
+      width: "50%", 
       borderStyle: "solid", 
       borderWidth: 1, 
       borderLeftWidth: 0, 
       borderTopWidth: 0 
     }, 
+
     tableHeader: { 
       margin: "auto", 
-      marginTop: 4, 
-      marginBottom: 4,
+      paddingTop: 5,
+      paddingBottom: 5,
       fontSize: 10,
       fontFamily: 'Helvetica-Bold',
     },
-    TLtableHeader: { 
-      margin: "auto", 
-      fontSize: 10,
-      fontFamily: 'Helvetica-Bold',
-    },
+
     tableCell: { 
       margin: "auto", 
-      marginTop: 4, 
-      marginBottom: 4,
-      fontSize: 10 
+      paddingTop: 5,
+      paddingBottom: 5,
+      fontSize: 10,
     },
 
     goalText:{
