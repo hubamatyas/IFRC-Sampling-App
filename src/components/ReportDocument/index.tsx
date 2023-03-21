@@ -2,7 +2,6 @@ import { Document, Page, Image, Text, StyleSheet, Link, View } from '@react-pdf/
 import {styles} from './styleSheet';
 import React from 'react';
 import {calculatorInputs, calculatorOutputs, communityInfoType} from "../../types/calculatorResponse";
-import {ImNotification} from 'react-icons/im';
 import {toolLink,IFRCLink} from '../../util/config.js';
 
 
