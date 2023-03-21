@@ -34,8 +34,11 @@ table {
 }
 
 .timeUnit{
+    text-align: left;
     font-weight: bold;
-    padding: $global-spacing-3;
+    padding-left: 20rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
   
 .locationUnit{
