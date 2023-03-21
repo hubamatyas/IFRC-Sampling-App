@@ -281,16 +281,18 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                             </p>
                         </div>
                     </Card>
-                    <ExportButton 
-                        questionCards={questionCards} 
-                        calculatorInputs={{"Number of communities":numOfcommunities, 
-                                            "marginOfError":marginOfError, 
-                                            "confidenceLevel":confidenceLevel, 
-                                        }}
-                        calculatorOutputs={{clusterResponse:clusterResponse, aboutGoal:t('aboutGoal')}}
-                        communityInfo={communities}
-                        //communitiesSizes={null}
-                    />
+                    <div className={styles.exportBtn}>
+                        <ExportButton 
+                            questionCards={questionCards} 
+                            calculatorInputs={{"Number of communities":numOfcommunities, 
+                                                "Margin of error(%)":marginOfError, 
+                                                "Confidence level(%)":confidenceLevel, 
+                                            }}
+                            calculatorOutputs={{clusterResponse:clusterResponse, aboutGoal:t('aboutGoal')}}
+                            communityInfo={communities}
+                            //communitiesSizes={null}
+                        />
+                    </div>
                 </div>
             )}
         </>

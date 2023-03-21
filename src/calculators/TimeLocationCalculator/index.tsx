@@ -79,7 +79,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
             interviews_per_session: interviews,
             households: calculatorInputs ? calculatorInputs['Households'] : null,
             individuals: calculatorInputs ? calculatorInputs['Individuals'] : null,
-            margin_of_error: calculatorInputs ? calculatorInputs['Margin of error'] : null,
+            margin_of_error: calculatorInputs ? calculatorInputs['Margin of error(%)'] : null,
             confidence_level: calculatorInputs ? calculatorInputs['Confidence level(%)'] : null,
             non_response_rate: calculatorInputs ? calculatorInputs['Non-response rate(%)'] : null,
         }
@@ -257,19 +257,20 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                             {t('aboutGoal')}
                         </p>
                     </Card>
-                    <ExportButton
-                        
-                        questionCards={questionCards}
-                        calculatorOutputs={calculatorOutputs}
-                        calculatorInputs={Object.assign({}, calculatorInputs, 
-                            {
-                                "Number of locations": locations,
-                                "Number of working days": days,
-                                "Number of interviews in one session": interviews
-                            }
-                        )}
-                        subgroupSizes={null}
-                    />
+                    <div className={styles.exportBtn}>
+                        <ExportButton
+                            questionCards={questionCards}
+                            calculatorOutputs={calculatorOutputs}
+                            calculatorInputs={Object.assign({}, calculatorInputs, 
+                                {
+                                    "Locations": locations,
+                                    "Working days": days,
+                                    "Interviews in one session": interviews
+                                }
+                            )}
+                            subgroupSizes={null}
+                        />
+                    </div>
                 </div>
             )}
         </>

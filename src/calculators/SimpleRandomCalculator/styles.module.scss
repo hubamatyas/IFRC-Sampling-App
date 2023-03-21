@@ -30,6 +30,13 @@
     margin: auto;
 }
 
+.exportBtn{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
 @media screen and (max-width: $media-medium) {
     .result {
         width: 90%;

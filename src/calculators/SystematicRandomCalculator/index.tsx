@@ -249,21 +249,23 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                             </div>
                         )}
                     </Card>
-                    <ExportButton 
-                        questionCards={questionCards}
-                        calculatorInputs={{
-                            "Margin of error": marginOfError,
-                            "Confidence level": confidenceLevel,
-                            "Non-response rate": nonResponseRate,
-                            "Households": households,
-                            "Individuals": individuals,
-                        }}
-                        calculatorOutputs={{
-                            intervals : intervals,
-                            aboutGoal : t('aboutGoal')
-                        }}
-                        subgroupSizes={subgroups}
-                    />
+                    <div className={styles.exportBtn}>
+                        <ExportButton 
+                            questionCards={questionCards}
+                            calculatorInputs={{
+                                "Margin of error": marginOfError,
+                                "Confidence level": confidenceLevel,
+                                "Non-response rate": nonResponseRate,
+                                "Households": households,
+                                "Individuals": individuals,
+                            }}
+                            calculatorOutputs={{
+                                intervals : intervals,
+                                aboutGoal : t('aboutGoal')
+                            }}
+                            subgroupSizes={subgroups}
+                        />
+                    </div>
                 </div>
             )}
         </>
