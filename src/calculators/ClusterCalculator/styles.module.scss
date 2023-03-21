@@ -5,10 +5,11 @@
     margin: auto;
 }
 
-// .description {
-//     width: 80%;
-//     margin: auto;
-// }
+.description {
+    width: 80%;
+    margin: auto;
+    padding-bottom: 20px;
+}
 
 .parameters {
     display: grid;
@@ -53,6 +54,10 @@
     text-align: center;
 }
 
+.info {
+    font-weight: $base-font-bold;
+}
+
 .unit {
     display: flex;
     justify-content: space-between;
@@ -91,6 +96,9 @@
 
 @media screen and (max-width: $media-medium) {
     .result {
+        width: 90%;
+    }
+    .description {
         width: 90%;
     }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { WithTranslation, withTranslation } from "react-i18next";
+import { _cs } from "@togglecorp/fujs";
 import axios from "axios";
 
 import styles from "./styles.module.scss";
@@ -225,29 +226,27 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                 <div className={styles.result}>
                     <Card hasArrow={false}>
                     {subgroups ? (
-                            <>
-
-                                <div className={styles.content}>
-                                    {Object.keys(intervals).map((key: string) => (
-                                        <div key={key} data-cy={"sampleSize"}>
-                                            <h2 className={styles.title}>Sampling interval for <b>{key}</b> is</h2>
-                                            <h3 className={styles.number}>{intervals[key]}</h3>
-                                        </div>
-                                    ))}
-                                </div>
-                                <p className={styles.description}>
-                                    {t('aboutGoal')}
-                                </p>
-                            </>
+                            <div className={styles.content}>
+                                {Object.keys(intervals).map((key: string) => (
+                                    <div key={key} data-cy={"sampleSize"}>
+                                        <h2 className={styles.title}>Sampling interval for <b>{key}</b> is</h2>
+                                        <h3 className={styles.number}>{intervals[key]}</h3>
+                                    </div>
+                                ))}
+                            </div>
                         ) : (
                             <div data-cy={"sampleSize"}>
                                 <h1 className={styles.title}>Sampling Interval</h1>
                                 <h2 className={styles.number}>{Object.values(intervals)[0]}</h2>
-                                <p className={styles.description}>
-                                    {t('aboutGoal')}
-                                </p>
                             </div>
                         )}
+                        <p className={styles.description}>{t('definitionsSystematicResult1')}</p>
+                        <p className={styles.description}>{t('definitionsSystematicResult2')}</p>
+                        <p className={_cs(styles.description, styles.info)}>
+                            <span>{t('result1')}</span>
+                            <span><a href="/Resources">{t('result2')}</a></span>
+                            <span>{t('result3')}</span>
+                        </p>
                     </Card>
                     <ExportButton 
                         questionCards={questionCards}

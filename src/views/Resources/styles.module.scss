@@ -17,11 +17,11 @@
     padding: $global-spacing-3 0;
 }
 
-@media (max-width: $media-small) {
+@media screen and (max-width: $media-medium) {
     .title {
         width: 80%;
         margin: auto;
-        padding-bottom: $global-spacing;
+        padding-bottom: $global-spacing-2;
     }
 
     .introText {

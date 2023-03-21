@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { WithTranslation, withTranslation } from "react-i18next";
+import { _cs } from "@togglecorp/fujs";
 import axios from "axios";
 
 import styles from "./styles.module.scss";
@@ -250,12 +251,13 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
 
                             </table>
                         </div>
-                        <p className={styles.description}>
-                            {t('aboutGoal')}
-                            {t('aboutGoal')}
-                            {t('aboutGoal')}
-                            {t('aboutGoal')}
-                            {t('aboutGoal')}
+                        <br></br>
+                        <p className={styles.description}>{t('definitionsTimeLocationResult1')}</p>
+                        <p className={styles.description}>{t('definitionsTimeLocationResult2')}</p>
+                        <p className={_cs(styles.description, styles.info)}>
+                            <span>{t('result1')}</span>
+                            <span><a href="/Resources">{t('result2')}</a></span>
+                            <span>{t('result3')}</span>
                         </p>
                     </Card>
                     <ExportButton 

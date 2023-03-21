@@ -4,11 +4,11 @@ import { useTranslation } from "react-i18next";
 import styles from "./styles.module.scss";
 
 import ShowMore from "../../components/ShowMore";
-import { definitions } from "../../components/Definitions/index";
+import Definitions from "../../components/Definitions/index";
 
 function Resources(){
     const { t } = useTranslation();
-
+    const definitions = Definitions();
     return (
         <>
             <div className={styles.intro}>
