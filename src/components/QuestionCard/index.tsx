@@ -95,7 +95,7 @@ function QuestionCard({ id, onSelectOption }: QuestionCardProps): JSX.Element {
                 <Loader />
             ) : (
                 <Card hasPulse={id === 1? true : false}>
-                    <h2>
+                    <h2 data-cy="question-name">
                         <Terminology term={term} text={question} />
                     </h2>
                     <div className={styles.answers}>
@@ -104,6 +104,7 @@ function QuestionCard({ id, onSelectOption }: QuestionCardProps): JSX.Element {
                                 key={option.id}
                                 className={_cs(styles.optionBtn, option.child_state + option.name === answerKey && styles.isActive)}
                                 onClick={() => handleOptionClick(term, option)}
+                                data-cy="option-btn"
                             >
                                 {option.name}
                             </button>

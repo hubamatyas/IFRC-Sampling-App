@@ -6,6 +6,7 @@ import config from 'src/util/config';
 import Card from "../../components/Card";
 import Terminology from "../../components/Terminology";
 import {calculatorInputs, sampleSizeType} from "../../types/calculatorResponse";
+import Alert from"../../components/Alert";
 
 /**
  * Describes the expected shape of the props object received by SimpleRandom.
@@ -30,6 +31,7 @@ import {calculatorInputs, sampleSizeType} from "../../types/calculatorResponse";
     hasSubgroups: boolean;
     hasHouseholds: boolean;
     hasIndividuals: boolean;
+    isForTimeLocation?: boolean;
     // add onSubmit prop which should be a function or null, and should be optional
     onSubmitSimpleRandom: (
         calculatorInputs: calculatorInputs,
@@ -43,6 +45,7 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
     hasSubgroups,
     hasHouseholds,
     hasIndividuals,
+    isForTimeLocation = false,
     t,
     onSubmitSimpleRandom,
 }) => {
@@ -52,6 +55,9 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
     const [households, setHouseholds] = useState<number | null>(null);
     const [individuals, setIndividuals] = useState<number | null>(null);
     const [sampleSize, setSampleSize] = useState<sampleSizeType>(null);
+    const [alertMessage, setAlertMessage] = useState<string>("");
+    const [showAlert, setShowAlert] = useState<boolean>(false);
+    const minIndividuals = isForTimeLocation? 200 : 1;
 
     useEffect(() => {
         // return sample size to parent component
@@ -118,93 +124,128 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
         }
     };
 
+    const alertIfInvalid=()=>{
+        const marginElement = (document.getElementById("margin") as HTMLInputElement)
+        const responseElement = (document.getElementById("response") as HTMLInputElement)
+        const householdsElement = (document.getElementById("households") as HTMLInputElement)
+        const individualsElement = (document.getElementById("individuals") as HTMLInputElement)
+
+        if(marginElement?.value && Number(marginElement?.value)<=0){
+            setAlertMessage("Margin of error should be at least 1.")
+        }else if (responseElement?.value && Number(responseElement?.value)<0){
+            setAlertMessage("Non-response rate should be at least 0.")
+        }else if (householdsElement?.value && Number(householdsElement?.value)<=0){
+            setAlertMessage("Number of households should be at least 1.")
+        }else if (individualsElement?.value && Number(individualsElement?.value) < minIndividuals){
+            setAlertMessage("Number of individuals should be at least "+ minIndividuals +".")
+        }else{
+            setShowAlert(false);
+            return;
+        }
+        setShowAlert(true);
+    }
+
     return (
         <Card>
             <h2>
                 <Terminology term="simple random" text="Simple Random Calculator" />
             </h2>
-            <form className={styles.inputFields} onSubmit={handleSubmit}>
-                <div className={styles.field}>
-                    <label htmlFor="margin">
-                        <Terminology term="margin of error" text="Margin of error (%)" />
-                    </label>
-                    <input
-                        min="1"
-                        max="20"
-                        step="1"
-                        required
-                        id="margin"
-                        type="number"
-                        name="margin"
-                        placeholder="5"
-                        onWheel={event => event.currentTarget.blur()}
-                    />
-                </div>
-                <div className={styles.field}>
-                    <label htmlFor="confidence">
-                        <Terminology term="confidence level" text="Confidence level (%)" />
-                    </label>
-                    <select
-                        required
-                        id="confidence"
-                        name="confidence"
-                        onWheel={event => event.currentTarget.blur()}
-                    >
-                        <option value="95">95</option>
-                        <option value="99">99</option>
-                        <option value="90">90</option>
-                        <option value="85">85</option>
-                        <option value="80">80</option>
-                    </select>
-                </div>
-                <div className={styles.field}>
-                    <label htmlFor="response">
-                        <Terminology term="non-response rate" text="Non-response rate (%)" />
-                    </label>
-                    <input
-                        min="0"
-                        max="80"
-                        step="1"
-                        type="number"
-                        id="response"
-                        name="response"
-                        onWheel={event => event.currentTarget.blur()}
-                    />
-                </div>
-                {hasHouseholds && (
+            <form onSubmit={handleSubmit}>
+                <div className={styles.inputFields}>
                     <div className={styles.field}>
-                        <label htmlFor="households">
-                            <Terminology term="households" text="Number of households" />
+                        <label htmlFor="margin">
+                            <Terminology term="margin of error" text="Margin of error (%)" />
                         </label>
                         <input
                             min="1"
+                            max="20"
                             step="1"
                             required
+                            id="margin"
                             type="number"
-                            id="households"
-                            name="households"
+                            name="margin"
+                            placeholder="5"
                             onWheel={event => event.currentTarget.blur()}
+                            onBlur={alertIfInvalid}
                         />
                     </div>
-                )}
-                {hasIndividuals && !hasSubgroups && (
                     <div className={styles.field}>
-                        <label htmlFor="individuals">
-                            <Terminology term="individuals" text="Number of individuals" />
+                        <label htmlFor="confidence">
+                            <Terminology term="confidence level" text="Confidence level (%)" />
+                        </label>
+                        <select
+                            required
+                            id="confidence"
+                            name="confidence"
+                            onWheel={event => event.currentTarget.blur()}
+                        >
+                            <option value="95">95</option>
+                            <option value="99">99</option>
+                            <option value="90">90</option>
+                            <option value="85">85</option>
+                            <option value="80">80</option>
+                        </select>
+                    </div>
+                    <div className={styles.field}>
+                        <label htmlFor="response">
+                            <Terminology term="non-response rate" text="Non-response rate (%)" />
                         </label>
                         <input
-                            min="1"
+                            min="0"
+                            max="80"
                             step="1"
-                            required
                             type="number"
-                            id="individuals"
-                            name="individuals"
+                            id="response"
+                            name="response"
                             onWheel={event => event.currentTarget.blur()}
+                            onBlur={alertIfInvalid}
                         />
                     </div>
-                )}
+                    {hasHouseholds && (
+                        <div className={styles.field}>
+                            <label htmlFor="households">
+                                <Terminology term="households" text="Number of households" />
+                            </label>
+                            <input
+                                min="1"
+                                step="1"
+                                required
+                                type="number"
+                                id="households"
+                                name="households"
+                                onWheel={event => event.currentTarget.blur()}
+                                onBlur={alertIfInvalid}
+                            />
+                        </div>
+                    )}
+                    {hasIndividuals && !hasSubgroups && (
+                        <div className={styles.field}>
+                            <label htmlFor="individuals">
+                                <Terminology term="individuals" text="Number of individuals" />
+                            </label>
+                            <input
+                                min={minIndividuals+''}
+                                step="1"
+                                required
+                                type="number"
+                                id="individuals"
+                                name="individuals"
+                                onWheel={event => event.currentTarget.blur()}
+                                onBlur={alertIfInvalid}
+                            />
+                        </div>
+                    )}
+                </div>
+
+                {showAlert && 
+                    <Alert
+                        onClose={() => setShowAlert(false)}
+                        text={alertMessage}
+                        type="warning"
+                    />
+                }
                 <div className={styles.calculate}>
-                    <input type="submit" className={styles.btn} value="Submit"/>
+                    <input type="submit" className={styles.btn} value="Submit" data-cy={"submitCalculator-btn"}/>
                 </div>
             </form>
         </Card>

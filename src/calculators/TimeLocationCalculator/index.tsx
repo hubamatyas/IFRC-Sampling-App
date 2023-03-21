@@ -10,6 +10,7 @@ import Terminology from "../../components/Terminology";
 import ExportButton from "../../components/ExportButton";
 import SimpleRandom from "../../components/SimpleRandom";
 import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType} from "../../types/calculatorResponse";
+import Alert from "../../components/Alert";
 
 /**
 @fileoverview The module exports a React component that provides a time-location calculator. 
@@ -36,11 +37,16 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
     const [interviews, setInterviews] = useState<number | null>(null);
     const [calculatorInputs, setCalculatorInputs] = useState<calculatorInputs>(null);
     const [calculatorOutputs, setCalculatorOutputs] = useState<calculatorOutputs>(null);
-
+    const [showAlert, setShowAlert] = useState<boolean>(false);
+    const [alertMessage, setAlertMessage] = useState<string>("");
 
     const [simpleRandomSampleSize, setSimpleRandomSampleSize] = useState<number | null>(null);
     const [timeLocationResponse, setTimeLocationResponse] = useState<[TimeLocationResponse] | null>(null);
-
+    const minInterviews = 10;
+    const minDays = 3;
+    const minLocations = 2;
+    const maxLocations = 15;
+    const maxDays = 20;
 
     useEffect(() => {
         if (calculatorInputs && simpleRandomSampleSize && locations && days && interviews) {
@@ -98,6 +104,28 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
         }
     }
 
+    const alertIfNotValid = () => {
+        const locationsElement = (document.getElementById("locations") as HTMLInputElement)
+        const daysElement = (document.getElementById("days") as HTMLInputElement)
+        const interviewsElement = (document.getElementById("interviews") as HTMLInputElement)
+
+        if(locationsElement.value && Number(locationsElement.value) < minLocations){
+            setAlertMessage("Number of locations should be at least 2.")
+        }else if (locationsElement.value && Number(locationsElement.value) > maxLocations){
+            setAlertMessage("Number of working days should be at most "+ maxLocations +".")
+        }else if (daysElement.value && Number(daysElement.value) < minDays){
+            setAlertMessage("Number of working days should be at least "+ minDays +".")
+        }else if (daysElement.value && Number(daysElement.value) > maxDays){
+            setAlertMessage("Number of working days should be at most "+ maxDays +".")
+        }else if (interviewsElement.value && Number(interviewsElement.value) < minInterviews){
+            setAlertMessage("Number of interviews should be at least "+ minInterviews +".")
+        }else{
+            setShowAlert(false);
+            return;
+        }
+        setShowAlert(true);
+    }
+
     return (
         <>
             <SimpleRandom
@@ -105,6 +133,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                 hasSubgroups={false}
                 hasHouseholds={false}
                 hasIndividuals={true}
+                isForTimeLocation={true}
                 onSubmitSimpleRandom={onSimpleRandomCalculation}
             />
             { simpleRandomSampleSize && (
@@ -116,8 +145,8 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                         <div className={styles.field}>
                             <label htmlFor="locations">Locations</label>        
                             <input
-                                min="2"
-                                max="15"
+                                min={minLocations+''}
+                                max={maxLocations+''}
                                 step="1"
                                 required
                                 type="number"
@@ -125,13 +154,14 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                                 name="locations"
                                 onWheel={event => event.currentTarget.blur()}
                                 className={styles.textInput}
+                                onBlur={alertIfNotValid}
                             />
                         </div>
                         <div className={styles.field}>
                             <label htmlFor="days">Working days</label>
                             <input
-                                min="3"
-                                max="20"
+                                min={minDays+''}
+                                max={maxDays+''}
                                 step="1"
                                 id="days"
                                 required
@@ -139,26 +169,38 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                                 type="number"
                                 className={styles.textInput}
                                 onWheel={event => event.currentTarget.blur()}
+                                onBlur={alertIfNotValid}
                             />
                         </div>
                         <div className={styles.field}>
                             <label htmlFor="interviews">Interviews in one session</label>
                             <input
-                                min="10"
+                                min={minInterviews+''}
                                 step="1"
                                 required
                                 type="number"
                                 id="interviews"
                                 name="interviews"
-
                                 onWheel={event => event.currentTarget.blur()}
-
                                 className={styles.textInput}
                                 max={simpleRandomSampleSize}
+                                onBlur={alertIfNotValid}
                             />
                         </div>
+                        {showAlert && 
+                            <Alert
+                                onClose={() => setShowAlert(false)}
+                                text={alertMessage}
+                                type="warning"
+                            />
+                        }
                         <div className={styles.calculate}>
-                            <input type="submit" className={styles.btn} value="Submit"/>
+                            <input 
+                                type="submit" 
+                                className={styles.btn} 
+                                value="Submit"
+                                data-cy='submitTimeLocation-btn'
+                            />
                         </div>
                     </form>
                 </Card>
@@ -167,7 +209,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                 <div className={styles.result}>
                     <Card hasArrow={false}>
                         <h2>Time Location Calculator</h2>
-                        <div>
+                        <div data-cy={"sampleSize"}>
                             <table>
 
                             {timeLocationResponse!.sort(
@@ -199,9 +241,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                                                 <br>
                                                 </br>
                                             </div>
-                                            )
-                                            
-                                            )
+                                            ))
                                         }
                                     </th> 
                                 </tr> 

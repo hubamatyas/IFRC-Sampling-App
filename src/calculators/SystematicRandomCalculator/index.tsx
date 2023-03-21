@@ -8,6 +8,7 @@ import Card from "../../components/Card";
 import Terminology from "../../components/Terminology";
 import ExportButton from "../../components/ExportButton";
 import SubgroupInput from "../../components/SubgroupInput";
+import Alert from "../../components/Alert";
 import { intervalsType } from "../../types/calculatorResponse";
 
 /**
@@ -38,6 +39,8 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
     const [marginOfError, setMarginOfError] = useState<number | null>(null);
     const [confidenceLevel, setConfidenceLevel] = useState<number | null>(null);
     const [nonResponseRate, setNonResponseRate] = useState<number | null>(null);
+    const [alertMessage, setAlertMessage] = useState<string>("");
+    const [showAlert, setShowAlert] = useState<boolean>(false);
 
     useEffect(() => {
         if (marginOfError && confidenceLevel && (households || individuals || subgroups)) {
@@ -92,6 +95,28 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
         }
     };
 
+
+    const alertIfInvalid=()=>{
+        const marginElement = (document.getElementById("margin") as HTMLInputElement)
+        const responseElement = (document.getElementById("response") as HTMLInputElement)
+        const householdsElement = (document.getElementById("households") as HTMLInputElement)
+        const individualsElement = (document.getElementById("individuals") as HTMLInputElement)
+
+        if(marginElement?.value && Number(marginElement?.value)<=0){
+            setAlertMessage("Margin of error must be larger than zero.")
+        }else if (responseElement?.value && Number(responseElement?.value)<0){
+            setAlertMessage("Non-response rate must be larger or equal to zero.")
+        }else if (householdsElement?.value && Number(householdsElement?.value)<=0){
+            setAlertMessage("Number of households must be larger than zero.")
+        }else if (individualsElement?.value && Number(individualsElement?.value)<=0){
+            setAlertMessage("Number of individuals must be larger than zero.")
+        }else{
+            setShowAlert(false);
+            return;
+        }
+        setShowAlert(true);
+    }
+
     return (
         <>
             {hasSubgroups && (
@@ -107,72 +132,91 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                     <h2>
                         <Terminology term="systematic random" text="Systematic Random Calculator" />
                     </h2>
-                    <form className={styles.inputFields} onSubmit={handleSubmit}>
-                        <div className={styles.field}>
-                            <label htmlFor="margin">
-                                <Terminology term="margin of error" text="Margin of error (%)" />
-                            </label>
-                            <input
-                                min="1"
-                                max="20"
-                                step="1"
-                                required
-                                id="margin"
-                                type="number"
-                                name="margin"
-                                placeholder="5"
-                                onWheel={event => event.currentTarget.blur()}
-                            />
-                        </div>
-                        <div className={styles.field}>
-                            <label htmlFor="confidence">
-                                <Terminology term="confidence level" text="Confidence level (%)" />
-                            </label>
-                            <select
-                                required
-                                id="confidence"
-                                name="confidence"
-                                onWheel={event => event.currentTarget.blur()}
-                            >
-                                <option value="95">95</option>
-                                <option value="99">99</option>
-                                <option value="90">90</option>
-                                <option value="85">85</option>
-                                <option value="80">80</option>
-                            </select>
-                        </div>
-                        <div className={styles.field}>
-                            <label htmlFor="response">
-                                <Terminology term="non-response rate" text="Non-response rate (%)" />
-                            </label>
-                            <input
-                                min="0"
-                                max="80"
-                                step="1"
-                                type="number"
-                                id="response"
-                                name="response"
-                                onWheel={event => event.currentTarget.blur()}
-                            />
-                        </div>
-                        {!subgroups && (
+                    <form onSubmit={handleSubmit}>
+                        <div className={styles.inputFields}>
                             <div className={styles.field}>
-                                <label htmlFor="individuals">
-                                    <Terminology term="individuals" text="Number of individuals" />
+                                <label htmlFor="margin">
+                                    <Terminology term="margin of error" text="Margin of error (%)" />
                                 </label>
                                 <input
                                     min="1"
+                                    max="20"
                                     step="1"
                                     required
+                                    id="margin"
                                     type="number"
-                                    id="individuals"
-                                    name="individuals"
+                                    name="margin"
+                                    placeholder="5"
                                     onWheel={event => event.currentTarget.blur()}
+                                    onBlur={alertIfInvalid}
                                 />
                             </div>
-                        )}
+                            <div className={styles.field}>
+                                <label htmlFor="confidence">
+                                    <Terminology term="confidence level" text="Confidence level (%)" />
+                                </label>
+                                <select
+                                    required
+                                    id="confidence"
+                                    name="confidence"
+                                    onWheel={event => event.currentTarget.blur()}
+                                >
+                                    <option value="95">95</option>
+                                    <option value="99">99</option>
+                                    <option value="90">90</option>
+                                    <option value="85">85</option>
+                                    <option value="80">80</option>
+                                </select>
+                            </div>
+                            <div className={styles.field}>
+                                <label htmlFor="response">
+                                    <Terminology term="non-response rate" text="Non-response rate (%)" />
+                                </label>
+                                <input
+                                    min="0"
+                                    max="80"
+                                    step="1"
+                                    type="number"
+                                    id="response"
+                                    name="response"
+                                    onWheel={event => event.currentTarget.blur()}
+                                    onBlur={alertIfInvalid}
+                                />
+                            </div>
+                            {!subgroups && (
+                                <div className={styles.field}>
+                                    <label htmlFor="individuals">
+                                        <Terminology term="individuals" text="Number of individuals" />
+                                    </label>
+                                    <input
+                                        min="1"
+                                        step="1"
+                                        required
+                                        type="number"
+                                        id="individuals"
+                                        name="individuals"
+                                        onWheel={event => event.currentTarget.blur()}
+                                        onBlur={alertIfInvalid}
+                                    />
+                                </div>
+                            )}
+                        </div>
+
+                        {showAlert && 
+                            <Alert
+                                onClose={() => setShowAlert(false)}
+                                text={alertMessage}
+                                type="warning"
+                            />
+                        }
+
                         <div className={styles.calculate}>
-                            <input type="submit" className={styles.btn} value="Submit"/>
+
+                            <input 
+                                type="submit" 
+                                className={styles.btn} 
+                                value="Submit" 
+                                data-cy='submitCalculator-btn'/>
                         </div>
                     </form>
                 </Card>
@@ -182,9 +226,10 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                     <Card hasArrow={false}>
                     {subgroups ? (
                             <>
+
                                 <div className={styles.content}>
                                     {Object.keys(intervals).map((key: string) => (
-                                        <div key={key}>
+                                        <div key={key} data-cy={"sampleSize"}>
                                             <h2 className={styles.title}>Sampling interval for <b>{key}</b> is</h2>
                                             <h3 className={styles.number}>{intervals[key]}</h3>
                                         </div>
@@ -195,13 +240,13 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                                 </p>
                             </>
                         ) : (
-                            <>
+                            <div data-cy={"sampleSize"}>
                                 <h1 className={styles.title}>Sampling Interval</h1>
                                 <h2 className={styles.number}>{Object.values(intervals)[0]}</h2>
                                 <p className={styles.description}>
                                     {t('aboutGoal')}
                                 </p>
-                            </>
+                            </div>
                         )}
                     </Card>
                     <ExportButton 

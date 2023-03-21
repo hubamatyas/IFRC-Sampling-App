@@ -3,6 +3,7 @@ import {styles} from './styleSheet';
 import React from 'react';
 import {calculatorInputs, calculatorOutputs} from "../../types/calculatorResponse";
 import {ImNotification} from 'react-icons/im';
+import {toolLink,IFRCLink} from '../../util/config.js';
 
 
 export interface DocProps {
@@ -243,10 +244,10 @@ const MyDoc: React.FC<DocProps> = ({
             `${pageNumber} / ${totalPages}`
         )} fixed />
   
-        <Link src="https://www.ifrc.org/en/" style={styles.linkLeft} fixed >
+        <Link src={toolLink} style={styles.linkLeft} fixed >
           IFRC Community Sampling Tool
         </Link>
-        <Link src="https://www.ifrc.org/en/" style={styles.linkRight} fixed >
+        <Link src={IFRCLink} style={styles.linkRight} fixed >
           IFRC Community
         </Link>
 

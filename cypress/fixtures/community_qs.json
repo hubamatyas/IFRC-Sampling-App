@@ -1,0 +1,14 @@
+{
+    "options": [
+        {"id": 12, "name": "One", "state": 7, "child_state": 8}, 
+        {"id": 13, "name": "Two or more", "state": 7, "child_state": 9} 
+    ],
+
+    "state": {
+        "id": 7, 
+        "name": "How many communities will you be conducting your survey in?", 
+        "term": "communities", 
+        "parent_state":3
+    }
+}
+
