@@ -212,7 +212,11 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
 
                         <div className={styles.calculate}>
 
-                            <input type="submit" className={styles.btn} value="Submit" data-cy='submitCalculator-btn'/>
+                            <input 
+                                type="submit" 
+                                className={styles.btn} 
+                                value="Submit" 
+                                data-cy='submitCalculator-btn'/>
                         </div>
                     </form>
                 </Card>

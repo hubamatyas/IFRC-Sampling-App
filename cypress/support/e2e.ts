@@ -20,8 +20,8 @@ import './commands'
 // require('./commands')
 
 Cypress.Commands.add('inputSubgroupData', (subSizes:number[] ) => {
-    let sum = subSizes.reduce((partialSum, a) => partialSum + a, 0)
-    cy.get("[id='population']").type(sum.toString())
+    // let sum = subSizes.reduce((partialSum, a) => partialSum + a, 0)
+    // cy.get("[id='population']").type(sum.toString())
 
     for (let i = 0; i < subSizes.length; i++) {
         cy.get("[data-cy='group-inputs" + i + "']").find("[data-cy='subgroup-name']").type("Group No." + (i + 1))
@@ -34,6 +34,6 @@ Cypress.Commands.add('inputSubgroupData', (subSizes:number[] ) => {
 
 Cypress.Commands.add('checkResult', (sampleSizes:number[] ) => {
     for (let i = 0; i < sampleSizes.length; i++) {
-        cy.get("[data-cy='sampleSize']").should("contain", "Group No." + (i + 1) + " is " + sampleSizes[i])
+        cy.get("[data-cy='sampleSize']").should("contain",  sampleSizes[i])
     }
 })

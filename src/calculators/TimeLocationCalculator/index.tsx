@@ -194,7 +194,12 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                             />
                         }
                         <div className={styles.calculate}>
-                            <input type="submit" className={styles.btn} value="Submit"/>
+                            <input 
+                                type="submit" 
+                                className={styles.btn} 
+                                value="Submit"
+                                data-cy='submitTimeLocation-btn'
+                            />
                         </div>
                     </form>
                 </Card>
@@ -203,7 +208,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                 <div className={styles.result}>
                     <Card hasArrow={false}>
                         <h2>Time Location Calculator</h2>
-                        <div>
+                        <div data-cy={"sampleSize"}>
                             <table>
 
                             {timeLocationResponse!.sort(
