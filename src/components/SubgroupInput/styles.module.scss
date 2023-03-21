@@ -48,7 +48,8 @@
 
 .subgroup {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
 }
 
 .newRow {
@@ -62,6 +63,17 @@
     justify-content: center;
     cursor: pointer;
     margin: $global-spacing 0 $global-spacing $global-spacing;
+}
+
+.newRow:hover {
+    background-color: $primary-color;
+    color: $white;
+}
+
+.newRow:disabled {
+    background-color: $grey-cloud;
+    border-color: $grey-cloud;
+    cursor: not-allowed;
 }
 
 .btn {

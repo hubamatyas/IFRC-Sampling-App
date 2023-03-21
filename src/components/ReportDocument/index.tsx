@@ -65,15 +65,12 @@ const MyDoc: React.FC<DocProps> = ({
           Subgroups:{"\n"}
 
           {subgroupSizes ?
-
-          subgroupSizes.map((subgroup, i) => (
-            <Text style={styles.subgroupData} key={i}>
-              {"–– Subgroup name: "}{subgroup.name}{"\n"}
-              {"–– Size: "}{subgroup.size}{"\n\n"}
-            </Text>
-          ))
-          :
-          <Text> None{"\n"} </Text>
+            subgroupSizes.map((subgroup, i) => (
+              "–– Subgroup name: " + subgroup.name 
+              + "\n–– Size: " + subgroup.size
+            )).join("\n\n")
+            :
+            "None\n" 
           } 
         </Text>
 
@@ -82,7 +79,7 @@ const MyDoc: React.FC<DocProps> = ({
         <Text style={styles.decisions}>
           {communityInfo ?
             <>
-              <Text> Geographical units:{"\n"}</Text>
+              <Text>Geographical units:{"\n"}</Text>
               {communityInfo.map((community, i) => (
                 <Text style={styles.subgroupData} key={i}>
                   {"–– Community name: "}{community.name}{"\n"}
