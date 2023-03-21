@@ -133,6 +133,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                 hasSubgroups={false}
                 hasHouseholds={false}
                 hasIndividuals={true}
+                isForTimeLocation={true}
                 onSubmitSimpleRandom={onSimpleRandomCalculation}
             />
             { simpleRandomSampleSize && (

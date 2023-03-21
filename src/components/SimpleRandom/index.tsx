@@ -31,6 +31,7 @@ import Alert from"../../components/Alert";
     hasSubgroups: boolean;
     hasHouseholds: boolean;
     hasIndividuals: boolean;
+    isForTimeLocation?: boolean;
     // add onSubmit prop which should be a function or null, and should be optional
     onSubmitSimpleRandom: (
         calculatorInputs: calculatorInputs,
@@ -44,6 +45,7 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
     hasSubgroups,
     hasHouseholds,
     hasIndividuals,
+    isForTimeLocation = false,
     t,
     onSubmitSimpleRandom,
 }) => {
@@ -55,6 +57,7 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
     const [sampleSize, setSampleSize] = useState<sampleSizeType>(null);
     const [alertMessage, setAlertMessage] = useState<string>("");
     const [showAlert, setShowAlert] = useState<boolean>(false);
+    const minIndividuals = isForTimeLocation? 200 : 1;
 
     useEffect(() => {
         // return sample size to parent component
@@ -128,13 +131,13 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
         const individualsElement = (document.getElementById("individuals") as HTMLInputElement)
 
         if(marginElement?.value && Number(marginElement?.value)<=0){
-            setAlertMessage("Margin of error must be larger than zero.")
+            setAlertMessage("Margin of error should be at least 1.")
         }else if (responseElement?.value && Number(responseElement?.value)<0){
-            setAlertMessage("Non-response rate must be larger or equal to zero.")
+            setAlertMessage("Non-response rate should be at least 0.")
         }else if (householdsElement?.value && Number(householdsElement?.value)<=0){
-            setAlertMessage("Number of households must be larger than zero.")
-        }else if (individualsElement?.value && Number(individualsElement?.value)<=0){
-            setAlertMessage("Number of individuals must be larger than zero.")
+            setAlertMessage("Number of households should be at least 1.")
+        }else if (individualsElement?.value && Number(individualsElement?.value) < minIndividuals){
+            setAlertMessage("Number of individuals should be at least "+ minIndividuals +".")
         }else{
             setShowAlert(false);
             return;
@@ -221,7 +224,7 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
                                 <Terminology term="individuals" text="Number of individuals" />
                             </label>
                             <input
-                                min="1"
+                                min={minIndividuals+''}
                                 step="1"
                                 required
                                 type="number"
