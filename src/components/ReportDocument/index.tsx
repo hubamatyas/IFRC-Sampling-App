@@ -1,7 +1,7 @@
 import { Document, Page, Image, Text, StyleSheet, Link, View } from '@react-pdf/renderer';
 import {styles} from './styleSheet';
 import React from 'react';
-import {calculatorInputs, calculatorOutputs} from "../../types/calculatorResponse";
+import {calculatorInputs, calculatorOutputs, communityInfoType} from "../../types/calculatorResponse";
 import {ImNotification} from 'react-icons/im';
 import {toolLink,IFRCLink} from '../../util/config.js';
 
@@ -12,7 +12,8 @@ export interface DocProps {
   answers:string[],
   calculatorInputs:calculatorInputs | null,
   calculatorOutputs:calculatorOutputs | null,
-  subgroupSizes:any[] | null,
+  subgroupSizes?:any[] | null,
+  communityInfo?:communityInfoType | null,
 }
 
 const MyDoc: React.FC<DocProps> = ({
@@ -22,12 +23,11 @@ const MyDoc: React.FC<DocProps> = ({
   calculatorInputs,
   calculatorOutputs,
   subgroupSizes,
+  communityInfo,
 }
 
 ) => {
     let today = new Date().toISOString().slice(0, 10);
-    //let notes = "Some notes about this survey... "
-    // let copyRight = "© 2023 International Federation of Red Cross and Red Crescent Societies. All rights reserved."
 
     return (
     <Document>
@@ -74,6 +74,24 @@ const MyDoc: React.FC<DocProps> = ({
           ))
           :
           <Text> None{"\n"} </Text>
+          } 
+        </Text>
+
+
+        {/* render community info */}
+        <Text style={styles.decisions}>
+          {communityInfo ?
+            <>
+              <Text> Geographical units:{"\n"}</Text>
+              {communityInfo.map((community, i) => (
+                <Text style={styles.subgroupData} key={i}>
+                  {"–– Community name: "}{community.name}{"\n"}
+                  {"–– Size: "}{community.size}{"\n\n"}
+                </Text>
+              ))}
+            </>
+          :
+          <></>
           } 
         </Text>
 
@@ -224,7 +242,7 @@ const MyDoc: React.FC<DocProps> = ({
                         return (
                           <View style={styles.tableRow}> 
                             <View style={styles.tableCol}> 
-                              <Text style={styles.tableHeader}>{community}</Text> 
+                              <Text style={styles.tableCell}>{community}</Text> 
                             </View> 
                             <View style={styles.tableCol}> 
                               <Text style={styles.tableCell}>{calculatorOutputs?.clusterResponse![community].join(", ")}</Text> 

@@ -1,5 +1,5 @@
 import ExportNowButton from './ExportNowButton';
-import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType} from "../../types/calculatorResponse";
+import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType, communityInfoType} from "../../types/calculatorResponse";
 import styles from "./styles.module.scss";
 import React, {useRef,useState,useEffect} from "react";
 import { IoMdDownload } from 'react-icons/io';
@@ -11,7 +11,7 @@ interface ExportProps {
     calculatorInputs: calculatorInputs,
     calculatorOutputs: calculatorOutputs,
     subgroupSizes?: subgroupsType,
-    communitiesSizes?: subgroupsType,
+    communityInfo?:communityInfoType | null,
   }
 
 const App: React.FC<ExportProps> = ({
@@ -19,7 +19,7 @@ const App: React.FC<ExportProps> = ({
     calculatorInputs,
     calculatorOutputs,
     subgroupSizes=null,
-    communitiesSizes=null,
+    communityInfo=null,
     },
   
   ) => {
@@ -85,6 +85,7 @@ const App: React.FC<ExportProps> = ({
                 calculatorInputs={calculatorInputs}
                 calculatorOutputs={calculatorOutputs}
                 subgroupSizes={subgroupSizes}
+                communityInfo={communityInfo}
                 notes={hasNote?note:null}
               />
             </div>

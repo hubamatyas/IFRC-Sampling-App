@@ -288,6 +288,7 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                                             "confidenceLevel":confidenceLevel, 
                                         }}
                         calculatorOutputs={{clusterResponse:clusterResponse, aboutGoal:t('aboutGoal')}}
+                        communityInfo={communities}
                         //communitiesSizes={null}
                     />
                 </div>

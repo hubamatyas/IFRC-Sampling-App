@@ -140,17 +140,17 @@ export const styles = StyleSheet.create({
 
     tableHeader: { 
       margin: "auto", 
-      paddingTop: 5,
-      paddingBottom: 5,
-      fontSize: 10,
+      paddingVertical: 5,
+      paddingHorizontal: 10,
+      fontSize: 14,
       fontFamily: 'Helvetica-Bold',
     },
 
     tableCell: { 
       margin: "auto", 
-      paddingTop: 5,
-      paddingBottom: 5,
-      fontSize: 10,
+      paddingVertical: 5,
+      paddingHorizontal: 10,
+      fontSize: 14,
     },
 
     goalText:{
