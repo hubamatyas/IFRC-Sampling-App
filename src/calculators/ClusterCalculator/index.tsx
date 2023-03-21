@@ -144,8 +144,12 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
         console.log(id, value)
         if (value && Number(value) < minimumComunitySize){
             const nameElement = document.getElementById("name"+`${id}`) as HTMLInputElement
-            const communityName = nameElement?.value || "unnamed";
-            setAlertMessage("Size of community '"+ communityName + "' must be at least "+ minimumComunitySize +".")
+            setAlertMessage("Size of community '"
+                            + (nameElement?.value || "unnamed")
+                            + "' must be at least "
+                            + minimumComunitySize 
+                            +"."
+                            )
             setShowAlert(true);
             return;
         }

@@ -37,7 +37,6 @@ interface Props {
 const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
     const [currentId, setCurrentId] = useState<number>(0);
     const [sum, setSum] = useState<number>(0);
-    const [isSumValid, setIsSumValid] = useState<boolean>(false);
     const [populationSize, setPopulationSize] = useState<number>(0);
     const [inputFields, setInputFields] = useState<InputField[]>([]);
     const [inputs, setInputs] = useState<{ [key: string]: number }>({});
@@ -55,19 +54,15 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
     useEffect(() => {
         let sum = 0;
         for (const key in inputs) {
-            sum += inputs[key];
+            if(!isNaN(inputs[key]))
+            {sum += inputs[key];}
         }
         setSum(sum);
-        if (sum === populationSize && sum > 0 && populationSize > 0) {
-            setIsSumValid(true);
-        } else {
-            setIsSumValid(false);
-        }
     }, [inputs, populationSize]);
 
     useEffect(() => {
         onSubmitSubgroups(null, false);
-    }, [inputFields, inputs, sum, isSumValid, populationSize]);
+    }, [inputFields, inputs, sum, populationSize]);
 
     const handleSubgroupSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -93,23 +88,18 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
     };
 
     const alertIfNotPositive = (e:React.ChangeEvent<HTMLInputElement>) => {
-        const populationElement = (document.getElementById("population") as HTMLInputElement)
-        if(populationElement.value && Number(populationElement.value)<=0){
-            setAlertMessage("Target population must be larger than zero.")
-            setShowAlert(true);
-            return;
-        }else{
             const { id, value } = e.target;
             if (value && Number(value)<=0){
                 const nameElement = document.getElementById("name"+`${id}`) as HTMLInputElement
-                setAlertMessage("Size of subgroup '"+ nameElement.value +"' must be larger than zero.")
+                setAlertMessage("Size of subgroup '"
+                                + (nameElement.value ||"unnamed")
+                                + "' must be larger than zero."
+                                )
                 setShowAlert(true);
                 return;
             }
-        }
         setShowAlert(false);
     }
-
 
         
     const createInputField = (newId:number): React.ReactNode => {
@@ -162,26 +152,6 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
 
     return (
         <form onSubmit={handleSubgroupSubmit}>
-            <div className={styles.population}>
-                <label htmlFor="population">
-                    <h3 className={styles.subtitle}>
-                        <Terminology term="population" text="Target population" />
-                    </h3>
-                </label>
-                <input
-                    min="1"
-                    step="1"
-                    required
-                    type="number"
-                    id="population"
-                    name="population"
-                    onWheel={event => event.currentTarget.blur()}
-                    onChange={(event) =>
-                        setPopulationSize(parseInt(event.target.value))
-                    }
-                    onBlur={alertIfNotPositive}
-                />
-            </div>
             {inputFields.map((field) => (
                 <div key={field.id} className={styles.subgroup}>
                     {field.input}
@@ -208,19 +178,18 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                 )
             }
 
+            <h3 className={styles.totalPopulation}>
+                Total target population:&emsp;
+                <span className={styles.sum}>{sum}</span>
+            </h3>
+
             <div className={styles.calculate}>
                 <input
                     type="submit"
                     value="Submit"
                     className={styles.btn}
-                    disabled={!isSumValid}
                 />
             </div>
-            {!isSumValid && (
-                <div className={styles.alert}>
-                    <p className={styles.alertText}>Sum of subgroups must equal to total population.</p>
-                </div>
-            )}
         </form>
     );
 };
