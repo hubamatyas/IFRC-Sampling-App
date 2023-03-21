@@ -7,21 +7,14 @@ describe('Test the time-location sampling calculator', () => {
   
     it('should show correct sample size', () => {
       // in question card component
-  
-    //   cy.get("[id='margin']").type("5")
-    //   cy.get("[id='response']").type("5")
-    //   cy.get("[id='confidence']").select("90")
-    //   cy.get("[id='confidence']").should("have.value", "90")
-    //   cy.get("[id='individuals']").type("2000")
-    //   cy.get("[data-cy='submitCalculator-btn']").click()
+      cy.get("[id='communities']").type("3")
+      cy.get("[id='margin']").type("5")
+      cy.get("[id='confidence']").select("90")
+      cy.get("[id='confidence']").should("have.value", "90")
+      cy.inputCommunities([1000,2000,3000])
+      cy.get("[data-cy='submitCluster-btn']").click()
 
-    //   cy.get("[id='locations']").type("4")
-    //   cy.get("[id='days']").type("14")
-    //   cy.get("[id='interviews']").type("20")
-    //   cy.get("[data-cy='submitTimeLocation-btn']").click()
-    
-    //   cy.get("[data-cy='sampleSize']").should("contain", "Location 4")
-    //   cy.checkResult(["Location 1","Location 2","Location 3","Location 4"])
+       cy.checkResult(["Community No.1","Community No.2","Community No.3"])
     })
   
   })

@@ -247,31 +247,38 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                     }
                         
                     <div className={styles.calculate}>
-                        <input type="submit" className={styles.btn} value="Submit"/>
+                        <input 
+                            type="submit" 
+                            className={styles.btn} 
+                            value="Submit"
+                            data-cy="submitCluster-btn"
+                        />
                     </div>
                 </form>
             </Card>
             {clusterResponse && (
-                <div className={styles.result}>
+                <div className={styles.result} >
                     <Card hasArrow={false}>
                         <h2> Cluster Sampling Result </h2>
-                        {
-                            Object.keys(clusterResponse).map((key) => {
-                                return (
-                                    <div key={key} className={styles.unit}>
-                                        <h3 className={styles.name}> {key} </h3>
-                                        <h3 className={styles.clusters}> {clusterResponse[key].join(", ")} </h3>
-                                    </div>
-                                )
-                            })
-                        }
-                        <p className={styles.description}>
-                            {t('aboutGoal')}
-                            {t('aboutGoal')}
-                            {t('aboutGoal')}
-                            {t('aboutGoal')}
-                            {t('aboutGoal')}
-                        </p>
+                        <div data-cy={"sampleSize"}>
+                            {
+                                Object.keys(clusterResponse).map((key) => {
+                                    return (
+                                        <div key={key} className={styles.unit}>
+                                            <h3 className={styles.name}> {key} </h3>
+                                            <h3 className={styles.clusters}> {clusterResponse[key].join(", ")} </h3>
+                                        </div>
+                                    )
+                                })
+                            }
+                            <p className={styles.description}>
+                                {t('aboutGoal')}
+                                {t('aboutGoal')}
+                                {t('aboutGoal')}
+                                {t('aboutGoal')}
+                                {t('aboutGoal')}
+                            </p>
+                        </div>
                     </Card>
                     {/* <ExportButton questionCards={questionCards} calculatorState={
                         simpleRandomResponse

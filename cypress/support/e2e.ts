@@ -20,15 +20,19 @@ import './commands'
 // require('./commands')
 
 Cypress.Commands.add('inputSubgroupData', (subSizes:number[] ) => {
-    // let sum = subSizes.reduce((partialSum, a) => partialSum + a, 0)
-    // cy.get("[id='population']").type(sum.toString())
-
     for (let i = 0; i < subSizes.length; i++) {
         cy.get("[data-cy='group-inputs" + i + "']").find("[data-cy='subgroup-name']").type("Group No." + (i + 1))
         cy.get("[data-cy='group-inputs" + i + "']").find("[data-cy='subgroup-size']").type(subSizes[i].toString())
         if (i < subSizes.length - 1) {
             cy.get("[data-cy='group-inputs" + i + "']").find("[data-cy='addgroup-btn']").click()
         }
+    }
+})
+
+Cypress.Commands.add('inputCommunities', (subSizes:number[] ) => {
+    for (let i = 0; i < subSizes.length; i++) {
+        cy.get("[id='name" + (i+1) + "']").type("Community No." + (i + 1))
+        cy.get("[id='" + (i+1) + "']").type(subSizes[i].toString())
     }
 })
 
