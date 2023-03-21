@@ -204,22 +204,22 @@ const MyDoc: React.FC<DocProps> = ({
                     </View> 
 
                     <View style={styles.tableCol}> 
-                      {Object.values(locations)[0].sort(
-                        // @ts-ignore
-                        (a, b)=>( 
-                          Number(Object.keys(a)[0].slice(3)) - Number(Object.keys(b)[0].slice(3))
-                        )
-                        // @ts-ignore
-                        ).map((days,index) => (
-                        <View style={styles.tableRow}>
-                          <Text style={styles.tableCell}>
-                            {Object.keys(days)[0]+ ": " +
-                            // @ts-ignore
-                            Object.values(days)[0].join()}
-                          </Text>
-                        </View>
-                      ))}
-                      
+                      <View style={styles.timeUnitContainer}>
+                        {Object.values(locations)[0].sort(
+                          // @ts-ignore
+                          (a, b)=>( 
+                            Number(Object.keys(a)[0].slice(3)) - Number(Object.keys(b)[0].slice(3))
+                          )
+                          // @ts-ignore
+                          ).map((days,index) => (
+                            <Text style={styles.timeUnit}>
+                              {Object.keys(days)[0]+ ": " +
+                              // @ts-ignore
+                              Object.values(days)[0].join()}
+                            </Text>
+                          
+                        ))}
+                      </View>
                     </View> 
                   </View> 
                   ))}

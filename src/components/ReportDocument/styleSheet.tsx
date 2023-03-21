@@ -74,14 +74,14 @@ export const styles = StyleSheet.create({
       paddingBottom: 65,
       paddingHorizontal: 0,
     },
-    text: {
-      position: "absolute",
-      left: '0px',
-      right: '0px',
-      marginHorizontal: 'auto',
-      textAlign: "center",
-      justifyContent: 'center',
-    },
+    // text: {
+    //   position: "absolute",
+    //   left: '0px',
+    //   right: '0px',
+    //   marginHorizontal: 'auto',
+    //   textAlign: "center",
+    //   justifyContent: 'center',
+    // },
     pageNumber: {
       position: 'absolute',
       fontSize: 12,
@@ -142,7 +142,7 @@ export const styles = StyleSheet.create({
       margin: "auto", 
       paddingVertical: 5,
       paddingHorizontal: 10,
-      fontSize: 14,
+      fontSize: 12,
       fontFamily: 'Helvetica-Bold',
     },
 
@@ -150,7 +150,18 @@ export const styles = StyleSheet.create({
       margin: "auto", 
       paddingVertical: 5,
       paddingHorizontal: 10,
-      fontSize: 14,
+      fontSize: 12,
+    },
+
+    timeUnitContainer: {
+      marginLeft:"25%", 
+      paddingVertical: 5,
+    },
+
+    timeUnit: { 
+      margin: 0,
+      fontSize: 12,
+      paddingVertical: 1,
     },
 
     goalText:{
