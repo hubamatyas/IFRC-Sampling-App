@@ -258,10 +258,17 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                             {t('aboutGoal')}
                         </p>
                     </Card>
-                    <ExportButton 
+                    <ExportButton
+                        
                         questionCards={questionCards}
                         calculatorOutputs={calculatorOutputs}
-                        calculatorInputs={calculatorInputs}
+                        calculatorInputs={Object.assign({}, calculatorInputs, 
+                            {
+                                "Number of locations": locations,
+                                "Number of working days": days,
+                                "Number of interviews in one session": interviews
+                            }
+                        )}
                         subgroupSizes={null}
                     />
                 </div>
