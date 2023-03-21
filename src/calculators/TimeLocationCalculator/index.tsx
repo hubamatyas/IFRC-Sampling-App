@@ -210,8 +210,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                     <Card hasArrow={false}>
                         <h2>Time Location Calculator</h2>
                         <div data-cy={"sampleSize"}>
-                            <table>
-
+                            <table className={styles.table}>
                             {timeLocationResponse!.sort(
                                 (a, b)=>( 
                                 Number(Object.keys(a)[0].slice(8)) - Number(Object.keys(b)[0].slice(8))
