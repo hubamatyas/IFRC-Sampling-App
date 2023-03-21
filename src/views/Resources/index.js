@@ -13,7 +13,13 @@ function Resources(){
         <>
             <div className={styles.intro}>
                 <h1 className={styles.title}>{t('resourcesTitle')}</h1>
-                <p className={styles.introText}>{t('resourcesText')}</p>
+                <p className={styles.introText}>
+                    {t('resourcesText1')}
+                    {t('resourcesText2')}
+                    <a className={styles.link} href='https://ifrc.csod.com/client/ifrc/default.aspx'>{t('resourcesText3')}</a>
+                    {t('resourcesText4')}
+                </p>
+
             </div>
             <div className={styles.resources}>
                 {

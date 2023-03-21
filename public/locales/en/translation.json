@@ -44,7 +44,10 @@
     "samplingText": "This tool supports your sampling design process, guiding you through a series of questions about the population you are working with to recommend a sampling method and size.",
 
     "resourcesTitle": "Browse terms and defintions to learn more about sampling",
-    "resourcesText": "Find more information about sampling approaches, technical terms and external resources to explore sampling.",
+    "resourcesText1": "Find more information about sampling approaches, technical terms and external resources to explore sampling. ",
+    "resourcesText2": "Be sure to also explore the ",
+    "resourcesText3": "Fundamentals of Field Surveys",
+    "resourcesText4": " curriculum on the IFRC Learning Platform.",
     "altLogo": "IFRC and UCL logo",
     "altGlobe": "Select a language",
 
