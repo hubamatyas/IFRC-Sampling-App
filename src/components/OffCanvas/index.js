@@ -27,7 +27,7 @@ function OffCanvas({terminology}) {
         <>
             <span onClick={openCanvas} className={styles.term}><u>{terminology}</u><sup>&#9432;</sup></span>
             <div className={isActive? styles.open: styles.default}>
-                <button className={styles.closeBtn} onClick={closeCanvas}>
+                <button className={styles.closeBtn} onClick={closeCanvas} data-cy="closeOffcanvasBtn">
                     &times;
                 </button>
                 <h3 className={styles.title}>{terminology.charAt(0).toUpperCase() + terminology.slice(1)}</h3>
