@@ -62,7 +62,11 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
         setCalculatorInputs(calculatorInputs);
 
         setSimpleRandomSampleSize(sampleSize ? sampleSize['total'] : null);
-        setCalculatorOutputs({sampleSize:sampleSize, aboutGoal:t('aboutGoal')});
+        setCalculatorOutputs({
+            sampleSize:sampleSize,
+            aboutGoal:t('definitionsTimeLocationResult1')
+                    + t('definitionsTimeLocationResult2')
+        });
 
     }, []);
 

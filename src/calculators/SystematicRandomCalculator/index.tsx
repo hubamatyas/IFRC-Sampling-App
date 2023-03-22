@@ -260,7 +260,8 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                             }}
                             calculatorOutputs={{
                                 intervals : intervals,
-                                aboutGoal : t('aboutGoal')
+                                aboutGoal : t('definitionsSystematicResult1')
+                                            + t('definitionsSystematicResult2'),
                             }}
                             subgroupSizes={subgroups}
                         />

@@ -2,7 +2,7 @@ import { Document, Page, Image, Text, StyleSheet, Link, View } from '@react-pdf/
 import {styles} from './styleSheet';
 import React from 'react';
 import {calculatorInputs, calculatorOutputs, communityInfoType} from "../../types/calculatorResponse";
-import {toolLink,IFRCLink} from '../../util/config.js';
+import {toolLink, IFRCLink} from '../../util/config.js';
 
 
 export interface DocProps {
@@ -288,10 +288,10 @@ const MyDoc: React.FC<DocProps> = ({
         )} fixed />
   
         <Link src={toolLink} style={styles.linkLeft} fixed >
-          IFRC Community Sampling Tool
+          IFRC GO Sampling Tool
         </Link>
         <Link src={IFRCLink} style={styles.linkRight} fixed >
-          IFRC Community
+          IFRC GO Platform
         </Link>
 
         
