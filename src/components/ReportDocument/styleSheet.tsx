@@ -28,9 +28,7 @@ export const styles = StyleSheet.create({
     },
     notesSection:{
       fontSize: 14, 
-      margin : 10, 
-      marginLeft:"10%", 
-      marginBottom:"25px"
+      margin: "10px 10% 25px", 
     },
     notesTitle:{
       fontFamily: 'Helvetica-Bold',
