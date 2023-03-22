@@ -127,7 +127,7 @@ const MyDoc: React.FC<DocProps> = ({
                   <Text style={styles.tableHeader}>Subgroup Name</Text> 
                 </View> 
                 <View style={styles.tableCol}> 
-                  <Text style={styles.tableHeader}>Population</Text> 
+                  <Text style={styles.tableHeader}>Sample size</Text> 
                 </View> 
               </View> 
 
@@ -159,7 +159,7 @@ const MyDoc: React.FC<DocProps> = ({
                       <Text style={styles.tableHeader}>Subgroup Name</Text> 
                     </View> 
                     <View style={styles.tableCol}> 
-                      <Text style={styles.tableHeader}>Population</Text> 
+                      <Text style={styles.tableHeader}>Sampling interval</Text> 
                     </View> 
                   </View> 
 
