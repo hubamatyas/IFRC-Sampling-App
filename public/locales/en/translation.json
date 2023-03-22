@@ -1,4 +1,9 @@
 {
+    "english": "English",
+    "french": "French",
+    "spanish": "Spanish",
+    "arabic": "Arabic",
+
     "menuHome": "Home",
     "menuSampling": "Sampling",
     "menuResources": "Resources",
@@ -26,6 +31,10 @@
     "whoText": "Staff of the Red Cross and Red Crescent who are planning surveys with community members, for needs assessments after disasters or surveys throughout a programme life cycle to benchmark progress across a population.",
     "how": "How",
     "howText": "Follow the questions to explore your recommended sampling plan. Input the requested figures about your population, and you will receive a recommended sample size with a PDF export with a summary of your responses and your plan.",
+    
+    "howTo1": "Follow the questions to explore your recommended sampling plan.",
+    "howTo2": "Input the requested figures about your population and relevant parameters.",
+    "howTo3": "Receive a recommended sampling frame with a PDF export to summarize of your response.",
 
     "featureSampling": "Generate Sampling Plans",
     "featureSamplingText": "Follow the decision tree to learn the recommended sampling method for your project, and receive a sampling plan tailored to your specific population criteria.",
@@ -81,6 +90,7 @@
     "definitionsSubgroups1": "Sub-population groups are sub-groups of the target population that are of interest to the survey.",
     "definitionsSubgroups2": "For example, if the target population is all residents of a city, sub-population groups could be all residents of a particular neighborhood, all residents of a particular age group, all residents of a particular income group, etc.",
     "definitionsSimple1": "Simple random sampling is a probability sampling method where each member of the population has an equal chance of being selected for the sample.",
+    "definitionsSimple2": "A simple random sample is the most basic type of probability sample. It is the most reliable type of sample, but it is also the most expensive to collect. It is also the most difficult to implement in practice, as it requires a complete list of all members of the population.",
 
 
     "more": "Show more",

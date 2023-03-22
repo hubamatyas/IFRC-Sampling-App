@@ -17,8 +17,41 @@
     color: $white
 }
 
-.segment {
+.titleSegment {
     background-color: $primary-color;
+}
+
+.segment {
+    display: flex;
+    width: 60%;
+    margin: auto;
+    padding: $global-spacing 0;
+}
+
+.segmentTitle, .segmentText {
+    display: flex;
+    align-items: center;
+    text-align: justify;
+}
+
+.segmentText {
+    margin-left: $global-spacing-2;
+}
+
+.segmentNumber {
+    font-size: 5vh;
+    font-weight: $base-font-bold;
+    color: $primary-color;
+    margin: 0;
+}
+
+.segmentButton {
+    margin: $global-spacing-3;
+}
+
+.howto {
+    padding: $global-spacing-3 0;
+    background-color: $grey-mist;
 }
 
 @media screen and (max-width: $media-medium) {

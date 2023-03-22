@@ -20,6 +20,7 @@ function Definitions (): Definition {
         "simple random": (
             <div>
                 <p>{t("definitionsSimple1")}</p>
+                <p>{t("definitionsSimple2")}</p>
             </div>
         ),
         "simple random sample size": (

@@ -2,14 +2,16 @@ import React from "react";
 import i18nex from "i18next";
 import { _cs } from "@togglecorp/fujs";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 function LanguageDropdown() {
+    const { t } = useTranslation();
     const languages = [
-        { name: "English", code: "en" },
-        { name: "French", code: "fr" },
-        { name: "Spanish", code: "es" },
-        { name: "Arabic", code: "ar" }
+        { name: t("english"), code: "en" },
+        { name: t("french"), code: "fr" },
+        { name: t("spanish"), code: "es" },
+        { name: t("arabic"), code: "ar" }
     ];
 
     return (

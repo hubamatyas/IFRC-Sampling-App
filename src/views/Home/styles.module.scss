@@ -41,8 +41,23 @@
     margin-left: $global-spacing-2;
 }
 
+.segmentNumber {
+    font-size: 8vh;
+    font-weight: $base-font-bold;
+    color: $primary-color;
+    margin: 0;
+}
+
+.segmentKey {
+    font-size: 2vh;
+}
+
+.segmentButton {
+    margin: $global-spacing-3;
+}
+
 .howto {
-    padding: $global-spacing-5 0;
+    padding: $global-spacing-3 0;
     background-color: $grey-mist;
 }
 
