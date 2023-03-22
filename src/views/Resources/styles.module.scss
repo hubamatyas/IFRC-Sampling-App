@@ -6,10 +6,22 @@
     background-color: $grey-mist;
 }
 
+.title {
+    width: 60%;
+    margin: auto;
+    padding-bottom: $global-spacing-2;
+}
+
 .introText {
-    width: 50%;
+    width: 60%;
     margin: auto;
     text-align: center;
+}
+
+.link {
+    text-decoration: underline;
+    font-weight: $base-font-bold;
+    color: $grey-coal;
 }
 
 .resources {
@@ -17,14 +29,14 @@
     padding: $global-spacing-3 0;
 }
 
-@media (max-width: $media-small) {
+@media screen and (max-width: $media-medium) {
     .title {
-        width: 80%;
+        width: 90%;
         margin: auto;
-        padding-bottom: $global-spacing;
+        padding-bottom: $global-spacing-2;
     }
 
     .introText {
-        width: 80%;
+        width: 90%;
     }
 }

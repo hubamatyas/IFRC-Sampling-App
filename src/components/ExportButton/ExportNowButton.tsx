@@ -3,13 +3,16 @@ import styles from "./styles.module.scss";
 import React, {useRef,useState} from "react";
 import { IoMdDownload } from 'react-icons/io';
 import MyDoc from '../ReportDocument';
-import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType} from "../../types/calculatorResponse";
+import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType, communityInfoType} from "../../types/calculatorResponse";
+import Alert from "../Alert";
+
 interface ExportProps {
   notes?:string|null,
   questionCards: number[],
   calculatorInputs: calculatorInputs,
   calculatorOutputs: calculatorOutputs,
-  subgroupSizes: subgroupsType,
+  subgroupSizes?: subgroupsType,
+  communityInfo?:communityInfoType | null,
 }
 
 interface Option {
@@ -23,7 +26,8 @@ const App: React.FC<ExportProps> = ({
   questionCards,
   calculatorInputs,
   calculatorOutputs,
-  subgroupSizes,
+  subgroupSizes=null,
+  communityInfo=null,
   },
 
 ) => {
@@ -33,6 +37,7 @@ const App: React.FC<ExportProps> = ({
   const answers = useRef<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [fetchedNum, setFetchedNum] = useState<number>(0);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
 
   const fetchState = async(id:number) => {
     let success = true
@@ -74,6 +79,7 @@ const App: React.FC<ExportProps> = ({
           calculatorInputs={calculatorInputs}
           calculatorOutputs={calculatorOutputs}
           subgroupSizes={subgroupSizes}
+          communityInfo={communityInfo}
           notes={notes}
         />
       ).toBlob();
@@ -82,12 +88,14 @@ const App: React.FC<ExportProps> = ({
     }
     
     catch(err) {
-      alert("Sorry we have a little problem rendering PDF. Export failed." );
+      setShowAlert(true);
       return null;
     }
+
   };
 
   const handleClick = async() => {
+    setShowAlert(false);
     setFetchedNum(0);
     setLoading(true);
     await resetRefs();
@@ -115,6 +123,14 @@ const App: React.FC<ExportProps> = ({
           " Export now!"
         }
       </button>
+
+      {showAlert && 
+      <Alert 
+        onClose={()=>setShowAlert(false)} 
+        text="Export failed." 
+        type="error"/>
+      }
+
     </div>
   );
 }

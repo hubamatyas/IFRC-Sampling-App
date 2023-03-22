@@ -9,8 +9,9 @@
 }
 
 .term {
-  text-decoration: underline;
-  text-decoration-color: $primary-color;
+  color: $info-color;
+  //text-decoration: underline;
+  //text-decoration-color: $primary-color;
   cursor: pointer;
 }
 
@@ -31,6 +32,7 @@ sup {
   left: 0;
   padding: 0 $global-spacing-2;
   animation: slideIn 0.5s ease-in-out;
+  text-align: left;
 }
 
 @keyframes slideIn {
@@ -49,15 +51,20 @@ sup {
   cursor: pointer;
   color: $white;
 }
+.closeBtn:hover{
+  color: $primary-color;
+}
 
 .title {
   color: $white;
+  font-weight: $base-font-bold;
+  font-size: $font-size-heading-widget;
 }
 
 .content {
   text-align: left;
   color: $white;
-  font-size: $font-size-md;
+  font-size: $font-size-lg;
   font-weight: $base-font-style;
 }
 

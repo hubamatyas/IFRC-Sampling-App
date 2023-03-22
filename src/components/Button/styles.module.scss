@@ -10,6 +10,7 @@
 .default {
     padding: $global-spacing 0;
     width: 10em;
+    height: 3em;
     border-radius: $full-border-radius;
     background-color: $white;
     border: none;
@@ -25,6 +26,7 @@
 .inverse {
     padding: $global-spacing 0;
     width: 10em;
+    height: 3em;
     border-radius: $full-border-radius;
     background-color: $primary-color;
     border: none;

@@ -1,0 +1,10 @@
+{
+    "options": [
+        {"id": 10, "name": "Yes", "state": 6, "child_state": 10},
+        {"id": 11, "name": "No", "state": 6, "child_state": 10} 
+    ],
+
+    "state": 
+    {"id": 6, "name": "Do you have sub-population groups to target?", "term": "sub-population groups","parent_state": 3}
+}
+

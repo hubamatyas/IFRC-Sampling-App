@@ -4,7 +4,7 @@
 .App {
   text-align: left;
   font-family: $base-font-family;
-  font-size: $base-font-size;
+  font-size: $font-size-lg;
   font-weight: $base-font-weight;
   color: $grey-coal;
 }
@@ -49,6 +49,7 @@ input, select {
 
 input:focus, select:focus {
   background-color: white;
+  box-shadow: $base-box-shadow;
 }
 
 input[type="submit"]:focus {

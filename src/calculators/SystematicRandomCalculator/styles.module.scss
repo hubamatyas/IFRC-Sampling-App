@@ -8,6 +8,7 @@
 .description {
     width: 80%;
     margin: auto;
+    padding-bottom: 20px;
 }
 
 .content {
@@ -19,7 +20,10 @@
     width: 80%;
     margin: auto;
     text-align: center;
-    font-weight: $base-font-regular;
+}
+
+.info {
+    font-weight: $base-font-bold;
 }
 
 .number {
@@ -60,6 +64,13 @@
     padding: 10px;
     width: 150px;
     text-align: center;
+}
+
+.exportBtn{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
 }
 
 @media screen and (max-width: $media-medium) {

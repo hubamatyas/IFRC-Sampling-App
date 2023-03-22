@@ -8,15 +8,16 @@
 .description {
     width: 80%;
     margin: auto;
+    padding-bottom: 20px;
 }
 
-table{
-    //width: 80%;
+
+.table{
+    width: 80%;
     //border-bottom: 2px solid black;
     border-collapse: collapse;
-    width: $media-default;
     margin: auto;
-    margin-bottom: 10px;
+    margin-bottom: 3em;
 }
 
 td, th {
@@ -34,8 +35,11 @@ table {
 }
 
 .timeUnit{
+    text-align: left;
     font-weight: bold;
-    padding: $global-spacing-3;
+    padding-left: 21%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
   
 .locationUnit{
@@ -56,6 +60,10 @@ table {
     justify-content: center;
 }
 
+.info {
+    font-weight: $base-font-bold;
+}
+
 .btn {
     background-color: $primary-color;
     border: none;
@@ -70,9 +78,16 @@ table {
     text-align: center;
 }
 
+.exportBtn{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
 @media screen and (min-width: 1400px) {
     table {
-        width: 60%;
+        width: 70%;
     }
 }
 

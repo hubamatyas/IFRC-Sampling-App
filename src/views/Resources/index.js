@@ -4,16 +4,22 @@ import { useTranslation } from "react-i18next";
 import styles from "./styles.module.scss";
 
 import ShowMore from "../../components/ShowMore";
-import { definitions } from "../../components/Definitions/index";
+import Definitions from "../../components/Definitions/index";
 
 function Resources(){
     const { t } = useTranslation();
-
+    const definitions = Definitions();
     return (
         <>
             <div className={styles.intro}>
                 <h1 className={styles.title}>{t('resourcesTitle')}</h1>
-                <p className={styles.introText}>{t('resourcesText')}</p>
+                <p className={styles.introText}>
+                    {t('resourcesText1')}
+                    {t('resourcesText2')}
+                    <a className={styles.link} href='https://ifrc.csod.com/client/ifrc/default.aspx'>{t('resourcesText3')}</a>
+                    {t('resourcesText4')}
+                </p>
+
             </div>
             <div className={styles.resources}>
                 {

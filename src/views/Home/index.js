@@ -1,4 +1,5 @@
 import React from "react";
+import { _cs } from "@togglecorp/fujs";
 import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
@@ -88,21 +89,53 @@ function Home(){
                     <p className={styles.segmentText}> {t('whyText')} </p>
                 </div>
                 <div className={styles.segment}>
-                    <h1 className={styles.segmentTitle}> {t('who')} </h1>
-                    <p className={styles.segmentText}> {t('whoText')} </p>
-                </div>
-                <div className={styles.segment}>
                     <h1 className={styles.segmentTitle}> {t('how')} </h1>
                     <p className={styles.segmentText}> {t('howText')} </p>
+                </div>
+                <div className={styles.segment}>
+                    <h1 className={styles.segmentTitle}> {t('who')} </h1>
+                    <p className={styles.segmentText}> {t('whoText')} </p>
                 </div>
             </div>
             <div className={styles.howto}>
                 <h1> {t('headerHowTo')} </h1>
-                <Button
-                        text={t('buttonGetStarted')}
-                        link="/sampling"
-                        style="inverse"
-                />
+                <div className={styles.segment}>
+                    <h1 className={_cs(
+                        styles.segmentTitle,
+                        styles.segmentNumber)
+                    }>1.</h1>
+                    <p className={_cs(
+                        styles.segmentText,
+                        styles.segmentKey)
+                    }> {t('howTo1')} </p>
+                </div>
+                <div className={styles.segment}>
+                    <h1 className={_cs(
+                        styles.segmentTitle,
+                        styles.segmentNumber)
+                    }>2.</h1>
+                    <p className={_cs(
+                        styles.segmentText,
+                        styles.segmentKey)
+                    }> {t('howTo2')} </p>
+                </div>
+                <div className={styles.segment}>
+                    <h1 className={_cs(
+                        styles.segmentTitle,
+                        styles.segmentNumber)
+                    }>3.</h1>
+                    <p className={_cs(
+                        styles.segmentText,
+                        styles.segmentKey)
+                    }> {t('howTo3')} </p>
+                </div>
+                <div className={styles.segmentButton}>
+                    <Button
+                            text={t('buttonGetStarted')}
+                            link="/sampling"
+                            style="inverse"
+                    />
+                </div>
             </div>
         </div>
     );

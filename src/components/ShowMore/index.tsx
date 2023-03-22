@@ -40,7 +40,7 @@ function ShowMore({ title, content }: ShowMoreProps): JSX.Element {
         {showMore ? (
           content
         ) : (
-          <p >{text.length > 100 ? `${text.substring(0, 150)}...` : text}</p>
+          <p >{text.length > 100 ? `${text.substring(0, 250)}...` : text}</p>
         )}
       </div>
     </div>

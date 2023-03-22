@@ -2,7 +2,7 @@ import React,{ useState } from "react";
 
 import styles from "./styles.module.scss";
 
-import { definitions } from "../Definitions";
+import Definitions from "../Definitions";
 
 /**
  * Renders an OffCanvas component displaying the definition of a given terminology
@@ -20,12 +20,12 @@ function OffCanvas({terminology}) {
         setIsActive(false);
     }
     
+    const definitions = Definitions();
     const content = definitions[terminology.toLowerCase()].props.children;
     
     return (
         <>
-            <span onClick={openCanvas} className={styles.term}>{terminology}</span>
-            <sup onClick={openCanvas}>&#9432;</sup>
+            <span onClick={openCanvas} className={styles.term}><u>{terminology}</u><sup>&#9432;</sup></span>
             <div className={isActive? styles.open: styles.default}>
                 <button className={styles.closeBtn} onClick={closeCanvas}>
                     &times;

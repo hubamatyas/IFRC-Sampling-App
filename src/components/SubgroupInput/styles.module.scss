@@ -11,6 +11,18 @@
     margin: 0;
 }
 
+.totalPopulation{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20;
+    font-weight: bold;
+    .sum{
+        color: $primary-color;
+    }
+}
+
+
 .subtitle {
     margin: 0;
 }
@@ -36,7 +48,8 @@
 
 .subgroup {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
 }
 
 .newRow {
@@ -52,6 +65,17 @@
     margin: $global-spacing 0 $global-spacing $global-spacing;
 }
 
+.newRow:hover {
+    background-color: $primary-color;
+    color: $white;
+}
+
+.newRow:disabled {
+    background-color: $grey-cloud;
+    border-color: $grey-cloud;
+    cursor: not-allowed;
+}
+
 .btn {
     background-color: $primary-color;
     border: none;
@@ -60,7 +84,8 @@
     cursor: pointer;
     font-size: $base-font-size;
     font-weight: $base-font-bold;
-    margin: 0 10px;
+    //margin: 0 10px;
+    margin: auto;
     padding: 10px;
     width: 150px;
     text-align: center;

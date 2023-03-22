@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { definitions } from "../Definitions";
+import Definition from "../Definitions";
 import OffCanvas from "../OffCanvas";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 
 const Terminology: React.FC<Props> = ({ term, text }: Props) => {
   const [definition, setDefinition] = useState<React.ReactNode>(null);
-
+  const definitions = Definition();
   useEffect(() => {
     if (term && term in definitions) {
       setDefinition(definitions[term]);

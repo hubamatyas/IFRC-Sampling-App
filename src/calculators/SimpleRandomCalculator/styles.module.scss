@@ -14,7 +14,10 @@
     width: 80%;
     margin: auto;
     text-align: center;
-    font-weight: $base-font-regular;
+}
+
+.info {
+    font-weight: $base-font-bold;
 }
 
 .number {
@@ -28,6 +31,14 @@
 .description {
     width: 80%;
     margin: auto;
+    padding-bottom: 20px;
+}
+
+.exportBtn{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
 }
 
 @media screen and (max-width: $media-medium) {
