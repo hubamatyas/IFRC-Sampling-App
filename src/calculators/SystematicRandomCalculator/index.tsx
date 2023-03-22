@@ -104,13 +104,13 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
         const individualsElement = (document.getElementById("individuals") as HTMLInputElement)
 
         if(marginElement?.value && Number(marginElement?.value)<=0){
-            setAlertMessage("Margin of error must be larger than zero.")
+            setAlertMessage("Margin of error should be larger than zero.")
         }else if (responseElement?.value && Number(responseElement?.value)<0){
-            setAlertMessage("Non-response rate must be larger or equal to zero.")
+            setAlertMessage("Non-response rate should be larger or equal to zero.")
         }else if (householdsElement?.value && Number(householdsElement?.value)<=0){
-            setAlertMessage("Number of households must be larger than zero.")
+            setAlertMessage("Number of households should be larger than zero.")
         }else if (individualsElement?.value && Number(individualsElement?.value)<=0){
-            setAlertMessage("Number of individuals must be larger than zero.")
+            setAlertMessage("Number of individuals should be larger than zero.")
         }else{
             setShowAlert(false);
             return;
