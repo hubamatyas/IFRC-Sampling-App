@@ -96,14 +96,16 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
             if (response.status !== 200) {
                 // const errorMessage = await response.data;
                 // throw new Error(errorMessage);
-                setAlertMessage("Error. This set of parameters give an invalid result.");
+                setAlertMessage("Sorry we have a little problem fetching data. Please try again later.");
                 setShowAlert(true);
             }
             setTimeLocationResponse(response.data.units);
             setCalculatorOutputs({timeLocationResponse:response.data.units, aboutGoal:t('aboutGoal')});
         } catch (error) {
-            console.log(error);
-            window.alert(error);
+            // console.log(error);
+            // window.alert(error);
+            setAlertMessage("Error. This set of parameters give an invalid result.");
+            setShowAlert(true);
         }
     }
 
