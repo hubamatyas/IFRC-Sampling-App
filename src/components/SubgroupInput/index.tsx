@@ -164,14 +164,15 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                     >
                         <AiOutlinePlus />
                     </button>
-                    {field.id !== 0 && (
-                        <button
-                            className={styles.newRow}
-                            onClick={() => handleRemoveSubgroup(field.id)}
-                        >
-                            <AiOutlineMinus />
-                        </button>
-                    )}
+
+                    <button
+                        className={styles.newRow}
+                        onClick={() => handleRemoveSubgroup(field.id)}
+                        disabled={inputFields.length <= 1}
+                    >
+                        <AiOutlineMinus />
+                    </button>
+                    
                 </div>
             ))}
 

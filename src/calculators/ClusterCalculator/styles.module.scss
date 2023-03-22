@@ -83,6 +83,13 @@
     margin-bottom: 6px;
 }
 
+.exportBtn{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
 @media screen and (min-width: 1400px) {
     .unit {
         width: 700px;

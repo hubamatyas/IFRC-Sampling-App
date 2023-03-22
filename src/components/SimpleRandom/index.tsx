@@ -63,7 +63,7 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
         // return sample size to parent component
         onSubmitSimpleRandom(
         {
-            "Margin of error": marginOfError,
+            "Margin of error(%)": marginOfError,
             "Confidence level(%)": confidenceLevel,
             "Non-response rate(%)": nonResponseRate,
             "Households": households,
@@ -130,11 +130,13 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
         const householdsElement = (document.getElementById("households") as HTMLInputElement)
         const individualsElement = (document.getElementById("individuals") as HTMLInputElement)
 
-        if(marginElement?.value && Number(marginElement?.value)<=0){
+        if(marginElement?.value && Number(marginElement?.value) < 1){
             setAlertMessage("Margin of error should be at least 1.")
-        }else if (responseElement?.value && Number(responseElement?.value)<0){
+        }else if (marginElement?.value && Number(marginElement?.value) > 20){
+            setAlertMessage("Margin of error should be at most 20.")
+        }else if (responseElement?.value && Number(responseElement?.value) < 0){
             setAlertMessage("Non-response rate should be at least 0.")
-        }else if (householdsElement?.value && Number(householdsElement?.value)<=0){
+        }else if (householdsElement?.value && Number(householdsElement?.value) < 1){
             setAlertMessage("Number of households should be at least 1.")
         }else if (individualsElement?.value && Number(individualsElement?.value) < minIndividuals){
             setAlertMessage("Number of individuals should be at least "+ minIndividuals +".")

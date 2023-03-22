@@ -9,8 +9,9 @@
 }
 
 .term {
-  text-decoration: underline;
-  text-decoration-color: $primary-color;
+  color: $info-color;
+  //text-decoration: underline;
+  //text-decoration-color: $primary-color;
   cursor: pointer;
 }
 

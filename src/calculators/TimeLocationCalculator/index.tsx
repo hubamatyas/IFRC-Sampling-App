@@ -80,7 +80,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
             interviews_per_session: interviews,
             households: calculatorInputs ? calculatorInputs['Households'] : null,
             individuals: calculatorInputs ? calculatorInputs['Individuals'] : null,
-            margin_of_error: calculatorInputs ? calculatorInputs['Margin of error'] : null,
+            margin_of_error: calculatorInputs ? calculatorInputs['Margin of error(%)'] : null,
             confidence_level: calculatorInputs ? calculatorInputs['Confidence level(%)'] : null,
             non_response_rate: calculatorInputs ? calculatorInputs['Non-response rate(%)'] : null,
         }
@@ -94,8 +94,10 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                 },
             });
             if (response.status !== 200) {
-                const errorMessage = await response.data;
-                throw new Error(errorMessage);
+                // const errorMessage = await response.data;
+                // throw new Error(errorMessage);
+                setAlertMessage("Error. This set of parameters give an invalid result.");
+                setShowAlert(true);
             }
             setTimeLocationResponse(response.data.units);
             setCalculatorOutputs({timeLocationResponse:response.data.units, aboutGoal:t('aboutGoal')});
@@ -211,8 +213,7 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                     <Card hasArrow={false}>
                         <h2>Time Location Calculator</h2>
                         <div data-cy={"sampleSize"}>
-                            <table>
-
+                            <table className={styles.table}>
                             {timeLocationResponse!.sort(
                                 (a, b)=>( 
                                 Number(Object.keys(a)[0].slice(8)) - Number(Object.keys(b)[0].slice(8))
@@ -260,12 +261,20 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                             <span>{t('result3')}</span>
                         </p>
                     </Card>
-                    <ExportButton 
-                        questionCards={questionCards}
-                        calculatorOutputs={calculatorOutputs}
-                        calculatorInputs={calculatorInputs}
-                        subgroupSizes={null}
-                    />
+                    <div className={styles.exportBtn}>
+                        <ExportButton
+                            questionCards={questionCards}
+                            calculatorOutputs={calculatorOutputs}
+                            calculatorInputs={Object.assign({}, calculatorInputs, 
+                                {
+                                    "Locations": locations,
+                                    "Working days": days,
+                                    "Interviews in one session": interviews
+                                }
+                            )}
+                            subgroupSizes={null}
+                        />
+                    </div>
                 </div>
             )}
         </>

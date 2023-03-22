@@ -111,12 +111,14 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
                             <span>{t('result3')}</span>
                         </p>
                     </Card>
-                    <ExportButton 
-                        subgroupSizes={subgroups}
-                        questionCards={questionCards} 
-                        calculatorInputs={calculatorInputs}
-                        calculatorOutputs={calculatorOutputs}
-                    />
+                    <div className={styles.exportBtn}>
+                        <ExportButton 
+                            subgroupSizes={subgroups}
+                            questionCards={questionCards} 
+                            calculatorInputs={calculatorInputs}
+                            calculatorOutputs={calculatorOutputs}
+                        />
+                    </div>
                 </div>
             )}
         </>
