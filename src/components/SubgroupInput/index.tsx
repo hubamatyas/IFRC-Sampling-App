@@ -169,6 +169,7 @@ const SubgroupInput: React.FC<Props> = ({onSubmitSubgroups }: Props) => {
                         className={styles.newRow}
                         onClick={() => handleRemoveSubgroup(field.id)}
                         disabled={inputFields.length <= 1}
+                        data-cy={"deletegroup-btn"}
                     >
                         <AiOutlineMinus />
                     </button>
