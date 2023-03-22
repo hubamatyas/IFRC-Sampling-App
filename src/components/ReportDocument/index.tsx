@@ -1,8 +1,7 @@
 import { Document, Page, Image, Text, StyleSheet, Link, View } from '@react-pdf/renderer';
 import {styles} from './styleSheet';
 import React from 'react';
-import {calculatorInputs, calculatorOutputs} from "../../types/calculatorResponse";
-import {ImNotification} from 'react-icons/im';
+import {calculatorInputs, calculatorOutputs, communityInfoType} from "../../types/calculatorResponse";
 import {toolLink,IFRCLink} from '../../util/config.js';
 
 
@@ -12,7 +11,8 @@ export interface DocProps {
   answers:string[],
   calculatorInputs:calculatorInputs | null,
   calculatorOutputs:calculatorOutputs | null,
-  subgroupSizes:any[] | null,
+  subgroupSizes?:any[] | null,
+  communityInfo?:communityInfoType | null,
 }
 
 const MyDoc: React.FC<DocProps> = ({
@@ -22,12 +22,11 @@ const MyDoc: React.FC<DocProps> = ({
   calculatorInputs,
   calculatorOutputs,
   subgroupSizes,
+  communityInfo,
 }
 
 ) => {
     let today = new Date().toISOString().slice(0, 10);
-    //let notes = "Some notes about this survey... "
-    // let copyRight = "© 2023 International Federation of Red Cross and Red Crescent Societies. All rights reserved."
 
     return (
     <Document>
@@ -65,15 +64,30 @@ const MyDoc: React.FC<DocProps> = ({
           Subgroups:{"\n"}
 
           {subgroupSizes ?
+            subgroupSizes.map((subgroup, i) => (
+              "–– Subgroup name: " + subgroup.name 
+              + "\n–– Size: " + subgroup.size
+            )).join("\n\n")
+            :
+            "None\n" 
+          } 
+        </Text>
 
-          subgroupSizes.map((subgroup, i) => (
-            <Text style={styles.subgroupData} key={i}>
-              {"–– Subgroup name: "}{subgroup.name}{"\n"}
-              {"–– Size: "}{subgroup.size}{"\n\n"}
-            </Text>
-          ))
+
+        {/* render community info */}
+        <Text style={styles.decisions}>
+          {communityInfo ?
+            <>
+              <Text>Geographical units:{"\n"}</Text>
+              {communityInfo.map((community, i) => (
+                <Text style={styles.subgroupData} key={i}>
+                  {"–– Community name: "}{community.name}{"\n"}
+                  {"–– Size: "}{community.size}{"\n\n"}
+                </Text>
+              ))}
+            </>
           :
-          <Text> None{"\n"} </Text>
+          <></>
           } 
         </Text>
 
@@ -180,34 +194,63 @@ const MyDoc: React.FC<DocProps> = ({
 
                   <View style={styles.tableRow}> 
                     <View style={styles.tableCol}> 
-                      <Text style={styles.TLtableHeader}>
+                      <Text style={styles.tableHeader}>
                         {Object.keys(locations)[0]}
                       </Text> 
                     </View> 
 
                     <View style={styles.tableCol}> 
-                      {Object.values(locations)[0].sort(
-                        // @ts-ignore
-                        (a, b)=>( 
-                          Number(Object.keys(a)[0].slice(3)) - Number(Object.keys(b)[0].slice(3))
-                        )
-                        // @ts-ignore
-                        ).map((days,index) => (
-                        <View style={styles.tableRow}>
-                          <Text style={styles.tableCell}>
-                            {Object.keys(days)[0]+ ": " +
-                            // @ts-ignore
-                            Object.values(days)[0].join()}
-                          </Text>
-                        </View>
-                      ))}
-                      
+                      <View style={styles.timeUnitContainer}>
+                        {Object.values(locations)[0].sort(
+                          // @ts-ignore
+                          (a, b)=>( 
+                            Number(Object.keys(a)[0].slice(3)) - Number(Object.keys(b)[0].slice(3))
+                          )
+                          // @ts-ignore
+                          ).map((days,index) => (
+                            <Text style={styles.timeUnit}>
+                              {Object.keys(days)[0]+ ": " +
+                              // @ts-ignore
+                              Object.values(days)[0].join()}
+                            </Text>
+                          
+                        ))}
+                      </View>
                     </View> 
                   </View> 
                   ))}
             </View>
           )
+
+          }else if(calculatorOutputs?.clusterResponse){return(
+            <View style={styles.table}> 
+                    <View style={styles.tableRow}> 
+                      <View style={styles.tableCol}> 
+                        <Text style={styles.tableHeader}>Geographical unit</Text> 
+                      </View> 
+                      <View style={styles.tableCol}> 
+                        <Text style={styles.tableHeader}>Cluster</Text> 
+                      </View> 
+                    </View> 
+
+                    {Object.keys(calculatorOutputs?.clusterResponse).map(
+                      (community, index) => {
+                        return (
+                          <View style={styles.tableRow}> 
+                            <View style={styles.tableCol}> 
+                              <Text style={styles.tableCell}>{community}</Text> 
+                            </View> 
+                            <View style={styles.tableCol}> 
+                              <Text style={styles.tableCell}>{calculatorOutputs?.clusterResponse![community].join(", ")}</Text> 
+                            </View> 
+                          </View> 
+                        )
+                      }
+                    )}
+            </View> 
+          )
           }
+
         })()}
         </View>
 

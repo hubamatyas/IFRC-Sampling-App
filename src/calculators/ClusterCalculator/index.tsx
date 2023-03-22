@@ -13,6 +13,7 @@ import Input from "../../components/Input";
 import Terminology from "../../components/Terminology";
 import ExportButton from "../../components/ExportButton";
 import SimpleRandom from "../../components/SimpleRandom";
+import {ClusterResponse} from "../../types/calculatorResponse";
 
 interface Community {
     name: string;
@@ -23,9 +24,9 @@ interface ClusterProps extends WithTranslation {
     questionCards: number[];
 }
 
-interface ClusterResponse {
-    [key: string]: number[];
-}
+// interface ClusterResponse {
+//     [key: string]: number[];
+// }
 
 const TimeLocationCalculator: React.FC<ClusterProps> = ({
     t,
@@ -275,10 +276,18 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                         </p>
                         </div>
                     </Card>
-                    {/* <ExportButton questionCards={questionCards} calculatorState={
-                        simpleRandomResponse
-                        // pass state of time location calculator
-                    } /> */}
+                    <div className={styles.exportBtn}>
+                        <ExportButton 
+                            questionCards={questionCards} 
+                            calculatorInputs={{"Number of communities":numOfcommunities, 
+                                                "Margin of error(%)":marginOfError, 
+                                                "Confidence level(%)":confidenceLevel, 
+                                            }}
+                            calculatorOutputs={{clusterResponse:clusterResponse, aboutGoal:t('aboutGoal')}}
+                            communityInfo={communities}
+                            //communitiesSizes={null}
+                        />
+                    </div>
                 </div>
             )}
         </>

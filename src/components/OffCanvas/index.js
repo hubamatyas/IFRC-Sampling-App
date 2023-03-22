@@ -25,8 +25,7 @@ function OffCanvas({terminology}) {
     
     return (
         <>
-            <span onClick={openCanvas} className={styles.term}>{terminology}</span>
-            <sup onClick={openCanvas}>&#9432;</sup>
+            <span onClick={openCanvas} className={styles.term}><u>{terminology}</u><sup>&#9432;</sup></span>
             <div className={isActive? styles.open: styles.default}>
                 <button className={styles.closeBtn} onClick={closeCanvas}>
                     &times;

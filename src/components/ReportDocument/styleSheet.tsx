@@ -74,14 +74,14 @@ export const styles = StyleSheet.create({
       paddingBottom: 65,
       paddingHorizontal: 0,
     },
-    text: {
-      position: "absolute",
-      left: '0px',
-      right: '0px',
-      marginHorizontal: 'auto',
-      textAlign: "center",
-      justifyContent: 'center',
-    },
+    // text: {
+    //   position: "absolute",
+    //   left: '0px',
+    //   right: '0px',
+    //   marginHorizontal: 'auto',
+    //   textAlign: "center",
+    //   justifyContent: 'center',
+    // },
     pageNumber: {
       position: 'absolute',
       fontSize: 12,
@@ -118,7 +118,7 @@ export const styles = StyleSheet.create({
     table: { 
       // @ts-ignore 
       display: "table",
-      width: "auto",
+      width: "70%",
       marginHorizontal: "auto",
       marginVertical: 10,
       borderStyle: "solid", 
@@ -131,29 +131,37 @@ export const styles = StyleSheet.create({
       flexDirection: "row" 
     }, 
     tableCol: { 
-      width: "25%", 
+      width: "50%", 
       borderStyle: "solid", 
       borderWidth: 1, 
       borderLeftWidth: 0, 
       borderTopWidth: 0 
     }, 
+
     tableHeader: { 
       margin: "auto", 
-      marginTop: 4, 
-      marginBottom: 4,
-      fontSize: 10,
+      paddingVertical: 5,
+      paddingHorizontal: 10,
+      fontSize: 12,
       fontFamily: 'Helvetica-Bold',
     },
-    TLtableHeader: { 
-      margin: "auto", 
-      fontSize: 10,
-      fontFamily: 'Helvetica-Bold',
-    },
+
     tableCell: { 
       margin: "auto", 
-      marginTop: 4, 
-      marginBottom: 4,
-      fontSize: 10 
+      paddingVertical: 5,
+      paddingHorizontal: 10,
+      fontSize: 12,
+    },
+
+    timeUnitContainer: {
+      marginLeft:"25%", 
+      paddingVertical: 5,
+    },
+
+    timeUnit: { 
+      margin: 0,
+      fontSize: 12,
+      paddingVertical: 1,
     },
 
     goalText:{
