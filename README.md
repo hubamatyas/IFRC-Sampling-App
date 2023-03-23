@@ -18,10 +18,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
@@ -46,6 +42,7 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 ## Testing
 
 Cypress framework is used for both component and end-to-end testings.\
+The base URL for end-to-end testing is configured in file cypress.config.ts\
 See the [documentation](https://docs.cypress.io/) for more about testing using Cypress.
 
 ### `npx cypress open`
