@@ -35,34 +35,34 @@ describe('Test the systematic random sampling calculator with subgroups', () => 
   
   })
 
-  describe('Test the alert for invalid input', () => {
-    beforeEach(() => {
-      cy.visit("/sampling")
-      cy.intercept(
-        `https://ifrc-sampling.azurewebsites.net/api/decision-tree/1/`, 
-        { fixture: 'subgroup_qs_system.json' }
-      )
-      cy.get("[data-cy='option-btn']").contains("No").click()
-    })
-  
-    it('should alert when margin of error < 1', () => {
-      cy.checkLowerBound("margin", 1)
-    })
-  
-    it('should alert when margin of error > 20', () => {
-      cy.checkUpperBound("margin", 20)
-    })
-  
-    it('should alert when individuals number < 1', () => {
-      cy.checkLowerBound("individuals", 1)
-    })
-  
-    it('should alert when non-response rate < 0', () => {
-      cy.checkLowerBound("response", 0)
-    })
-  
-    it('should alert when non-response rate > 80', () => {
-      cy.checkUpperBound("response", 80)
-    })
-  
+describe('Test the alert for invalid input', () => {
+  beforeEach(() => {
+    cy.visit("/sampling")
+    cy.intercept(
+      `https://ifrc-sampling.azurewebsites.net/api/decision-tree/1/`, 
+      { fixture: 'subgroup_qs_system.json' }
+    )
+    cy.get("[data-cy='option-btn']").contains("No").click()
   })
+
+  it('should alert when margin of error < 1', () => {
+    cy.checkLowerBound("margin", 1)
+  })
+
+  it('should alert when margin of error > 20', () => {
+    cy.checkUpperBound("margin", 20)
+  })
+
+  it('should alert when individuals number < 1', () => {
+    cy.checkLowerBound("individuals", 1)
+  })
+
+  it('should alert when non-response rate < 0', () => {
+    cy.checkLowerBound("response", 0)
+  })
+
+  it('should alert when non-response rate > 80', () => {
+    cy.checkUpperBound("response", 80)
+  })
+
+})
