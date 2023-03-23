@@ -1,11 +1,11 @@
-describe('Test the time-location sampling calculator', () => {
+describe('Test the cluster sampling calculator', () => {
     beforeEach(() => {
       cy.visit("/sampling")
       cy.intercept(`https://ifrc-sampling.azurewebsites.net/api/decision-tree/1/`, { fixture: 'community_qs.json' })
-      cy.get("[data-cy='option-btn']").contains("Two or more").click()
     })
   
     it('should show correct sample size', () => {
+      cy.get("[data-cy='option-btn']").contains("Two or more").click()
       // in question card component
       cy.get("[id='communities']").type("3")
       cy.get("[id='margin']").type("5")

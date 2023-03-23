@@ -3,7 +3,7 @@ import React from 'react'
 import ShowMore from "../../src/components/ShowMore";
 
 
-describe('Test subgroup input form', () => {
+describe('Test show more component', () => {
     beforeEach(() => {
         const content = <div><p>definitionsListframe1</p><p>definitionsListframe2</p></div>;
         cy.mount(<ShowMore 

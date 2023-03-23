@@ -1,6 +1,6 @@
 import Terminology from "../../src/components/Terminology";
 
-describe('Test subgroup input form', () => {
+describe('Test terminology and offcanvas', () => {
     beforeEach(() => {
         cy.mount(<Terminology term={"list frame"} text={"list frame"}/>)
     })

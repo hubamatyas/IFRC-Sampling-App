@@ -1,4 +1,4 @@
-describe('Test the simple random sampling calculator', () => {
+describe('Test the Navbar routing', () => {
     beforeEach(() => {
       cy.visit("/")
     })

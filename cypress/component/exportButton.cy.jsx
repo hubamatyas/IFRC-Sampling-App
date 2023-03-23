@@ -1,6 +1,6 @@
 import ExportButton from "../../src/components/ExportButton";
 
-describe('Test subgroup input form', () => {
+describe('Test export button', () => {
     beforeEach(() => {
         cy.mount(<ExportButton/>)
     })
