@@ -1,18 +1,28 @@
 import { Document, Page, Image, Text, StyleSheet, Link, View } from '@react-pdf/renderer';
 import {styles} from './styleSheet';
 import React from 'react';
-import {calculatorInputs, calculatorOutputs, communityInfoType} from "../../types/calculatorResponse";
+import {calculatorInputs, calculatorOutputs, communityInfoType, subgroupsType} from "../../types/calculatorResponse";
 import {toolLink, IFRCLink} from '../../util/config.js';
 
+/**
+@fileoverview this module provides a React functional component that renders the
+PDF report. It is called by the ExportNowButton component. It uses the react-pdf
+library to render the PDF. The component renders the logo, the title, the date,
+the notes section, the decisions section, the subgroups section(optional), the 
+community info section(optional), the calculator inputs section, and the calculator
+results section. In the last page, it renders a piece of disclaimer text.The 
+component also renders the tool link and the IFCR link at thebottom of the page.
+@module ReportDocument
+*/
 
 export interface DocProps {
   notes?:string|null,
   questionNames:string[],
   answers:string[],
-  calculatorInputs:calculatorInputs | null,
-  calculatorOutputs:calculatorOutputs | null,
-  subgroupSizes?:any[] | null,
-  communityInfo?:communityInfoType | null,
+  calculatorInputs:calculatorInputs,
+  calculatorOutputs:calculatorOutputs,
+  subgroupSizes?:subgroupsType,
+  communityInfo?:communityInfoType,
 }
 
 const MyDoc: React.FC<DocProps> = ({
@@ -65,8 +75,8 @@ const MyDoc: React.FC<DocProps> = ({
 
           {subgroupSizes ?
             subgroupSizes.map((subgroup, i) => (
-              "–– Subgroup name: " + subgroup.name 
-              + "\n–– Size: " + subgroup.size
+              "–– Subgroup name: " + subgroup?.name 
+              + "\n–– Size: " + subgroup?.size
             )).join("\n\n")
             :
             "None\n" 

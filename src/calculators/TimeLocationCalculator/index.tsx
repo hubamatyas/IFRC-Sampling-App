@@ -104,7 +104,9 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                 setShowAlert(true);
             }
             setTimeLocationResponse(response.data.units);
-            setCalculatorOutputs({timeLocationResponse:response.data.units, aboutGoal:t('aboutGoal')});
+            setCalculatorOutputs({timeLocationResponse:response.data.units, 
+                                aboutGoal:t('definitionsTimeLocationResult1')+"\n\n"+
+                                t('definitionsTimeLocationResult2')});
         } catch (error) {
             // console.log(error);
             // window.alert(error);
