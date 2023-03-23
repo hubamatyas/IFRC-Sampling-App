@@ -15,6 +15,8 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+import 'cypress-real-events/support'
+import 'cypress-plugin-api'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
@@ -39,5 +41,37 @@ Cypress.Commands.add('inputCommunities', (subSizes:number[] ) => {
 Cypress.Commands.add('checkResult', (sampleSizes:number[] ) => {
     for (let i = 0; i < sampleSizes.length; i++) {
         cy.get("[data-cy='sampleSize']").should("contain",  sampleSizes[i])
+    }
+})
+
+Cypress.Commands.add('checkLowerBound', (
+    inputSelector:string, 
+    lower:number|null = null, 
+    submitSeletor:string = "submitCalculator-btn"
+) => {
+    if (lower !== null) {
+        cy.get("[id='"+inputSelector+"']").type(lower.toString())
+        cy.get("[data-cy='"+submitSeletor+"']").click()
+        cy.get("[data-cy='alert']").should("not.exist")
+    
+        cy.get("[id='"+inputSelector+"']").clear().type((lower-1).toString())
+        cy.get("[data-cy='"+submitSeletor+"']").click()
+        cy.get("span").should("contain", "should be at least "+lower.toString()+".")
+    }
+})
+
+Cypress.Commands.add('checkUpperBound', (
+    inputSelector:string, 
+    upper:number|null = null, 
+    submitSeletor:string = "submitCalculator-btn"
+) => {
+    if (upper !== null) {
+        cy.get("[id='"+inputSelector+"']").type(upper.toString())
+        cy.get("[data-cy='"+submitSeletor+"']").click()
+        cy.get("[data-cy='alert']").should("not.exist")
+
+        cy.get("[id='"+inputSelector+"']").clear().type((upper+1).toString())
+        cy.get("[data-cy='"+submitSeletor+"']").click()
+        cy.get("span").should("contain", "should be at most "+upper.toString()+".")
     }
 })

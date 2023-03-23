@@ -1,8 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-
 import styles from "./styles.module.scss";
-
 import ShowMore from "../../components/ShowMore";
 import Definitions from "../../components/Definitions/index";
 

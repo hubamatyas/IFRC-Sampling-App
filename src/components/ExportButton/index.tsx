@@ -40,7 +40,12 @@ const App: React.FC<ExportProps> = ({
     return (
 
       <div>
-        <button style={{display:clicked?"none":"inline"}} className={styles.exportBtn} onClick={()=>{setclicked(true)}}>
+        <button 
+          style={{display:clicked?"none":"inline"}} 
+          className={styles.exportBtn} 
+          onClick={()=>{setclicked(true)}}
+          data-cy="exportBtn"
+        >
           <IoMdDownload />Export report
         </button>
 

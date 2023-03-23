@@ -24,7 +24,7 @@ function Alert({text, type, onClose}) {
     }
 
     return (
-        <div className={AlertStyle}>
+        <div className={AlertStyle} data-cy="alert">
             <span className={styles.icon}>
                 {type === "warning" ?
                     <IoWarningOutline size="24px" /> : null}

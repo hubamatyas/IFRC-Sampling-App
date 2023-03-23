@@ -58,6 +58,8 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
     const [alertMessage, setAlertMessage] = useState<string>("");
     const [showAlert, setShowAlert] = useState<boolean>(false);
     const minIndividuals = isForTimeLocation? 200 : 1;
+    const maxNonResponseRate = 80;
+    const maxMarginOfError = 20;
 
     useEffect(() => {
         // return sample size to parent component
@@ -132,10 +134,12 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
 
         if(marginElement?.value && Number(marginElement?.value) < 1){
             setAlertMessage("Margin of error should be at least 1.")
-        }else if (marginElement?.value && Number(marginElement?.value) > 20){
-            setAlertMessage("Margin of error should be at most 20.")
+        }else if (marginElement?.value && Number(marginElement?.value) > maxMarginOfError){
+            setAlertMessage("Margin of error should be at most "+ maxMarginOfError +".")
         }else if (responseElement?.value && Number(responseElement?.value) < 0){
             setAlertMessage("Non-response rate should be at least 0.")
+        }else if (responseElement?.value && Number(responseElement?.value) > maxNonResponseRate){
+            setAlertMessage("Non-response rate should be at most "+ maxNonResponseRate +".")
         }else if (householdsElement?.value && Number(householdsElement?.value) < 1){
             setAlertMessage("Number of households should be at least 1.")
         }else if (individualsElement?.value && Number(individualsElement?.value) < minIndividuals){
@@ -160,7 +164,7 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
                         </label>
                         <input
                             min="1"
-                            max="20"
+                            max={maxMarginOfError+''}
                             step="1"
                             required
                             id="margin"
@@ -194,7 +198,7 @@ const SimpleRandom: React.FC<SimpleRandomProps> = ({
                         </label>
                         <input
                             min="0"
-                            max="80"
+                            max={maxNonResponseRate+''}
                             step="1"
                             type="number"
                             id="response"

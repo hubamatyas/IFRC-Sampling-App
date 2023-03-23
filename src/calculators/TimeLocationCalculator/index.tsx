@@ -45,9 +45,9 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
     const [timeLocationResponse, setTimeLocationResponse] = useState<[TimeLocationResponse] | null>(null);
     const minInterviews = 10;
     const minDays = 3;
+    const maxDays = 20;
     const minLocations = 2;
     const maxLocations = 15;
-    const maxDays = 20;
 
     useEffect(() => {
         if (calculatorInputs && simpleRandomSampleSize && locations && days && interviews) {
