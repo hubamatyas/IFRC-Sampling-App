@@ -42,6 +42,8 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
     const [nonResponseRate, setNonResponseRate] = useState<number | null>(null);
     const [alertMessage, setAlertMessage] = useState<string>("");
     const [showAlert, setShowAlert] = useState<boolean>(false);
+    const maximumMarginOfError = 20;
+    const maxNonResponseRate = 80;
 
     useEffect(() => {
         if (marginOfError && confidenceLevel && (households || individuals || subgroups)) {
@@ -103,14 +105,20 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
         const householdsElement = (document.getElementById("households") as HTMLInputElement)
         const individualsElement = (document.getElementById("individuals") as HTMLInputElement)
 
-        if(marginElement?.value && Number(marginElement?.value)<=0){
-            setAlertMessage("Margin of error should be larger than zero.")
+        if(marginElement?.value && Number(marginElement?.value)<1){
+            setAlertMessage("Margin of error should be at least 1.")
+        }else if (marginElement?.value && Number(marginElement?.value)>maximumMarginOfError){
+            setAlertMessage("Margin of error should be at most 20.")
+
         }else if (responseElement?.value && Number(responseElement?.value)<0){
-            setAlertMessage("Non-response rate should be larger or equal to zero.")
+            setAlertMessage("Non-response rate should be at least 0.")
+        }else if (responseElement?.value && Number(responseElement?.value) > maxNonResponseRate){
+            setAlertMessage("Non-response rate should be at most "+ maxNonResponseRate +".")
+            
         }else if (householdsElement?.value && Number(householdsElement?.value)<=0){
-            setAlertMessage("Number of households should be larger than zero.")
+            setAlertMessage("Number of households should be at least 1.")
         }else if (individualsElement?.value && Number(individualsElement?.value)<=0){
-            setAlertMessage("Number of individuals should be larger than zero.")
+            setAlertMessage("Number of individuals should be at least 1.")
         }else{
             setShowAlert(false);
             return;
@@ -141,7 +149,7 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                                 </label>
                                 <input
                                     min="1"
-                                    max="20"
+                                    max={maximumMarginOfError.toString()}
                                     step="1"
                                     required
                                     id="margin"
@@ -175,7 +183,7 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
                                 </label>
                                 <input
                                     min="0"
-                                    max="80"
+                                    max={maxNonResponseRate.toString()}
                                     step="1"
                                     type="number"
                                     id="response"
