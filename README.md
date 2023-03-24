@@ -128,4 +128,6 @@ Whatever is the first test in e2e/cluster.cy.tsx would fail. It can be reproduce
 
 Under interactive mode by running 'npx cypress open', the test will fail for the first time but pass when it is rerun.
 
+This bug with Cypress testing does not affect the performance of the tool.
+
 ![Cluster Testing Bug](./public/Bug.png)
