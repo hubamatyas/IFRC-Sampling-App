@@ -14,15 +14,15 @@ The tool is designed to be educational and easy to use so that it caters to user
 - [Node.js](https://nodejs.org/en)
 
 ### Installation
-'''
-$ git clone https://github.com/hubamatyas/ifrc-sampling.git
-$ npm install
-'''
+```bash
+git clone https://github.com/hubamatyas/ifrc-sampling.git
+npm install
+```
 
 ### Run the app
-'''
+```bash
 npm start
-'''
+```
 
 ## Testing
 
@@ -40,20 +40,38 @@ Runs the Cypress tests and displays the results in terminal.\
 Automatic video recording and screenshots has been turned off. See [here](https://docs.cypress.io/guides/guides/screenshots-and-videos) for more information.
 
 ### Create a New Production Build
-'''
+```bash
 npm run build
-'''
+```
 
 ## Showcase
 
 ### Tool Interface
 
+- Simple Random Sampling
 ![Simple Random Sampling](./public/SimpleRandom.png)
+<br><br>
+- Systematic Random Sampling
 ![Symtematic Random Sampling](./public/SystematicRandom.png)
+<br><br>
+- Time-Location Sampling
 ![Time-location Sampling](./public/TimeLocation.png)
+<br><br>
+- Cluster Sampling
 ![Cluster Sampling](./public/Cluster.png)
 
 ### Cypress Testing Interface
 
+- Component Testing
 ![Component Testing](./public/ComponentTesting.png)
+<br><br>
+- End-to-end Testing
 ![E2E Testing](./public/E2ETesting.png)
+
+## Bug
+
+### Testing - e2e/cluster.cy.tsx
+Whatever is the first test in e2e/cluster.cy.tsx would fail. It can be reproduced by running 'npx cypress run' or 'npx cypress open' -> choose e2e testing -> click cluster.cy.tsx file. \
+Under interactive mode by running 'npx cypress open', the test will pass when it is rerun.
+
+![Cluster Testing Bug](./public/ComponentTesting.png)
