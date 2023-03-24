@@ -76,18 +76,17 @@ Cypress framework is used for both component and end-to-end testings.\
 The base URL for end-to-end testing is configured in file cypress.config.ts.\
 See the [documentation](https://docs.cypress.io/) for more about testing using Cypress.
 
+Launches the Cypress test runner in the interactive watch mode.
 ```bash
 npx cypress open
 ```
 
-Launches the Cypress test runner in the interactive watch mode.
-
+Runs the Cypress tests and displays the results in terminal.\
+Automatic video recording and screenshots has been turned off. See [here](https://docs.cypress.io/guides/guides/screenshots-and-videos) for more information.
 ```bash
 npx cypress run
 ```
 
-Runs the Cypress tests and displays the results in terminal.\
-Automatic video recording and screenshots has been turned off. See [here](https://docs.cypress.io/guides/guides/screenshots-and-videos) for more information.
 
 ### Create a New Production Build
 ```bash
