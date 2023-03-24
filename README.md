@@ -1,11 +1,57 @@
 # IFRC Community Sampling Tool
 
-The aim of this tool is to intuitively guide the users through the sampling process. The users answer the questions in a decision tree and finally led to one of the four most popular sampling methods(simple random sampling, systematic random sampling, cluster sampling, time-location sampling) that suits their needs the best. The result can be storable and portable by exported into PDF.\
+The aim of this tool is to intuitively guide the users through the sampling process. The users answer the questions in a decision tree and finally led to one of the four most popular sampling methods(simple random sampling, systematic random sampling, cluster sampling, time-location sampling) that suits their needs the best. The result can be storable and portable by exported into PDF.
 
 The tool is designed to be educational and easy to use so that it caters to users of all levels of statistical background.
 
 ## System Architecture
 ![System Architecture Diagram](./public/SystemArchitecture.png)
+
+## Project Tree
+Tree structure of src folder:
+```
+.
+├── App.js
+├── App.scss
+├── App.test.js
+├── calculators
+│   ├── ClusterCalculator
+│   ├── SimpleRandomCalculator
+│   ├── SystematicRandomCalculator
+│   └── TimeLocationCalculator
+├── components
+│   ├── Alert
+│   ├── Button
+│   ├── Card
+│   ├── DecisionTree
+│   ├── Definitions
+│   ├── ExportButton
+│   ├── Footer
+│   ├── Input
+│   ├── LanguageDropdown
+│   ├── Loader
+│   ├── MobileNavbar
+│   ├── Navbar
+│   ├── OffCanvas
+│   ├── QuestionCard
+│   ├── ReportDocument
+│   ├── ShowMore
+│   ├── SimpleRandom
+│   ├── SubgroupInput
+│   └── Terminology
+├── index.css
+├── index.js
+├── reportWebVitals.js
+├── setupTests.js
+├── styles
+│   └── variables.scss
+├── types
+│   └── calculatorResponse.ts
+└── views
+    ├── Home
+    ├── Resources
+    └── Sampling
+```
 
 ## Deployment Manual
 
@@ -27,14 +73,18 @@ npm start
 ## Testing
 
 Cypress framework is used for both component and end-to-end testings.\
-The base URL for end-to-end testing is configured in file cypress.config.ts\
+The base URL for end-to-end testing is configured in file cypress.config.ts.\
 See the [documentation](https://docs.cypress.io/) for more about testing using Cypress.
 
-### `npx cypress open`
+```bash
+npx cypress open
+```
 
 Launches the Cypress test runner in the interactive watch mode.
 
-### `npx cypress run`
+```bash
+npx cypress run
+```
 
 Runs the Cypress tests and displays the results in terminal.\
 Automatic video recording and screenshots has been turned off. See [here](https://docs.cypress.io/guides/guides/screenshots-and-videos) for more information.
@@ -71,7 +121,8 @@ npm run build
 ## Bug
 
 ### Testing - e2e/cluster.cy.tsx
-Whatever is the first test in e2e/cluster.cy.tsx would fail. It can be reproduced by running 'npx cypress run' or 'npx cypress open' -> choose e2e testing -> click cluster.cy.tsx file. \
-Under interactive mode by running 'npx cypress open', the test will pass when it is rerun.
+Whatever is the first test in e2e/cluster.cy.tsx would fail. It can be reproduced by running 'npx cypress run' or 'npx cypress open' -> choose e2e testing -> click cluster.cy.tsx file. 
 
-![Cluster Testing Bug](./public/ComponentTesting.png)
+Under interactive mode by running 'npx cypress open', the test will fail for the first time but pass when it is rerun.
+
+![Cluster Testing Bug](./public/Bug.png)
