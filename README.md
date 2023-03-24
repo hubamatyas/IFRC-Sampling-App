@@ -70,6 +70,11 @@ npm install
 npm start
 ```
 
+### Create a New Production Build
+```bash
+npm run build
+```
+
 ## Testing
 
 Cypress framework is used for both component and end-to-end testings.\
@@ -89,11 +94,6 @@ npx cypress run
 ```
 Automatic video recording and screenshots has been turned off. See [here](https://docs.cypress.io/guides/guides/screenshots-and-videos) for more information.
 
-
-### Create a New Production Build
-```bash
-npm run build
-```
 
 ## Showcase
 
