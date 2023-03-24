@@ -96,6 +96,8 @@ npm run build
 
 ## Showcase
 
+### [Sample Report](./public/sample-report.pdf)
+
 ### Tool Interface
 
 - Simple Random Sampling
