@@ -20,7 +20,10 @@ import 'cypress-plugin-api'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
-
+Cypress.Screenshot.defaults({
+    screenshotOnRunFailure: false
+  })
+  
 Cypress.Commands.add('inputSubgroupData', (subSizes:number[] ) => {
     for (let i = 0; i < subSizes.length; i++) {
         cy.get("[data-cy='group-inputs" + i + "']").find("[data-cy='subgroup-name']").type("Group No." + (i + 1))

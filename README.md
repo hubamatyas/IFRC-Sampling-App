@@ -1,88 +1,133 @@
-# Getting Started with Create React App
+# IFRC Community Sampling Tool
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The aim of this tool is to intuitively guide the users through the sampling process. The users answer the questions in a decision tree and finally led to one of the four most popular sampling methods(simple random sampling, systematic random sampling, cluster sampling, time-location sampling) that suits their needs the best. The result can be storable and portable by exported into PDF.
 
-## Available Scripts
+The tool is designed to be educational and easy to use so that it caters to users of all levels of statistical background.
 
-Install dependecies:
+## System Architecture
+![System Architecture Diagram](./public/SystemArchitecture.png)
 
-### `npm install`
+## Project Tree
+Tree structure of src folder:
+```
+.
+├── App.js
+├── App.scss
+├── App.test.js
+├── calculators
+│   ├── ClusterCalculator
+│   ├── SimpleRandomCalculator
+│   ├── SystematicRandomCalculator
+│   └── TimeLocationCalculator
+├── components
+│   ├── Alert
+│   ├── Button
+│   ├── Card
+│   ├── DecisionTree
+│   ├── Definitions
+│   ├── ExportButton
+│   ├── Footer
+│   ├── Input
+│   ├── LanguageDropdown
+│   ├── Loader
+│   ├── MobileNavbar
+│   ├── Navbar
+│   ├── OffCanvas
+│   ├── QuestionCard
+│   ├── ReportDocument
+│   ├── ShowMore
+│   ├── SimpleRandom
+│   ├── SubgroupInput
+│   └── Terminology
+├── index.css
+├── index.js
+├── reportWebVitals.js
+├── setupTests.js
+├── styles
+│   └── variables.scss
+├── types
+│   └── calculatorResponse.ts
+└── views
+    ├── Home
+    ├── Resources
+    └── Sampling
+```
 
-In the project directory, you can run:
+## Deployment Manual
 
-### `npm start`
+### Prerequisites
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/en)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Installation
+```bash
+git clone https://github.com/hubamatyas/ifrc-sampling.git
+npm install
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Run the app
+```bash
+npm start
+```
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Create a New Production Build
+```bash
+npm run build
+```
 
 ## Testing
 
 Cypress framework is used for both component and end-to-end testings.\
+The base URL for end-to-end testing is configured in file cypress.config.ts.\
 See the [documentation](https://docs.cypress.io/) for more about testing using Cypress.
+<br>
 
-### `npx cypress open`
+- Launch the Cypress test runner in the interactive watch mode:
+```bash
+npx cypress open
+```
+<br>
 
-Launches the Cypress test runner in the interactive watch mode.
+- Run the Cypress tests and displays the results in terminal:
+```bash
+npx cypress run
+```
+Automatic video recording and screenshots has been turned off. See [here](https://docs.cypress.io/guides/guides/screenshots-and-videos) for more information.
 
-### `npx cypress run`
 
-Runs the Cypress tests and displays the results in terminal.\
-Automatic video recording has been turned off. See [here](https://docs.cypress.io/guides/guides/screenshots-and-videos) for more information.
+## Showcase
 
-## Learn More
+### [Sample Report](./public/sample-report.pdf)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Tool Interface
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Simple Random Sampling
+![Simple Random Sampling](./public/SimpleRandom.png)
+<br><br>
+- Systematic Random Sampling
+![Symtematic Random Sampling](./public/SystematicRandom.png)
+<br><br>
+- Time-Location Sampling
+![Time-location Sampling](./public/TimeLocation.png)
+<br><br>
+- Cluster Sampling
+![Cluster Sampling](./public/Cluster.png)
 
-### Code Splitting
+### Cypress Testing Interface
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Component Testing
+![Component Testing](./public/ComponentTesting.png)
+<br><br>
+- End-to-end Testing
+![E2E Testing](./public/E2ETesting.png)
 
-### Analyzing the Bundle Size
+## Bug
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Testing - e2e/cluster.cy.tsx
+Whatever is the first test in e2e/cluster.cy.tsx would fail. It can be reproduced by running 'npx cypress run' or 'npx cypress open' -> choose e2e testing -> click cluster.cy.tsx file. 
 
-### Making a Progressive Web App
+Under interactive mode by running 'npx cypress open', the test will fail for the first time but pass when it is rerun.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+This bug with Cypress testing does not affect the performance of the tool.
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Cluster Testing Bug](./public/Bug.png)

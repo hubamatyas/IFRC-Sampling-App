@@ -15,6 +15,15 @@ import ExportButton from "../../components/ExportButton";
 import SimpleRandom from "../../components/SimpleRandom";
 import {ClusterResponse} from "../../types/calculatorResponse";
 
+/**
+@fileoverview This module provides a Cluster Sampling Calculator that calculates
+the clusters for each geographical unit with a given margin of error and confidence
+level. It exports a React functional component that renders a form with input fields
+for the user to enter the required parameters. Upon submission, it uses the axios 
+library to make a POST request to an API to calculate the clusters.
+@module ClusterRandomCalculator
+*/
+
 interface Community {
     name: string;
     size: number;

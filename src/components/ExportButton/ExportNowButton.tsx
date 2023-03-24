@@ -2,9 +2,17 @@ import {pdf} from '@react-pdf/renderer';
 import styles from "./styles.module.scss";
 import React, {useRef,useState} from "react";
 import { IoMdDownload } from 'react-icons/io';
-import MyDoc from '../ReportDocument';
+import ReportDocument from '../ReportDocument';
 import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType, communityInfoType} from "../../types/calculatorResponse";
 import Alert from "../Alert";
+
+/**
+@fileoverview This module provides a button that allows the user to export the
+report as a PDF. It fetches the question names and options from the database 
+base on the IDs in the questionCards array. Then it calls the ReportDocument
+component to generate the PDF. the PDF is then opened in a new tab.
+@module ExportNowButton
+*/
 
 interface ExportProps {
   notes?:string|null,
@@ -73,7 +81,7 @@ const App: React.FC<ExportProps> = ({
   const generatePDFDocument = async () => {
     try{
       const blob = await pdf(
-        <MyDoc 
+        <ReportDocument 
           questionNames={questionNames.current} 
           answers={answers.current} 
           calculatorInputs={calculatorInputs}

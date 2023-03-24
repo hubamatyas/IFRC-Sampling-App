@@ -6,6 +6,15 @@ import { IoMdDownload } from 'react-icons/io';
 import Card from "../../components/Card";
 import ArrowSvg from "../../assets/arrow.svg";
 
+/**
+@fileoverview This module provides a button that allows the user to export the
+report as a PDF. It exports a React functional component that renders a button
+that, when clicked, displays a textarea for the user to enter any notes they want
+to add to the report. The user can also choose to not add any notes. The component
+also renders a button that, when clicked, dynamicly generate the PDF.
+@module ExportButton
+*/
+
 interface ExportProps {
     questionCards: number[],
     calculatorInputs: calculatorInputs,
