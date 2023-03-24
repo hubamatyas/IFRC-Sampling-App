@@ -1,43 +1,28 @@
-# Getting Started with Create React App
+# IFRC Community Sampling Tool
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The aim of this tool is to intuitively guide the users through the sampling process. The users answer the questions in a decision tree and finally led to one of the four most popular sampling methods(simple random sampling, systematic random sampling, cluster sampling, time-location sampling) that suits their needs the best. The result can be storable and portable by exported into PDF.\
 
-## Available Scripts
+The tool is designed to be educational and easy to use so that it caters to users of all levels of statistical background.
 
-Install dependecies:
+## System Architecture
+![System Architecture Diagram](./public/SystemArchitecture.png)
 
-### `npm install`
+## Deployment Manual
 
-In the project directory, you can run:
+### Prerequisites
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/en)
 
-### `npm start`
+### Installation
+'''
+$ git clone https://github.com/hubamatyas/ifrc-sampling.git
+$ npm install
+'''
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Run the app
+'''
+npm start
+'''
 
 ## Testing
 
@@ -52,34 +37,23 @@ Launches the Cypress test runner in the interactive watch mode.
 ### `npx cypress run`
 
 Runs the Cypress tests and displays the results in terminal.\
-Automatic video recording has been turned off. See [here](https://docs.cypress.io/guides/guides/screenshots-and-videos) for more information.
+Automatic video recording and screenshots has been turned off. See [here](https://docs.cypress.io/guides/guides/screenshots-and-videos) for more information.
 
-## Learn More
+### Create a New Production Build
+'''
+npm run build
+'''
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Showcase
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Tool Interface
 
-### Code Splitting
+![Simple Random Sampling](./public/SimpleRandom.png)
+![Symtematic Random Sampling](./public/SystematicRandom.png)
+![Time-location Sampling](./public/TimeLocation.png)
+![Cluster Sampling](./public/Cluster.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Cypress Testing Interface
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Component Testing](./public/ComponentTesting.png)
+![E2E Testing](./public/E2ETesting.png)
