@@ -12,13 +12,13 @@ import SubgroupInput from "../../components/SubgroupInput";
 import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType} from "../../types/calculatorResponse";
 
 /**
-@fileoverview This module provides a Systematic Random Calculator that calculates
+@fileoverview This module provides a Simple Random Calculator that calculates
 the required sample size to estimate population parameters with a given margin of 
 error, confidence level, and non-response rate. It exports a React functional 
 component that renders a form with input fields for the user to enter the required 
 parameters. Upon submission, it uses the axios library to make a POST request to an
 API to calculate the sample size.
-@module SystematicRandomCalculator
+@module SimpleRandomCalculator
 */
 
 interface SimpleRandomCalculatorProps extends WithTranslation {
@@ -53,7 +53,10 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
     ) => {
         setSampleSize(sampleSize);
         setCalculatorInputs(calculatorInputs);
-        setCalculatorOutputs({sampleSize:sampleSize, aboutGoal:t('aboutGoal')});
+        setCalculatorOutputs({
+            sampleSize:sampleSize, 
+            aboutGoal:t('definitionsSimpleResult1')+"\n\n"+t('definitionsSimpleResult2')
+        });
     }, []);
 
     return (
@@ -61,7 +64,10 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
             {hasSubgroups && !hasHouseholds && (
                 <Card>
                     <h2>
-                        <Terminology term="sub-population groups" text="Identify sub-population groups" />
+                        <Terminology 
+                            term="sub-population groups" 
+                            text="Identify sub-population groups" 
+                        />
                     </h2>
                     <SubgroupInput
                         onSubmitSubgroups={(subgroups, isReady) => {
@@ -117,6 +123,7 @@ const SimpleRandomCalculator: React.FC<SimpleRandomCalculatorProps> = ({
                             questionCards={questionCards} 
                             calculatorInputs={calculatorInputs}
                             calculatorOutputs={calculatorOutputs}
+                            
                         />
                     </div>
                 </div>

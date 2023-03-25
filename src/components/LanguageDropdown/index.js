@@ -16,7 +16,7 @@ function LanguageDropdown() {
 
     return (
         <div className={styles.selection}>
-            <ul className={styles.langList}>
+            <ul className={styles.langList} data-cy="langDropdown">
                 {languages.map((language, index) => (
                     <Link to="/" key={index}>
                         <li

@@ -2,6 +2,15 @@ import React, { useState, useEffect } from "react";
 import Definition from "../Definitions";
 import OffCanvas from "../OffCanvas";
 
+/**
+@fileoverview This component renders a term and its definition in a tooltip.
+The component takes in a term and a text which contains the term. If the term 
+is in the dictionary of definitions, the component renders the term with a 
+tooltip pops up when the term is clicked. If the term is not in the
+dictionary of definitions, the component renders the text as is.
+@module Terminology
+*/
+
 interface Props {
   term: string | null;
   text: string | null;

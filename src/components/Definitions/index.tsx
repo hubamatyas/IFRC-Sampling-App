@@ -2,6 +2,11 @@ import React from "react";
 import logo from "../../assets/logo.svg";
 import { useTranslation } from "react-i18next";
 
+/**
+@fileoverview This function returns a dictionary of terminologies and their definitions
+that is represented in JSX elements.
+@module Definitions
+*/
 
 type Definition = {
   [term: string]: JSX.Element;

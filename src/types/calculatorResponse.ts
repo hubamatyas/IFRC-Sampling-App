@@ -1,4 +1,3 @@
-
 export type calculatorOutputs = null|{
     sampleSize?: { [key: string]: number } | null;
     intervals?: intervalsType;  
@@ -11,7 +10,10 @@ export type calculatorOutputs = null|{
 export type calculatorInputs = Record<string, number|null> | null;
 export type sampleSizeType = Record<string, number> | null;
 export type intervalsType = Record<string, number> | null;
-export type subgroupsType = any[] | null;
+export type subgroupsType = {
+    name: string;
+    size: number;
+}[] | null;
 export type communityInfoType = {
     name: string;
     size: number;

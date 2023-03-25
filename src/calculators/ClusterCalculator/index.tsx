@@ -15,6 +15,15 @@ import ExportButton from "../../components/ExportButton";
 import SimpleRandom from "../../components/SimpleRandom";
 import {ClusterResponse} from "../../types/calculatorResponse";
 
+/**
+@fileoverview This module provides a Cluster Sampling Calculator that calculates
+the clusters for each geographical unit with a given margin of error and confidence
+level. It exports a React functional component that renders a form with input fields
+for the user to enter the required parameters. Upon submission, it uses the axios 
+library to make a POST request to an API to calculate the clusters.
+@module ClusterRandomCalculator
+*/
+
 interface Community {
     name: string;
     size: number;
@@ -41,7 +50,9 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
     const [showAlert, setShowAlert] = useState<boolean>(false);
     const [alertMessage, setAlertMessage] = useState<string>("");
     const minimumComunitySize = 1000;
-    
+    const maximumComunitiesNum = 20;
+    const maximumMarginOfError = 20;
+
     useEffect(() => {
         if (numOfcommunities > 0) {
             const inputs = [];
@@ -161,11 +172,15 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
     const alertIfParametersInvalid = () => {
         const communitiesElement = (document.getElementById("communities") as HTMLInputElement)
         const marginElement = (document.getElementById("margin") as HTMLInputElement)
-
-        if(communitiesElement?.value && Number(communitiesElement?.value)<=0){
-            setAlertMessage("Number of communities must be larger than zero.")
-        }else if (marginElement?.value && Number(marginElement?.value)<0){
-            setAlertMessage("Margin of error must be larger or equal to zero.")
+        
+        if(communitiesElement?.value && Number(communitiesElement?.value) < 1){
+            setAlertMessage("Number of communities should be at least 1.")
+        }else if(communitiesElement?.value && Number(communitiesElement?.value) > maximumComunitiesNum){
+            setAlertMessage("Number of communities should be at most "+ maximumComunitiesNum +".")
+        }else if (marginElement?.value && Number(marginElement?.value) < 1){
+            setAlertMessage("Margin of error should be at least 1.")
+        }else if (marginElement?.value && Number(marginElement?.value)>maximumMarginOfError){
+            setAlertMessage("Margin of error should be at most 20.")
         }else{
             setShowAlert(false);
             return;
@@ -185,14 +200,14 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                             <label htmlFor="communities">Number of communities</label>        
                             <input
                                 min="1"
-                                max="20"
+                                max={maximumComunitiesNum.toString()}
                                 step="1"
                                 required
                                 type="number"
                                 id="communities"
                                 name="communities"
                                 onWheel={event => event.currentTarget.blur()}
-                                onChange={(e) => setNumOfCommunities(parseInt(e.target.value))}
+                                onChange={(e) => setNumOfCommunities(Math.min(parseInt(e.target.value),20))}
                                 onBlur={alertIfParametersInvalid}
                             />
                         </div>
@@ -202,7 +217,7 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                             </label>
                             <input
                                 min="1"
-                                max="20"
+                                max={maximumMarginOfError.toString()}
                                 step="1"
                                 required
                                 id="margin"
@@ -248,7 +263,7 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                             type="submit" 
                             className={styles.btn} 
                             value="Submit"
-                            data-cy="submitCluster-btn"
+                            data-cy="submitCalculator-btn"
                         />
                     </div>
                 </form>
@@ -283,7 +298,10 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                                                 "Margin of error(%)":marginOfError, 
                                                 "Confidence level(%)":confidenceLevel, 
                                             }}
-                            calculatorOutputs={{clusterResponse:clusterResponse, aboutGoal:t('aboutGoal')}}
+                            calculatorOutputs={{
+                                clusterResponse:clusterResponse, 
+                                aboutGoal:t('definitionsClusterResult1'),
+                            }}
                             communityInfo={communities}
                             //communitiesSizes={null}
                         />

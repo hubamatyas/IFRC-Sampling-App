@@ -45,9 +45,9 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
     const [timeLocationResponse, setTimeLocationResponse] = useState<[TimeLocationResponse] | null>(null);
     const minInterviews = 10;
     const minDays = 3;
+    const maxDays = 20;
     const minLocations = 2;
     const maxLocations = 15;
-    const maxDays = 20;
 
     useEffect(() => {
         if (calculatorInputs && simpleRandomSampleSize && locations && days && interviews) {
@@ -62,7 +62,11 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
         setCalculatorInputs(calculatorInputs);
 
         setSimpleRandomSampleSize(sampleSize ? sampleSize['total'] : null);
-        setCalculatorOutputs({sampleSize:sampleSize, aboutGoal:t('aboutGoal')});
+        setCalculatorOutputs({
+            sampleSize:sampleSize,
+            aboutGoal:t('definitionsTimeLocationResult1')
+                    + t('definitionsTimeLocationResult2')
+        });
 
     }, []);
 
@@ -100,7 +104,9 @@ const TimeLocationCalculator: React.FC<TimeLocationProps> = ({t,questionCards}) 
                 setShowAlert(true);
             }
             setTimeLocationResponse(response.data.units);
-            setCalculatorOutputs({timeLocationResponse:response.data.units, aboutGoal:t('aboutGoal')});
+            setCalculatorOutputs({timeLocationResponse:response.data.units, 
+                                aboutGoal:t('definitionsTimeLocationResult1')+"\n\n"+
+                                t('definitionsTimeLocationResult2')});
         } catch (error) {
             // console.log(error);
             // window.alert(error);
