@@ -37,15 +37,6 @@ function MobileNavbar() {
                     {t('menuResources')}
                 </li>
             </Link>
-            <Link to="/about">
-                <li className={
-                    _cs(
-                        styles.link,
-                        location.pathname === '/about' && styles.active
-                )}>
-                    {t('menuAbout')}
-                </li>
-            </Link>
             <div className={styles.lang}>
                 <LanguageDropdown />
             </div>

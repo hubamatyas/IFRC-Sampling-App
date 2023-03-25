@@ -64,7 +64,7 @@ function Home(){
                         <div className={styles.content}>
                             <p> {t('featureExportText')} </p>
                             <p className={styles.link}><a
-                                href="logo.svg"
+                                href="sample-report.pdf"
                                 download
                             >{t('featureExportTest')}</a></p>
                         </div>
@@ -131,9 +131,9 @@ function Home(){
                 </div>
                 <div className={styles.segmentButton}>
                     <Button
-                            text={t('buttonGetStarted')}
-                            link="/sampling"
-                            style="inverse"
+                        text={t('buttonGetStarted')}
+                        link="/sampling"
+                        style="inverse"
                     />
                 </div>
             </div>

@@ -31,9 +31,32 @@ const Footer = () => {
                     </div>
                     <div className={styles.row}>
                         <ul className={styles.list}>
-                            <li><a href="" className={styles.link}>{t('apiDocs')}</a></li>
-                            <li><a href="" className={styles.link}>{t('terms')}</a></li>
-                            <li><a href="" className={styles.link}>{t('privacy')}</a></li>
+                            <li>
+                                <a
+                                className={styles.link}
+                                href="https://github.com/hubamatyas/ifrc-sampling"
+                                >{t('github')}</a>
+                            </li>
+                            <li>
+                                <a
+                                className={styles.link}
+                                href="terms.pdf"
+                                download
+                                >{t('terms')}</a>
+                            </li>
+                            <li>
+                                <a
+                                className={styles.link}
+                                href="https://github.com/hubamatyas/ifrc-api/blob/main/sampling/README.md"
+                                >{t('apiDocs')}</a>
+                            </li>
+                            <li>
+                                <a
+                                className={styles.link}
+                                href="eula.pdf"
+                                download
+                                >{t('eula')}</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -45,6 +68,13 @@ const Footer = () => {
                         {t('inx')}
                     </div>
                     <div className={styles.row}>{t('inxText')}</div>
+                    <a
+                        className={_cs(
+                            styles.row,
+                            styles.link,
+                        )}
+                        href="https://students.cs.ucl.ac.uk/2022/group7/"
+                        >{t('project')}</a>
                 </div>
             </div>
         </div>
