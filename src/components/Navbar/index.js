@@ -37,9 +37,6 @@ function Navbar() {
                         <Link to="/resources" className={location.pathname === '/resources' ? styles.active : ''}>
                             <li className={styles.link} data-cy="resourcesLink">{t('menuResources')}</li>
                         </Link>
-                        <Link to="/about" className={location.pathname === '/about' ? styles.active : ''}>
-                            <li className={styles.link} data-cy="aboutLink">{t('menuAbout')}</li>
-                        </Link>
                         <li className={styles.link} onMouseOver={() => setIsLangOpen(true)} data-cy="langList">
                             <img src={globe} alt={t('altGlobe')} onMouseOut={() => setIsLangOpen(false)} />
                             <div onClick={() => setIsLangOpen(false)} onMouseLeave={() => setIsLangOpen(false)}>

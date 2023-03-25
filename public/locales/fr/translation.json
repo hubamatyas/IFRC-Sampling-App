@@ -103,6 +103,8 @@
     "apiDocs": "Documentation de l'API",
     "terms": "Conditions d'utilisation",
     "privacy": "Politique de confidentialité",
+    "eula": "Contrat de licence d'utilisateur final",
+    "project": "Site web du projet",
     "inx": "UCL INX",
     "inxText": "UCL Informatique. Projet développé dans le cadre du module d'ingénierie des systèmes."
 }

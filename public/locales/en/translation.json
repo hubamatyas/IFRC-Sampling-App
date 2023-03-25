@@ -105,6 +105,9 @@
     "apiDocs": "API Documentation",
     "terms": "Terms of Use",
     "privacy": "Privacy Policy",
+    "eula": "End User License Agreement",
+    "github": "GitHub",
+    "project": "Project website",
     "inx": "UCL INX",
     "inxText": "UCL Computer Science. Project developed as part of the Systems Engineering module."
 }
