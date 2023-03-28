@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import styles from "./styles.module.scss";
 
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.png";
 import globe from "../../assets/globe.svg";
 import MobileNavbar from "../MobileNavbar";
 import LanguageDropdown from "../LanguageDropdown";
@@ -23,7 +23,7 @@ function Navbar() {
                     <div>
                         <Link to="/">
                             <li className={styles.logo}>
-                                <img src={logo} alt={t('altLogo')} />
+                                <img src={logo} alt={t('altLogo')} width="160px" />
                             </li>
                         </Link>
                     </div>

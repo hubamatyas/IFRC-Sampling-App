@@ -286,7 +286,7 @@ const TimeLocationCalculator: React.FC<ClusterProps> = ({
                             <p className={styles.description}>{t('definitionsClusterResult1')}</p>
                             <p className={_cs(styles.description, styles.info)}>
                             <span>{t('result1')}</span>
-                            <span><a href="/Resources">{t('result2')}</a></span>
+                            <span><a href="/Resources" target="_blank" >{t('result2')}</a></span>
                             <span>{t('result3')}</span>
                         </p>
                         </div>
