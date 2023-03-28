@@ -5,7 +5,6 @@ export const styles = StyleSheet.create({
       top:"10px",
       left:"10px",
       width: 150,
-      height: 30,
       position: "absolute",
     },
     titleBackground:{

@@ -2,8 +2,10 @@ import {pdf} from '@react-pdf/renderer';
 import styles from "./styles.module.scss";
 import React, {useRef,useState} from "react";
 import { IoMdDownload } from 'react-icons/io';
+
 import ReportDocument from '../ReportDocument';
 import {calculatorInputs, calculatorOutputs, subgroupsType, sampleSizeType, communityInfoType} from "../../types/calculatorResponse";
+import config from 'src/util/config';
 import Alert from "../Alert";
 
 /**
@@ -49,7 +51,7 @@ const App: React.FC<ExportProps> = ({
 
   const fetchState = async(id:number) => {
     let success = true
-    await fetch('https://ifrc-sampling.azurewebsites.net/api/decision-tree/'+id+'/')
+    await fetch(`${config.api}/decision-tree/${id}/`)
       .then(response => response.json())
       .then(data =>{
         questionNames.current.push(data.state.name);

@@ -35,12 +35,14 @@ const Footer = () => {
                                 <a
                                 className={styles.link}
                                 href="https://github.com/hubamatyas/ifrc-sampling"
+                                target="_blank"
                                 >{t('github')}</a>
                             </li>
                             <li>
                                 <a
                                 className={styles.link}
                                 href="terms.pdf"
+                                target="_blank"
                                 download
                                 >{t('terms')}</a>
                             </li>
@@ -48,12 +50,14 @@ const Footer = () => {
                                 <a
                                 className={styles.link}
                                 href="https://github.com/hubamatyas/ifrc-api/blob/main/sampling/README.md"
+                                target="_blank"
                                 >{t('apiDocs')}</a>
                             </li>
                             <li>
                                 <a
                                 className={styles.link}
                                 href="eula.pdf"
+                                target="_blank"
                                 download
                                 >{t('eula')}</a>
                             </li>
@@ -74,6 +78,7 @@ const Footer = () => {
                             styles.link,
                         )}
                         href="https://students.cs.ucl.ac.uk/2022/group7/"
+                        target="_blank"
                         >{t('project')}</a>
                 </div>
             </div>
