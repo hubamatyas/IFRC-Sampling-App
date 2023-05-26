@@ -5,6 +5,7 @@ import axios from "axios";
 
 import styles from "./styles.module.scss";
 
+import config from "../../util/config";
 import Card from "../../components/Card";
 import Terminology from "../../components/Terminology";
 import ExportButton from "../../components/ExportButton";
@@ -78,7 +79,7 @@ const SystematicRandomCalculator: React.FC<SystematicRandomProps> = ({
             non_response_rate: nonResponseRate,
         };
 
-        const url = `https://ifrc-sampling.azurewebsites.net/api/systematic-random/`;
+        const url = `${config.api}/systematic-random/`;
 
         try {
             const response = await axios.post(url, data, { 
